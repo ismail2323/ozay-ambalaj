@@ -235,6 +235,11 @@
     function initScripts() {
         var basePath = window.__BASE_PATH || '/';
         function addScript(src) {
+            // Check if script already exists to prevent duplicate loading
+            var existingScript = document.querySelector('script[src="' + src + '"], script[src="' + basePath.replace(/\/$/, '') + src + '"]');
+            if (existingScript) {
+                return; // Script already loaded, skip
+            }
             var script = document.createElement('script');
             script.src = (src.startsWith('/') && basePath !== '/') ? basePath.replace(/\/$/, '') + src : src;
             script.defer = true;
