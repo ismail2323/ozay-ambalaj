@@ -372,49 +372,84 @@ window.Translations = {
         return window.Translations[lang][key] || null;
     }
 
+    // Store original Turkish content to restore when switching back to TR
+    const originalContent = {};
+    
     // Function to apply translations
     function applyTranslations(lang) {
-        
-        // If language is Turkish (tr), don't apply translations (content is already in Turkish)
-        if (lang === 'tr') {
-            return;
-        }
-        
         // Check if Translations object exists
         if (!window.Translations) {
-            return;
-        }
-        
-        if (!window.Translations[lang]) {
+            console.warn('Translations object not found');
             return;
         }
         
         const elements = document.querySelectorAll('[data-i18n]');
         
-        let appliedCount = 0;
         elements.forEach(function(element) {
             const key = element.getAttribute('data-i18n');
             if (key) {
-                const translation = getTranslation(key, lang);
-                if (translation) {
-                    // Check if element is input/textarea/button
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        if (element.type === 'submit' || element.type === 'button') {
-                            element.value = translation;
-                        } else if (element.type === 'text' || element.type === 'email' || element.type === 'tel') {
-                            element.placeholder = translation;
+                // If switching to Turkish, restore original content
+                if (lang === 'tr') {
+                    // Check if we have stored original content
+                    if (originalContent[key] !== undefined) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            if (element.type === 'submit' || element.type === 'button') {
+                                element.value = originalContent[key];
+                            } else if (element.type === 'text' || element.type === 'email' || element.type === 'tel') {
+                                element.placeholder = originalContent[key];
+                            }
+                        } else if (element.tagName === 'BUTTON') {
+                            element.textContent = originalContent[key];
+                        } else if (element.tagName === 'OPTION') {
+                            element.textContent = originalContent[key];
+                        } else {
+                            element.innerHTML = originalContent[key];
                         }
-                    } else if (element.tagName === 'BUTTON') {
-                        element.textContent = translation;
-                    } else if (element.tagName === 'OPTION') {
-                        element.textContent = translation;
-                    } else {
-                        // For other elements, replace innerHTML (to support <br> tags)
-                        element.innerHTML = translation;
                     }
-                    appliedCount++;
+                    // If no stored content, assume it's already in Turkish (first load)
                 } else {
-                    console.warn('Translation not found for key:', key, 'language:', lang);
+                    // For non-Turkish languages, store original content first time only
+                    if (originalContent[key] === undefined) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            if (element.type === 'submit' || element.type === 'button') {
+                                originalContent[key] = element.value;
+                            } else if (element.type === 'text' || element.type === 'email' || element.type === 'tel') {
+                                originalContent[key] = element.placeholder || '';
+                            }
+                        } else if (element.tagName === 'BUTTON') {
+                            originalContent[key] = element.textContent;
+                        } else if (element.tagName === 'OPTION') {
+                            originalContent[key] = element.textContent;
+                        } else {
+                            originalContent[key] = element.innerHTML;
+                        }
+                    }
+                    
+                    // Apply translation
+                    if (!window.Translations[lang]) {
+                        console.warn('Translations not found for language:', lang);
+                        return;
+                    }
+                    
+                    const translation = getTranslation(key, lang);
+                    if (translation) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            if (element.type === 'submit' || element.type === 'button') {
+                                element.value = translation;
+                            } else if (element.type === 'text' || element.type === 'email' || element.type === 'tel') {
+                                element.placeholder = translation;
+                            }
+                        } else if (element.tagName === 'BUTTON') {
+                            element.textContent = translation;
+                        } else if (element.tagName === 'OPTION') {
+                            element.textContent = translation;
+                        } else {
+                            // For other elements, replace innerHTML (to support <br> tags)
+                            element.innerHTML = translation;
+                        }
+                    } else {
+                        console.warn('Translation not found for key:', key, 'language:', lang);
+                    }
                 }
             }
         });
@@ -443,9 +478,16 @@ window.Translations = {
         return 'tr'; // Default
     }
 
-    // Function to change language (redirects to new URL)
-    // URL format: baseurl/pages/{lang}/page.html (e.g., /pages/tr/index.html, /pages/en/index.html)
+    // Function to change language (applies translations on current page)
+    // Since we don't have separate EN/DE pages, we apply translations dynamically
     function changeLanguage(lang) {
+        // If clicking the same language, do nothing
+        const currentLang = getCurrentLang();
+        if (currentLang === lang) {
+            return;
+        }
+        
+        // Update URL without reloading (using History API)
         const currentPath = window.location.pathname;
         const basePath = window.__BASE_PATH || '/';
         
@@ -453,19 +495,15 @@ window.Translations = {
         let pageName = 'index.html';
         
         // Try to extract page name from current URL
-        // URL format: /ozay-ambalaj/public_html/pages/tr/index.html
         if (currentPath.includes('/pages/')) {
-            // Format: /pages/{lang}/page.html
             const pagesMatch = currentPath.match(/\/pages\/(tr|en|de)\/(.+)$/);
             if (pagesMatch) {
                 pageName = pagesMatch[2] || 'index.html';
             } else {
-                // Fallback: split by /pages/
                 const parts = currentPath.split('/pages/');
                 if (parts.length > 1) {
                     const pathAfterPages = parts[1];
                     const pathParts = pathAfterPages.split('/');
-                    // Skip the first part (language code) and get the rest
                     if (pathParts.length > 1) {
                         pageName = pathParts.slice(1).join('/') || 'index.html';
                     } else {
@@ -473,12 +511,7 @@ window.Translations = {
                     }
                 }
             }
-        } else if (currentPath.match(/^\/(tr|en|de)\//)) {
-            // Fallback: /{lang}/page.html (for compatibility)
-            const parts = currentPath.split('/');
-            pageName = parts[parts.length - 1] || 'index.html';
         } else {
-            // Last resort: get filename from path
             const parts = currentPath.split('/').filter(function(p) { return p; });
             if (parts.length > 0) {
                 const lastPart = parts[parts.length - 1];
@@ -494,23 +527,45 @@ window.Translations = {
         }
         
         // Build new URL: /pages/{lang}/{pageName}
-        // Handle basePath correctly for XAMPP subdirectory installations
         let newUrl;
         if (basePath === '/' || basePath === '') {
             newUrl = '/pages/' + lang + '/' + pageName;
         } else {
-            // Remove trailing slash from basePath
             const cleanBasePath = basePath.replace(/\/$/, '');
             newUrl = cleanBasePath + '/pages/' + lang + '/' + pageName;
         }
         
-        // Redirect to new URL - use assign instead of href for more reliable redirect
+        // Update URL in browser without reloading
+        if (window.history && window.history.pushState) {
+            window.history.pushState({lang: lang}, '', newUrl);
+        }
+        
+        // Apply translations to current page
+        applyTranslations(lang);
+        
+        // Update language attribute
+        document.documentElement.lang = lang;
+        
+        // Update Content-Language meta tag
+        let metaLang = document.querySelector('meta[http-equiv="Content-Language"]');
+        if (!metaLang) {
+            metaLang = document.createElement('meta');
+            metaLang.setAttribute('http-equiv', 'Content-Language');
+            document.head.appendChild(metaLang);
+        }
+        metaLang.setAttribute('content', lang);
+        
+        // Update active button state
+        setupLanguageButtons(lang);
+        
+        // Update internal links
+        updateInternalLinks();
+        
+        // Save language preference to localStorage
         try {
-            window.location.assign(newUrl);
+            localStorage.setItem('preferredLanguage', lang);
         } catch (e) {
-            console.error('Error redirecting:', e);
-            // Fallback to href
-            window.location.href = newUrl;
+            console.warn('Could not save language preference:', e);
         }
     }
 
@@ -573,77 +628,72 @@ window.Translations = {
         setupLanguageButtons(currentLang);
     }
     
-    // Event delegation for language buttons (more reliable)
-    // Use a flag to prevent multiple listeners
-    let languageDelegationSetup = false;
-    
-    function setupLanguageButtonDelegation() {
-        // Use event delegation on the lang-toggle container
-        const langToggleContainer = document.querySelector('.lang-toggle');
-        if (!langToggleContainer) {
-            // Container not found yet (partials may not be loaded), will retry later
+    // Global event delegation for language buttons - works even if buttons are loaded later
+    // Use document-level delegation so it always works
+    (function setupGlobalLanguageListener() {
+        // Only setup once
+        if (document.languageListenerSetup) {
             return;
         }
+        document.languageListenerSetup = true;
         
-        // Only setup once, or remove old listener first
-        if (languageDelegationSetup) {
-            // Remove old listener by cloning (but preserve active states)
-            const currentLang = getCurrentLang();
-            const buttons = langToggleContainer.querySelectorAll('button[data-lang]');
-            const activeStates = {};
-            buttons.forEach(function(btn) {
-                const lang = btn.getAttribute('data-lang');
-                activeStates[lang] = btn.classList.contains('active');
-            });
+        // Use document-level event delegation
+        document.addEventListener('click', function(e) {
+            // Find the clicked button by traversing up the DOM tree
+            let target = e.target;
             
-            const newContainer = langToggleContainer.cloneNode(true);
-            langToggleContainer.parentNode.replaceChild(newContainer, langToggleContainer);
-            
-            // Restore active states
-            newContainer.querySelectorAll('button[data-lang]').forEach(function(btn) {
-                const lang = btn.getAttribute('data-lang');
-                if (activeStates[lang]) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            // Setup listener on new container
-            setupDelegationListener(newContainer);
-        } else {
-            setupDelegationListener(langToggleContainer);
-            languageDelegationSetup = true;
-        }
-        
-    }
-    
-    function setupDelegationListener(container) {
-        // Add event delegation listener
-        container.addEventListener('click', function(e) {
-            
-            // Find the button that was clicked (could be button itself or img inside)
-            let button = e.target;
-            while (button && button !== container && button.tagName !== 'BUTTON') {
-                button = button.parentElement;
-            }
-            
-            
-            if (button && button.tagName === 'BUTTON' && button.hasAttribute('data-lang')) {
-                e.preventDefault();
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-                
-                const clickedLang = button.getAttribute('data-lang');
-                
-                if (clickedLang) {
-                    // Use setTimeout to ensure the function is called
-                    setTimeout(function() {
+            // Traverse up to find button with data-lang attribute
+            while (target && target !== document) {
+                // Check if current element is a language button
+                if (target.tagName === 'BUTTON' && target.hasAttribute('data-lang')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const clickedLang = target.getAttribute('data-lang');
+                    if (clickedLang) {
                         changeLanguage(clickedLang);
-                    }, 10);
-                } else {
-                    console.error('No data-lang attribute found on button');
+                    }
+                    return;
                 }
-            } 
-        }, true); // Use capture phase for more reliable event handling
+                
+                // Check if we're inside .lang-toggle container
+                if (target.classList && target.classList.contains('lang-toggle')) {
+                    // Find which button was clicked
+                    const buttons = target.querySelectorAll('button[data-lang]');
+                    for (let i = 0; i < buttons.length; i++) {
+                        const btn = buttons[i];
+                        if (btn === e.target || btn.contains(e.target)) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            const clickedLang = btn.getAttribute('data-lang');
+                            if (clickedLang) {
+                                changeLanguage(clickedLang);
+                            }
+                            return;
+                        }
+                    }
+                }
+                
+                target = target.parentElement;
+            }
+        }, true); // Use capture phase
+    })();
+    
+    // Legacy function for compatibility (now just updates button states)
+    function setupLanguageButtonDelegation() {
+        // Buttons are already handled by global listener, just update states
+        const langToggleContainer = document.querySelector('.lang-toggle');
+        if (langToggleContainer) {
+            // Ensure buttons are clickable
+            const buttons = langToggleContainer.querySelectorAll('button[data-lang]');
+            buttons.forEach(function(btn) {
+                btn.style.pointerEvents = 'auto';
+                btn.style.cursor = 'pointer';
+                btn.setAttribute('tabindex', '0');
+                btn.disabled = false;
+            });
+        }
     }
     
     // Function to setup language toggle buttons (can be called multiple times)
