@@ -1,0 +1,15 @@
+{
+  "name": "Öz-Ay Ambalaj ve Plastik",
+  "short_name": "Öz-Ay",
+  "description": "Çevre dostu ambalaj çözümleri sunan öncü üretici",
+  "start_url": "./pages/tr/index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2FA84F",
+  "orientation": "portrait-primary",
+  "categories": ["business", "manufacturing"],
+  "lang": "tr",
+  "dir": "ltr"
+}
+

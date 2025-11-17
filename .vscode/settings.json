@@ -1,0 +1,8 @@
+{
+  "liveServer.settings.root": "/public_html",
+  "liveServer.settings.port": 5500,
+  "liveServer.settings.CustomBrowser": "chrome",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.mount": [["/", "./public_html"]]
+}
+
