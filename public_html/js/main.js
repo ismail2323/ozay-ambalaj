@@ -131,10 +131,143 @@
         }
     }
     
+    // Contact form handler
+    function initContactForm() {
+        const contactForm = document.getElementById('contact-form');
+        
+        if (!contactForm) return;
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitButton ? submitButton.textContent : '';
+            
+            // Disable submit button
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Gönderiliyor...';
+            }
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            
+            // Create AJAX request
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/contact.php', true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            
+            xhr.onload = function() {
+                // Re-enable submit button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalText;
+                }
+                
+                let response;
+                try {
+                    response = JSON.parse(xhr.responseText);
+                } catch (e) {
+                    response = { ok: false, message: 'Sunucu hatası oluştu. Lütfen tekrar deneyin.' };
+                }
+                
+                // Show toast notification
+                showToast(response.message, response.ok ? 'success' : 'error');
+                
+                // Reset form on success
+                if (response.ok) {
+                    contactForm.reset();
+                }
+            };
+            
+            xhr.onerror = function() {
+                // Re-enable submit button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalText;
+                }
+                
+                showToast('Bağlantı hatası oluştu. Lütfen tekrar deneyin.', 'error');
+            };
+            
+            // Send request
+            xhr.send(formData);
+        });
+    }
+    
+    // Simple toast notification
+    function showToast(message, type) {
+        // Remove existing toast
+        const existingToast = document.querySelector('.toast-notification');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        // Create toast element
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification ' + (type || 'info');
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: ${type === 'success' ? '#2FA84F' : type === 'error' ? '#dc2626' : '#3b82f6'};
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
+            max-width: 400px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        `;
+        
+        document.body.appendChild(toast);
+        
+        // Remove toast after 5 seconds
+        setTimeout(function() {
+            toast.style.animation = 'slideOutRight 0.3s ease-in';
+            setTimeout(function() {
+                toast.remove();
+            }, 300);
+        }, 5000);
+        
+        // Add CSS animations if not already added
+        if (!document.querySelector('#toast-animations')) {
+            const style = document.createElement('style');
+            style.id = 'toast-animations';
+            style.textContent = `
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                @keyframes slideOutRight {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    
     // Initialize all functions
     function init() {
         initStickyHeader();
         initContactFormPrefill();
+        initContactForm();
     }
     
     // Initialize navigation after partials are loaded

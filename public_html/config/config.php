@@ -7,10 +7,12 @@
  */
 
 // SMTP Configuration
+// IMPORTANT: SMTP_PASS değerini gerçek şifre ile değiştirin!
+// cPanel > Email Accounts > info@ozay-ambalaj.com > şifreyi kopyalayın
 define('SMTP_HOST', 'mail.ozay-ambalaj.com'); // Your SMTP server
 define('SMTP_PORT', 587); // TLS port (or 465 for SSL)
 define('SMTP_USER', 'info@ozay-ambalaj.com'); // SMTP username
-define('SMTP_PASS', 'YOUR_SMTP_PASSWORD_HERE'); // SMTP password
+define('SMTP_PASS', 'YOUR_SMTP_PASSWORD_HERE'); // SMTP password - GERÇEK ŞİFRE İLE DEĞİŞTİRİN!
 
 // Email Recipients
 define('MAIL_TO_SALES', 'info@ozay-ambalaj.com'); // Sales inquiries
