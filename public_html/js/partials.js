@@ -35,11 +35,18 @@
     function abortAllFetches() {
         activeFetches.forEach(function(controller) {
             if (controller && controller.abort) {
-                controller.abort();
+                try {
+                    controller.abort();
+                } catch (e) {
+                    // Ignore errors when aborting
+                }
             }
         });
         activeFetches = [];
     }
+    
+    // Export function for external use (main.js navigation)
+    window.abortAllFetches = abortAllFetches;
     
     // Listen for beforeunload to abort fetches
     window.addEventListener('beforeunload', abortAllFetches);
@@ -163,10 +170,14 @@
                     activeFetches.splice(index, 1);
                 }
                 
-                // Ignore abort errors (user navigated away)
-                if (error.name === 'AbortError') {
+                // Ignore abort errors (user navigated away) - don't log or show these
+                if (error.name === 'AbortError' || error.message === 'The user aborted a request.') {
+                    // Silently reject - this is expected when navigating
                     return Promise.reject(error);
                 }
+                
+                // Only log non-abort errors
+                console.error('Error loading partial:', error);
                 throw error;
             })
             .then(function(html) {

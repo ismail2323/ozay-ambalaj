@@ -5,12 +5,118 @@
     // Navigation
     let navigationInitialized = false;
     
+    // Abort all active fetches from partials.js
+    function abortAllPartialFetches() {
+        if (window.abortAllFetches && typeof window.abortAllFetches === 'function') {
+            window.abortAllFetches();
+        }
+    }
+    
+    // Setup navigation link delegation - handles all nav links dynamically
+    (function setupNavigationDelegation() {
+        if (document.navigationDelegationSetup) {
+            return;
+        }
+        document.navigationDelegationSetup = true;
+        
+        // Use capture phase to intercept navigation clicks early
+        document.addEventListener('click', function(e) {
+            // Check if clicked element or its parent is a navigation link
+            let target = e.target;
+            let navLink = null;
+            
+            // Check if it's a nav link or inside a nav link
+            if (target.closest) {
+                navLink = target.closest('.nav-links a, .mobile-nav-links a, .header a[href$=".html"]');
+            }
+            
+            // If not found, traverse up manually
+            if (!navLink) {
+                while (target && target !== document && target !== document.body) {
+                    if (target.tagName === 'A' && target.href) {
+                        const href = target.getAttribute('href');
+                        // Check if it's a navigation link (ends with .html and is relative or in pages/)
+                        if (href && (href.endsWith('.html') || href.includes('index.html'))) {
+                            const parentNav = target.closest ? target.closest('.nav-links, .mobile-nav-links, .header') : null;
+                            if (parentNav || target.closest('.header')) {
+                                navLink = target;
+                                break;
+                            }
+                        }
+                    }
+                    target = target.parentElement;
+                }
+            }
+            
+            if (navLink && navLink.href) {
+                // IMPORTANT: Skip quote buttons - they have their own delegation
+                if (navLink.classList && navLink.classList.contains('quote-btn')) {
+                    return; // Let quote button delegation handle it
+                }
+                
+                // Also check if it's inside a quote button
+                const isInQuoteButton = navLink.closest ? navLink.closest('.quote-btn') : null;
+                if (isInQuoteButton) {
+                    return; // Let quote button delegation handle it
+                }
+                
+                const href = navLink.getAttribute('href');
+                
+                // Skip external links and anchors
+                if (href.startsWith('http') || href.startsWith('//') || href.startsWith('#') || href.startsWith('javascript:')) {
+                    return; // Let default behavior handle it
+                }
+                
+                // Skip if already absolute path to pages/
+                if (href.startsWith('/pages/')) {
+                    return; // Let default behavior handle it
+                }
+                
+                // Build correct URL based on current location
+                const currentPath = window.location.pathname;
+                const basePath = window.__BASE_PATH || '/';
+                
+                // Extract language from current path
+                let lang = 'tr'; // default
+                const langMatch = currentPath.match(/\/pages\/(tr|en|de)\//);
+                if (langMatch) {
+                    lang = langMatch[1];
+                }
+                
+                // Build full navigation URL
+                const targetPage = href.split('/').pop() || 'index.html';
+                let navUrl;
+                if (basePath === '/' || basePath === '') {
+                    navUrl = '/pages/' + lang + '/' + targetPage;
+                } else {
+                    const cleanBasePath = basePath.replace(/\/$/, '');
+                    navUrl = cleanBasePath + '/pages/' + lang + '/' + targetPage;
+                }
+                
+                // Abort all partial fetches before navigation
+                abortAllPartialFetches();
+                
+                // Prevent default navigation
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+                
+                // Navigate after a tiny delay to ensure abort completes
+                setTimeout(function() {
+                    window.location.href = navUrl;
+                }, 0);
+                
+                return false;
+            }
+        }, true); // Capture phase - runs before other listeners
+    })();
+    
     function initNavigation() {
         if (navigationInitialized) return;
         
         const mobileToggle = document.querySelector('.mobile-menu-toggle');
         const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelectorAll('.nav-links a');
+        const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
         
         if (mobileToggle && mobileMenu) {
             // Toggle button click handler
@@ -46,7 +152,7 @@
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
         navLinks.forEach(link => {
             const linkPage = link.getAttribute('href');
-            if (linkPage === currentPage) {
+            if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
                 link.classList.add('active');
             }
         });
@@ -374,14 +480,15 @@
     }
     
     // Event delegation for quote buttons (works even if loaded dynamically)
-    // This MUST run first, before any other click handlers
+    // This MUST run FIRST, before navigation delegation and other click handlers
     (function setupQuoteButtonDelegation() {
         if (document.quoteButtonDelegationSetup) {
             return;
         }
         document.quoteButtonDelegationSetup = true;
         
-        // Use capture phase with highest priority - runs FIRST
+        // Use capture phase with highest priority - runs FIRST before navigation delegation
+        // Priority: quote buttons > navigation links
         document.addEventListener('click', function(e) {
             // Check if clicked element or its parent is a quote button
             let target = e.target;
@@ -419,17 +526,21 @@
                 const contactPath = basePath.replace(/\/$/, '') + '/pages/' + lang + '/contact.html';
                 const contactUrl = contactPath + (productCategory ? '?product=' + encodeURIComponent(productCategory) : '');
                 
+                // Abort all partial fetches before navigation
+                abortAllPartialFetches();
+                
                 // Stop everything and navigate
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 e.stopPropagation();
-                // Use setTimeout to ensure it executes
+                
+                // Use setTimeout to ensure it executes and abort completes
                 setTimeout(function() {
                     window.location.href = contactUrl;
                 }, 0);
                 return false;
             }
-        }, true); // Capture phase - runs BEFORE all other listeners
+        }, true); // Capture phase - runs BEFORE all other listeners (including navigation)
     })();
     
     // Initialize all functions

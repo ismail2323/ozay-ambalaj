@@ -177,17 +177,141 @@ img {
   left: 50%;
   margin-left: -50vw;
   margin-top: var(--header-height);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
+  height: 500px;
+  display: block;
 }
 
 .page-banner-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
+  object-position: center;
+  z-index: 1;
+}
+
+.page-banner .section-title {
+  position: absolute;
+  top: 30%;
+  left: 38%;
+  transform: translate(0, 0);
+  z-index: 10;
+  width: auto;
+  max-width: 80%;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  pointer-events: none;
+  visibility: visible;
+  opacity: 1;
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.5),
+      0 0 40px rgba(138, 43, 226, 0.3),
+      inset 0 0 20px rgba(255, 20, 147, 0.2);
+    border-color: rgba(0, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(0, 255, 255, 0.8),
+      0 0 60px rgba(138, 43, 226, 0.5),
+      inset 0 0 30px rgba(255, 20, 147, 0.4);
+    border-color: rgba(0, 255, 255, 0.7);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+}
+
+.page-banner .section-title h2 {
+  position: relative;
+  display: inline-block;
+  color: #000000;
+  text-shadow: 
+    0 0 10px rgba(0, 255, 255, 0.8),
+    0 0 20px rgba(0, 255, 255, 0.6),
+    0 0 30px rgba(138, 43, 226, 0.5),
+    2px 2px 8px rgba(255, 255, 255, 0.9),
+    0 0 0 rgba(255, 255, 255, 0.8);
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  animation: slideInLeft 1s ease-out forwards;
+  opacity: 1 !important;
+}
+
+.page-banner .section-title .section-subtitle {
+  color: #000000;
+  text-shadow: 
+    0 0 8px rgba(255, 20, 147, 0.7),
+    0 0 16px rgba(138, 43, 226, 0.5),
+    1px 1px 6px rgba(255, 255, 255, 0.9),
+    0 0 0 rgba(255, 255, 255, 0.8);
+  font-size: 1.25rem;
+  font-weight: 500;
+  animation: fadeInUp 1s ease-out 0.3s both forwards;
+  opacity: 1 !important;
+}
+
+.page-banner .section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  transform: translateX(0);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    #2FA84F, 
+    #00C853, 
+    #2FA84F);
+  border-radius: 2px;
+  box-shadow: 
+    0 0 10px rgba(47, 168, 79, 0.8),
+    0 0 20px rgba(0, 200, 83, 0.6);
+  animation: glowLine 2s ease-in-out infinite;
+}
+
+@keyframes glowLine {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(47, 168, 79, 0.8),
+      0 0 20px rgba(0, 200, 83, 0.6);
+  }
+  50% {
+    box-shadow: 
+      0 0 15px rgba(47, 168, 79, 1),
+      0 0 30px rgba(0, 200, 83, 0.9),
+      0 0 40px rgba(46, 204, 113, 0.7);
+  }
 }
 
 .section-title {
@@ -610,32 +734,6 @@ img {
   filter: grayscale(0%) brightness(1);
 }
 
-.footer-social {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.footer-social a {
-  width: 45px;
-  height: 45px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.85);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.footer-social a:hover {
-  background: var(--green-primary);
-  color: var(--white);
-  transform: translateY(-5px);
-  border-color: var(--green-primary);
-  box-shadow: 0 8px 20px rgba(46, 204, 113, 0.5);
-}
 
 .footer-bottom {
   background: rgba(0, 0, 0, 0.3);
@@ -723,6 +821,26 @@ img {
 }
 
 @media (max-width: 768px) {
+  .page-banner {
+    height: 350px;
+  }
+  
+  .page-banner .section-title {
+    top: 25%;
+    left: 18%;
+    padding: 0;
+    max-width: 90%;
+  }
+  
+  .page-banner .section-title h2 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .page-banner .section-title .section-subtitle {
+    font-size: 1rem;
+  }
+  
   .footer-content {
     grid-template-columns: 1fr;
     gap: 2rem;
