@@ -263,11 +263,182 @@
         }
     }
     
+    // Fix external links to prevent base tag interference
+    function initExternalLinks() {
+        const externalLinks = document.querySelectorAll('.external-link[data-external-url]');
+        externalLinks.forEach(function(link) {
+            // Remove any existing listeners by cloning
+            if (link.dataset.listenerAdded) {
+                return;
+            }
+            link.dataset.listenerAdded = 'true';
+            
+            const externalUrl = link.getAttribute('data-external-url');
+            if (externalUrl) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    e.stopPropagation();
+                    window.open(externalUrl, '_blank', 'noopener,noreferrer');
+                    return false;
+                }, true); // Use capture phase - runs before other listeners
+            }
+        });
+    }
+    
+    // Event delegation for external links (works even if loaded dynamically)
+    // This MUST run first, before any other click handlers
+    (function setupExternalLinkDelegation() {
+        if (document.externalLinkDelegationSetup) {
+            return;
+        }
+        document.externalLinkDelegationSetup = true;
+        
+        // Use capture phase with highest priority - runs FIRST
+        document.addEventListener('click', function(e) {
+            // Check if clicked element or its parent is an external link
+            let target = e.target;
+            let link = null;
+            
+            // First try closest
+            if (target.closest) {
+                link = target.closest('.external-link');
+            }
+            
+            // If not found, traverse up manually
+            if (!link) {
+                while (target && target !== document && target !== document.body) {
+                    if (target.classList && target.classList.contains('external-link')) {
+                        link = target;
+                        break;
+                    }
+                    target = target.parentElement;
+                }
+            }
+            
+            if (link) {
+                const externalUrl = link.getAttribute('data-external-url');
+                if (externalUrl) {
+                    // Stop everything and open URL
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    e.stopPropagation();
+                    // Use setTimeout to ensure it executes
+                    setTimeout(function() {
+                        window.open(externalUrl, '_blank', 'noopener,noreferrer');
+                    }, 0);
+                    return false;
+                }
+            }
+        }, true); // Capture phase - runs BEFORE all other listeners
+    })();
+    
+    // Initialize quote buttons - fix href and add click handler
+    function initQuoteButtons() {
+        const quoteButtons = document.querySelectorAll('.quote-btn');
+        quoteButtons.forEach(function(button) {
+            // Skip if already processed
+            if (button.dataset.quoteInitialized === 'true') {
+                return;
+            }
+            button.dataset.quoteInitialized = 'true';
+            
+            // Get current path to determine correct contact.html path
+            const currentPath = window.location.pathname;
+            const basePath = window.__BASE_PATH || '/';
+            
+            // Extract language from path if available
+            let lang = 'tr'; // default
+            const langMatch = currentPath.match(/\/pages\/(tr|en|de)\//);
+            if (langMatch) {
+                lang = langMatch[1];
+            }
+            
+            // Build contact URL
+            const productCategory = button.getAttribute('data-product');
+            const contactPath = basePath.replace(/\/$/, '') + '/pages/' + lang + '/contact.html';
+            const contactUrl = contactPath + (productCategory ? '?product=' + encodeURIComponent(productCategory) : '');
+            
+            // Update href to full path
+            button.setAttribute('href', contactUrl);
+            
+            // Add click handler to ensure navigation works - use capture phase
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+                window.location.href = contactUrl;
+                return false;
+            }, true); // Capture phase - runs before other listeners
+        });
+    }
+    
+    // Event delegation for quote buttons (works even if loaded dynamically)
+    // This MUST run first, before any other click handlers
+    (function setupQuoteButtonDelegation() {
+        if (document.quoteButtonDelegationSetup) {
+            return;
+        }
+        document.quoteButtonDelegationSetup = true;
+        
+        // Use capture phase with highest priority - runs FIRST
+        document.addEventListener('click', function(e) {
+            // Check if clicked element or its parent is a quote button
+            let target = e.target;
+            let quoteButton = null;
+            
+            // First try closest
+            if (target.closest) {
+                quoteButton = target.closest('.quote-btn');
+            }
+            
+            // If not found, traverse up manually
+            if (!quoteButton) {
+                while (target && target !== document && target !== document.body) {
+                    if (target.classList && target.classList.contains('quote-btn')) {
+                        quoteButton = target;
+                        break;
+                    }
+                    target = target.parentElement;
+                }
+            }
+            
+            if (quoteButton) {
+                const currentPath = window.location.pathname;
+                const basePath = window.__BASE_PATH || '/';
+                
+                // Extract language from path if available
+                let lang = 'tr'; // default
+                const langMatch = currentPath.match(/\/pages\/(tr|en|de)\//);
+                if (langMatch) {
+                    lang = langMatch[1];
+                }
+                
+                // Build contact URL
+                const productCategory = quoteButton.getAttribute('data-product');
+                const contactPath = basePath.replace(/\/$/, '') + '/pages/' + lang + '/contact.html';
+                const contactUrl = contactPath + (productCategory ? '?product=' + encodeURIComponent(productCategory) : '');
+                
+                // Stop everything and navigate
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+                // Use setTimeout to ensure it executes
+                setTimeout(function() {
+                    window.location.href = contactUrl;
+                }, 0);
+                return false;
+            }
+        }, true); // Capture phase - runs BEFORE all other listeners
+    })();
+    
     // Initialize all functions
     function init() {
         initStickyHeader();
         initContactFormPrefill();
         initContactForm();
+        initExternalLinks();
+        initQuoteButtons();
     }
     
     // Initialize navigation after partials are loaded
@@ -296,6 +467,10 @@
         setTimeout(initNavigationAfterPartials, 100);
         // Re-initialize contact form prefill after partials are loaded
         setTimeout(initContactFormPrefill, 200);
+        // Re-initialize external links after footer is loaded
+        setTimeout(initExternalLinks, 300);
+        // Re-initialize quote buttons after content is loaded
+        setTimeout(initQuoteButtons, 400);
     });
     
     // Fallback: try to initialize navigation after a delay

@@ -117,14 +117,29 @@
     
     // Initialize "Teklif Al" button with category parameter
     function initQuoteButton() {
-        const quoteButtons = document.querySelectorAll('.quote-btn');
+        const quoteButtons = document.querySelectorAll('.quote-btn:not([data-initialized])');
         quoteButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const productCategory = this.getAttribute('data-product');
-                const contactUrl = 'contact.html' + (productCategory ? '?product=' + encodeURIComponent(productCategory) : '');
-                window.location.href = contactUrl;
-            });
+            // Mark as initialized to prevent duplicate processing
+            button.setAttribute('data-initialized', 'true');
+            
+            // Get current path to determine correct contact.html path
+            const currentPath = window.location.pathname;
+            const basePath = window.__BASE_PATH || '/';
+            
+            // Extract language from path if available
+            let lang = 'tr'; // default
+            const langMatch = currentPath.match(/\/pages\/(tr|en|de)\//);
+            if (langMatch) {
+                lang = langMatch[1];
+            }
+            
+            // Build contact URL
+            const productCategory = button.getAttribute('data-product');
+            const contactPath = basePath.replace(/\/$/, '') + '/pages/' + lang + '/contact.html';
+            const contactUrl = contactPath + (productCategory ? '?product=' + encodeURIComponent(productCategory) : '');
+            
+            // Update href to full path - this will handle navigation naturally
+            button.setAttribute('href', contactUrl);
         });
     }
     

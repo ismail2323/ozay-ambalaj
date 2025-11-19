@@ -170,6 +170,26 @@ img {
   padding: var(--spacing-2xl) 0;
 }
 
+/* Page Banner - Replaces hero sections */
+.page-banner {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-top: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.page-banner-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
 .section-title {
   text-align: center;
   margin-bottom: var(--spacing-xl);

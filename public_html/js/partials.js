@@ -28,6 +28,29 @@
         whatsapp: false
     };
     
+    // Track active fetch requests to abort on navigation
+    var activeFetches = [];
+    
+    // Abort all active fetches when navigating away
+    function abortAllFetches() {
+        activeFetches.forEach(function(controller) {
+            if (controller && controller.abort) {
+                controller.abort();
+            }
+        });
+        activeFetches = [];
+    }
+    
+    // Listen for beforeunload to abort fetches
+    window.addEventListener('beforeunload', abortAllFetches);
+    
+    // Also abort fetches when page becomes hidden (user navigating away)
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            abortAllFetches();
+        }
+    });
+    
     function loadPartial(partialPath, targetSelector, position) {
         var fullPath = (partialPath.startsWith('/') && basePath !== '/') 
             ? basePath.replace(/\/$/, '') + partialPath 
@@ -115,12 +138,36 @@
             loadingPartials.whatsapp = true;
         }
         
-        return fetch(fullPath)
+        // Create abort controller for this fetch
+        var controller = new AbortController();
+        var signal = controller.signal;
+        activeFetches.push(controller);
+        
+        return fetch(fullPath, { signal: signal })
             .then(function(response) {
+                // Remove controller from active list
+                var index = activeFetches.indexOf(controller);
+                if (index > -1) {
+                    activeFetches.splice(index, 1);
+                }
+                
                 if (!response.ok) {
                     throw new Error('Failed to load partial: ' + partialPath);
                 }
                 return response.text();
+            })
+            .catch(function(error) {
+                // Remove controller from active list
+                var index = activeFetches.indexOf(controller);
+                if (index > -1) {
+                    activeFetches.splice(index, 1);
+                }
+                
+                // Ignore abort errors (user navigated away)
+                if (error.name === 'AbortError') {
+                    return Promise.reject(error);
+                }
+                throw error;
             })
             .then(function(html) {
                 var target = document.querySelector(targetSelector);
