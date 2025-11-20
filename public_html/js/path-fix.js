@@ -230,6 +230,34 @@
     }
 
     // ============================================================================
+    // Fix CSS Background Images
+    // ============================================================================
+    function fixCSSBackgroundImages() {
+        var basePath = window.__BASE_PATH || '/';
+        // Build correct image path based on basePath
+        var imagePath;
+        if (basePath === '/' || basePath === '') {
+            imagePath = '/assets/img/Arkaplan.png';
+        } else {
+            // Remove trailing slash if present
+            var cleanBasePath = basePath.replace(/\/$/, '');
+            imagePath = cleanBasePath + '/assets/img/Arkaplan.png';
+        }
+        
+        // Create or update style tag for .page-banner background-image
+        var styleId = 'dynamic-banner-bg';
+        var existingStyle = document.getElementById(styleId);
+        if (existingStyle) {
+            existingStyle.remove();
+        }
+        
+        var style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = '.page-banner { background-image: url("' + imagePath + '") !important; z-index: 1 !important; background-size: 100% auto !important; } .page-banner::after { z-index: 0 !important; background: transparent !important; } .product-cta { background-image: url("' + imagePath + '") !important; z-index: 1 !important; background-size: 100% auto !important; } .product-cta::after { z-index: 0 !important; background: transparent !important; }';
+        document.head.appendChild(style);
+    }
+    
+    // ============================================================================
     // Dynamic Script Loading
     // ============================================================================
     function initScripts() {
@@ -245,9 +273,11 @@
             script.defer = true;
             document.body.appendChild(script);
         }
+        addScript('/js/error-handler.js'); // Load first to catch all errors
         addScript('/js/partials.js');
         addScript('/js/translations.js');
         addScript('/js/main.js');
+        addScript('/js/whatsapp-fix.js');
         
         // Load page-specific JS
         var pathname = window.location.pathname || '';
@@ -271,25 +301,60 @@
 
     // Load scripts when basePath is ready
     if (window.__BASE_PATH) {
+        // Fix CSS background images first
+        fixCSSBackgroundImages();
+        
         // Wait for DOM to be ready
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initScripts);
+            document.addEventListener('DOMContentLoaded', function() {
+                fixCSSBackgroundImages();
+                initScripts();
+                // Fix again after DOM is ready
+                setTimeout(fixCSSBackgroundImages, 100);
+            });
         } else {
-            setTimeout(initScripts, 100);
+            setTimeout(function() {
+                fixCSSBackgroundImages();
+                initScripts();
+                setTimeout(fixCSSBackgroundImages, 100);
+            }, 100);
         }
     } else {
         document.addEventListener('DOMContentLoaded', function() {
             if (window.__BASE_PATH) {
+                fixCSSBackgroundImages();
                 initScripts();
+                setTimeout(fixCSSBackgroundImages, 100);
             } else {
                 // Wait a bit more for basePath to be set
                 setTimeout(function() {
                     if (window.__BASE_PATH) {
+                        fixCSSBackgroundImages();
                         initScripts();
+                        setTimeout(fixCSSBackgroundImages, 100);
                     }
                 }, 200);
             }
         });
+    }
+    
+    // Also fix background images when basePath changes
+    var originalBasePath = window.__BASE_PATH;
+    var checkBasePath = setInterval(function() {
+        if (window.__BASE_PATH && window.__BASE_PATH !== originalBasePath) {
+            originalBasePath = window.__BASE_PATH;
+            fixCSSBackgroundImages();
+        }
+    }, 100);
+    
+    // Stop checking after 5 seconds
+    setTimeout(function() {
+        clearInterval(checkBasePath);
+    }, 5000);
+    
+    // Fix background images immediately if basePath is already set
+    if (window.__BASE_PATH) {
+        setTimeout(fixCSSBackgroundImages, 50);
     }
 })();
 

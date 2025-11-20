@@ -138,10 +138,12 @@
     // Initialize on DOMContentLoaded
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
+            loadNewsContent();
             initLightbox();
             initAnimations();
         });
     } else {
+        loadNewsContent();
         initLightbox();
         initAnimations();
     }

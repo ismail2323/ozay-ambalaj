@@ -7,8 +7,12 @@
     
     // Abort all active fetches from partials.js
     function abortAllPartialFetches() {
-        if (window.abortAllFetches && typeof window.abortAllFetches === 'function') {
-            window.abortAllFetches();
+        try {
+            if (window.abortAllFetches && typeof window.abortAllFetches === 'function') {
+                window.abortAllFetches();
+            }
+        } catch (e) {
+            // Silently ignore errors during abort (might be called during page unload)
         }
     }
     
@@ -20,35 +24,45 @@
         document.navigationDelegationSetup = true;
         
         // Use capture phase to intercept navigation clicks early
+        // BUT: Only intercept header/footer navigation links, let all other links work normally
         document.addEventListener('click', function(e) {
             // Check if clicked element or its parent is a navigation link
             let target = e.target;
             let navLink = null;
             
-            // Check if it's a nav link or inside a nav link
+            // IMPORTANT: Only intercept links that are explicitly in navigation menus
+            // Let all other links (news detail, product detail, etc.) work normally
             if (target.closest) {
-                navLink = target.closest('.nav-links a, .mobile-nav-links a, .header a[href$=".html"]');
+                navLink = target.closest('.nav-links a, .mobile-nav-links a');
             }
             
-            // If not found, traverse up manually
+            // If not found, traverse up manually but ONLY check for navigation menu links
             if (!navLink) {
                 while (target && target !== document && target !== document.body) {
                     if (target.tagName === 'A' && target.href) {
-                        const href = target.getAttribute('href');
-                        // Check if it's a navigation link (ends with .html and is relative or in pages/)
-                        if (href && (href.endsWith('.html') || href.includes('index.html'))) {
-                            const parentNav = target.closest ? target.closest('.nav-links, .mobile-nav-links, .header') : null;
-                            if (parentNav || target.closest('.header')) {
-                                navLink = target;
-                                break;
-                            }
+                        // Check if this link is inside navigation menus
+                        const parentNav = target.closest ? target.closest('.nav-links, .mobile-nav-links') : null;
+                        if (parentNav) {
+                            navLink = target;
+                            break;
                         }
                     }
                     target = target.parentElement;
                 }
             }
             
-            if (navLink && navLink.href) {
+            // If not a navigation menu link, let it work normally
+            if (!navLink) {
+                return; // Let browser handle it normally
+            }
+            
+            // Check if navLink exists and has an href attribute
+            const href = navLink ? navLink.getAttribute('href') : null;
+            if (!href) {
+                return; // No href, let browser handle it
+            }
+            
+            if (navLink && href) {
                 // IMPORTANT: Skip quote buttons - they have their own delegation
                 if (navLink.classList && navLink.classList.contains('quote-btn')) {
                     return; // Let quote button delegation handle it
@@ -59,8 +73,6 @@
                 if (isInQuoteButton) {
                     return; // Let quote button delegation handle it
                 }
-                
-                const href = navLink.getAttribute('href');
                 
                 // Skip external links and anchors
                 if (href.startsWith('http') || href.startsWith('//') || href.startsWith('#') || href.startsWith('javascript:')) {
@@ -84,13 +96,17 @@
                 }
                 
                 // Build full navigation URL
-                const targetPage = href.split('/').pop() || 'index.html';
+                // Extract query string if exists
+                const hrefParts = href.split('?');
+                const targetPage = hrefParts[0].split('/').pop() || 'index.html';
+                const queryString = hrefParts[1] ? '?' + hrefParts[1] : '';
+                
                 let navUrl;
                 if (basePath === '/' || basePath === '') {
-                    navUrl = '/pages/' + lang + '/' + targetPage;
+                    navUrl = '/pages/' + lang + '/' + targetPage + queryString;
                 } else {
                     const cleanBasePath = basePath.replace(/\/$/, '');
-                    navUrl = cleanBasePath + '/pages/' + lang + '/' + targetPage;
+                    navUrl = cleanBasePath + '/pages/' + lang + '/' + targetPage + queryString;
                 }
                 
                 // Abort all partial fetches before navigation
@@ -369,6 +385,29 @@
         }
     }
     
+    // Fix WhatsApp button - ensure correct number
+    function initWhatsAppButton() {
+        const whatsappButtons = document.querySelectorAll('.whatsapp-button, #whatsapp-btn');
+        const correctWhatsAppUrl = 'https://wa.me/905354681968?text=Merhaba,%20Öz-Ay%20Ambalaj%20hakkında%20bilgi%20almak%20istiyorum';
+        
+        whatsappButtons.forEach(function(button) {
+            // Update href to correct number
+            button.setAttribute('href', correctWhatsAppUrl);
+            
+            // Remove existing onclick handlers
+            button.removeAttribute('onclick');
+            
+            // Add new click handler with correct number
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+                window.open(correctWhatsAppUrl, '_blank', 'noopener,noreferrer');
+                return false;
+            }, true); // Use capture phase - runs before other listeners
+        });
+    }
+    
     // Fix external links to prevent base tag interference
     function initExternalLinks() {
         const externalLinks = document.querySelectorAll('.external-link[data-external-url]');
@@ -548,6 +587,7 @@
         initStickyHeader();
         initContactFormPrefill();
         initContactForm();
+        initWhatsAppButton();
         initExternalLinks();
         initQuoteButtons();
     }
@@ -578,6 +618,8 @@
         setTimeout(initNavigationAfterPartials, 100);
         // Re-initialize contact form prefill after partials are loaded
         setTimeout(initContactFormPrefill, 200);
+        // Re-initialize WhatsApp button after partials are loaded
+        setTimeout(initWhatsAppButton, 250);
         // Re-initialize external links after footer is loaded
         setTimeout(initExternalLinks, 300);
         // Re-initialize quote buttons after content is loaded
@@ -587,6 +629,33 @@
     // Fallback: try to initialize navigation after a delay
     setTimeout(function() {
         initNavigationAfterPartials();
+        initWhatsAppButton();
     }, 500);
+    
+    // Continuously check and fix WhatsApp button (in case it loads late)
+    setInterval(function() {
+        const whatsappButtons = document.querySelectorAll('.whatsapp-button, #whatsapp-btn');
+        const correctWhatsAppUrl = 'https://wa.me/905354681968?text=Merhaba,%20Öz-Ay%20Ambalaj%20hakkında%20bilgi%20almak%20istiyorum';
+        
+        whatsappButtons.forEach(function(button) {
+            const currentHref = button.getAttribute('href');
+            // Check if href contains wrong number (555 or old format)
+            if (currentHref && (currentHref.includes('5551234567') || currentHref.includes('555') || !currentHref.includes('905354681968'))) {
+                button.setAttribute('href', correctWhatsAppUrl);
+                // Remove all click listeners and re-add
+                const newButton = button.cloneNode(true);
+                button.parentNode.replaceChild(newButton, button);
+                newButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    e.stopPropagation();
+                    window.open(correctWhatsAppUrl, '_blank', 'noopener,noreferrer');
+                    return false;
+                }, true);
+            }
+        });
+    }, 1000); // Check every second
 })();
+
+
 

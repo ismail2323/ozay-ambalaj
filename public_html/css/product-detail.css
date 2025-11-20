@@ -37,6 +37,9 @@
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-xl);
   margin-top: var(--spacing-xl);
+  object-fit: contain; /* Görseli uzaklaştır - tam görünsün */
+  object-position: center center; /* Merkezde konumlandır */
+  padding: 1rem; /* Görselin etrafında boşluk bırak */
 }
 
 /* Product Content Sections */
@@ -153,17 +156,26 @@
 .gallery-item {
   position: relative;
   border-radius: var(--border-radius-lg);
-  overflow: hidden;
+  overflow: visible; /* Overflow'u visible yap - padding görünsün */
   cursor: pointer;
   aspect-ratio: 1;
   background: var(--gray-100);
+  padding: 3rem; /* Görselin etrafında çok daha fazla boşluk bırak */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 50% !important; /* Görseli %50'ye küçült - çok daha uzaktan görünsün */
+  height: 50% !important; /* Görseli %50'ye küçült */
+  max-width: 50% !important;
+  max-height: 50% !important;
+  object-fit: contain !important; /* Görseli uzaklaştır - tam görünsün */
+  object-position: center center !important; /* Merkezde konumlandır */
   transition: transform 0.3s ease;
+  display: block;
+  margin: 0 auto;
 }
 
 .gallery-item:hover img {
@@ -325,23 +337,53 @@
 
 /* CTA Section */
 .product-cta {
-  background: linear-gradient(135deg, var(--green-primary), var(--earth-green));
-  color: var(--white);
+  position: relative;
+  background-color: #ffffff; /* Beyaz arka plan - sayfa ile aynı */
+  background-image: url('/assets/img/Arkaplan.png'); /* Arka plan görseli */
+  background-repeat: no-repeat; /* Tekrar etme */
+  background-size: 100% auto; /* Görseli sayfaya sığdır */
+  background-position: center center; /* Ortala */
+  color: var(--gray-900); /* Siyah renk - arka plan görseli üzerinde okunabilir */
   padding: var(--spacing-3xl) 0;
   text-align: center;
   margin-top: var(--spacing-3xl);
+  overflow: hidden;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1; /* Görseli öne getir */
+}
+
+.product-cta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent; /* Şeffaf yap - görselin görünmesini engellemesin */
+  z-index: 0; /* Görselin arkasında */
+  pointer-events: none;
+}
+
+.product-cta .container {
+  position: relative;
+  z-index: 2; /* İçeriği görselin üstünde */
 }
 
 .product-cta h2 {
   font-size: 2.5rem;
   margin-bottom: var(--spacing-lg);
-  color: var(--white);
+  color: var(--gray-900); /* Siyah renk - arka plan görseli üzerinde okunabilir */
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8); /* Beyaz gölge - okunabilirlik için */
 }
 
 .product-cta p {
   font-size: 1.25rem;
   margin-bottom: var(--spacing-xl);
-  opacity: 0.95;
+  color: var(--gray-700); /* Koyu gri renk - arka plan görseli üzerinde okunabilir */
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8); /* Beyaz gölge - okunabilirlik için */
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
@@ -377,6 +419,17 @@
     gap: var(--spacing-md);
   }
   
+  .gallery-item {
+    padding: 1rem; /* Mobilde biraz daha az padding */
+  }
+  
+  .gallery-item img {
+    width: 60% !important; /* Mobilde daha da küçült */
+    height: 60% !important;
+    max-width: 60% !important;
+    max-height: 60% !important;
+  }
+  
   .process-steps {
     flex-direction: column;
   }
@@ -393,6 +446,17 @@
   .specs-table th,
   .specs-table td {
     padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  .product-cta {
+    min-height: 300px;
+    background-size: 100% auto !important; /* Mobil için görsel boyutu */
+    z-index: 1 !important;
+  }
+  
+  .product-cta::after {
+    z-index: 0 !important; /* Mobilde de görselin arkasında */
+    background: transparent !important;
   }
   
   .product-cta h2 {

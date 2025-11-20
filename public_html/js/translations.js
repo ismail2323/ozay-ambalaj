@@ -94,6 +94,8 @@ window.Translations = {
         // About Page
         'about.title': 'About Us',
         'about.subtitle': 'Our experience and solutions in the industry as Öz-Ay Packaging and Plastic',
+        'about.page_title': 'ABOUT US',
+        'about.page_subtitle': 'Learn about our company',
         'about.company_story': 'Our Company Story',
         'about.since_2010': 'Since 2010',
         'about.company_description_1': 'Öz-Ay Packaging and Plastic was established in Istanbul in 2010. Since our establishment, we have achieved a leading position in the industry with our vision of producing environmentally friendly and sustainable packaging solutions.',
@@ -115,8 +117,8 @@ window.Translations = {
         'about.innovation_desc': 'Continuous development and innovation',
         
         // Products Page
-        'products.page_title': 'Our Products',
-        'products.page_subtitle': 'Wide product range in environmentally friendly packaging solutions',
+        'products.page_title': 'PRODUCTS',
+        'products.page_subtitle': 'Discover packaging solutions suitable for your needs',
         'products.categories': 'Our Product Categories',
         'products.categories_subtitle': 'Discover packaging solutions suitable for your needs',
         'products.kutu_desc': 'Cardboard and carton boxes, custom design and printing options',
@@ -133,6 +135,8 @@ window.Translations = {
         'contact.info_title': 'Contact Information',
         'contact.form_title': 'Contact Form',
         'contact.subtitle': 'Reach out to us, we are happy to help you',
+        'contact.page_title': 'CONTACT',
+        'contact.page_subtitle': 'Contact us, let us help you',
         
         // Product descriptions (index page)
         'products.kutu_desc_index': 'Package your products safely with our custom-designed boxes. Special solutions for your needs with various size, material and printing options.',
@@ -145,14 +149,16 @@ window.Translations = {
         // Quality Page
         'quality.title': 'Quality',
         'quality.subtitle': 'Our quality standards and sustainability approach',
+        'quality.page_title': 'QUALITY',
+        'quality.page_subtitle': 'Our quality standards and sustainability approach',
         
         // References Page
-        'references.page_title': 'Our References',
-        'references.page_subtitle': 'We serve Turkey\'s leading brands',
+        'references.page_title': 'REFERENCES',
+        'references.page_subtitle': 'The choice of trusted brands',
         
         // News Page
-        'news.page_title': 'News',
-        'news.page_subtitle': 'Latest news from our company and the industry',
+        'news.page_title': 'NEWS',
+        'news.page_subtitle': 'Latest developments and news',
         'news.news1_date': 'October 15, 2024',
         'news.news1_title': 'Our New Production Lines Are Operational',
         'news.news1_excerpt': 'As part of our capacity expansion efforts, we have put our new production lines into operation. With our increased production capacity, we can serve our customers faster.',
@@ -289,10 +295,12 @@ window.Translations = {
         'about.trust_desc': 'Transparenter und ehrlicher Geschäftsansatz',
         'about.innovation': 'Innovation',
         'about.innovation_desc': 'Kontinuierliche Entwicklung und Innovation',
+        'about.page_title': 'ÜBER UNS',
+        'about.page_subtitle': 'Erfahren Sie mehr über unser Unternehmen',
         
         // Products Page
-        'products.page_title': 'Unsere Produkte',
-        'products.page_subtitle': 'Breites Produktsortiment in umweltfreundlichen Verpackungslösungen',
+        'products.page_title': 'PRODUKTE',
+        'products.page_subtitle': 'Entdecken Sie Verpackungslösungen, die zu Ihren Bedürfnissen passen',
         'products.categories': 'Unsere Produktkategorien',
         'products.categories_subtitle': 'Entdecken Sie Verpackungslösungen, die Ihren Bedürfnissen entsprechen',
         'products.kutu_desc': 'Papp- und Kartonboxen, maßgeschneiderte Design- und Druckoptionen',
@@ -309,6 +317,8 @@ window.Translations = {
         'contact.info_title': 'Kontaktinformationen',
         'contact.form_title': 'Kontaktformular',
         'contact.subtitle': 'Kontaktieren Sie uns, wir helfen Ihnen gerne',
+        'contact.page_title': 'KONTAKT',
+        'contact.page_subtitle': 'Kontaktieren Sie uns, wir helfen Ihnen gerne',
         
         // Product descriptions (index page)
         'products.kutu_desc_index': 'Verpacken Sie Ihre Produkte sicher mit unseren maßgeschneiderten Boxen. Spezielle Lösungen für Ihre Bedürfnisse mit verschiedenen Größen-, Material- und Druckoptionen.',
@@ -321,14 +331,16 @@ window.Translations = {
         // Quality Page
         'quality.title': 'Qualität',
         'quality.subtitle': 'Unsere Qualitätsstandards und Nachhaltigkeitsansatz',
+        'quality.page_title': 'QUALITÄT',
+        'quality.page_subtitle': 'Unsere Qualitätsstandards und Nachhaltigkeitsansatz',
         
         // References Page
-        'references.page_title': 'Unsere Referenzen',
-        'references.page_subtitle': 'Wir bedienen die führenden Marken der Türkei',
+        'references.page_title': 'REFERENZEN',
+        'references.page_subtitle': 'Die Wahl vertrauenswürdiger Marken',
         
         // News Page
-        'news.page_title': 'Nachrichten',
-        'news.page_subtitle': 'Neueste Nachrichten von unserem Unternehmen und der Branche',
+        'news.page_title': 'NACHRICHTEN',
+        'news.page_subtitle': 'Neueste Entwicklungen und Nachrichten',
         'news.news1_date': '15. Oktober 2024',
         'news.news1_title': 'Unsere neuen Produktionslinien sind in Betrieb',
         'news.news1_excerpt': 'Im Rahmen unserer Kapazitätserweiterungsbemühungen haben wir unsere neuen Produktionslinien in Betrieb genommen. Mit unserer erhöhten Produktionskapazität können wir unsere Kunden schneller bedienen.',
@@ -379,7 +391,7 @@ window.Translations = {
     function applyTranslations(lang) {
         // Check if Translations object exists
         if (!window.Translations) {
-            console.warn('Translations object not found');
+            // Silently return - translations might not be loaded yet
             return;
         }
         
@@ -427,7 +439,7 @@ window.Translations = {
                     
                     // Apply translation
                     if (!window.Translations[lang]) {
-                        console.warn('Translations not found for language:', lang);
+                        // Silently return - language might not be available
                         return;
                     }
                     
@@ -447,9 +459,8 @@ window.Translations = {
                             // For other elements, replace innerHTML (to support <br> tags)
                             element.innerHTML = translation;
                         }
-                    } else {
-                        console.warn('Translation not found for key:', key, 'language:', lang);
                     }
+                    // Silently skip if translation not found - element will show original text
                 }
             }
         });
@@ -540,6 +551,26 @@ window.Translations = {
             window.history.pushState({lang: lang}, '', newUrl);
         }
         
+        // Clear cached translations for page-specific elements to force retranslation
+        const pageElements = document.querySelectorAll('[data-i18n^="about."], [data-i18n^="products."], [data-i18n^="quality."], [data-i18n^="references."], [data-i18n^="news."], [data-i18n^="contact."]');
+        pageElements.forEach(function(element) {
+            const key = element.getAttribute('data-i18n');
+            if (key && originalContent[key] !== undefined) {
+                // Clear cached original content to force retranslation
+                delete originalContent[key];
+            }
+        });
+        
+        // Clear cached translations for page-specific elements to force retranslation
+        const pageElements = document.querySelectorAll('[data-i18n^="about."], [data-i18n^="products."], [data-i18n^="quality."], [data-i18n^="references."], [data-i18n^="news."], [data-i18n^="contact."]');
+        pageElements.forEach(function(element) {
+            const key = element.getAttribute('data-i18n');
+            if (key && originalContent[key] !== undefined) {
+                // Clear cached original content to force retranslation
+                delete originalContent[key];
+            }
+        });
+        
         // Apply translations to current page
         applyTranslations(lang);
         
@@ -565,7 +596,7 @@ window.Translations = {
         try {
             localStorage.setItem('preferredLanguage', lang);
         } catch (e) {
-            console.warn('Could not save language preference:', e);
+            // Silently ignore - localStorage might not be available
         }
     }
 
@@ -767,11 +798,52 @@ window.Translations = {
         setTimeout(function() {
             if (window.reinitTranslations) {
                 window.reinitTranslations();
-            } else {
-                console.warn('reinitTranslations function not found!');
             }
+            // Silently ignore if function not found yet
         }, 200);
     });
+    
+    // Re-apply translations when DOM changes (for dynamically added content)
+    var observer = new MutationObserver(function(mutations) {
+        var shouldReapply = false;
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length > 0) {
+                // Check if any added nodes have data-i18n attributes
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) { // Element node
+                        if (node.hasAttribute && node.hasAttribute('data-i18n')) {
+                            shouldReapply = true;
+                        } else if (node.querySelectorAll) {
+                            var hasI18n = node.querySelectorAll('[data-i18n]').length > 0;
+                            if (hasI18n) {
+                                shouldReapply = true;
+                            }
+                        }
+                    }
+                });
+            }
+        });
+        if (shouldReapply && window.reinitTranslations) {
+            setTimeout(function() {
+                window.reinitTranslations();
+            }, 100);
+        }
+    });
+    
+    // Start observing DOM changes
+    if (document.body) {
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    } else {
+        document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
     
     // Start initialization
     startInit();

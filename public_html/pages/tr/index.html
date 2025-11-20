@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <!-- Path Fix Script - MUST BE FIRST -->
+    <!-- Error Handler - MUST BE FIRST to catch all errors -->
+    <script src="../../js/error-handler.js"></script>
+    <!-- Path Fix Script -->
     <script src="../../js/path-fix.js"></script>
     
     <!-- Google tag (gtag.js) -->
@@ -46,7 +48,6 @@
     <link rel="alternate" hreflang="en" href="https://www.ozay-ambalaj.com/pages/en/index.html">
     <link rel="alternate" hreflang="de" href="https://www.ozay-ambalaj.com/pages/de/index.html">
     <link rel="alternate" hreflang="x-default" href="https://www.ozay-ambalaj.com/pages/tr/index.html">
-    </script>
     
     <!-- PWA Manifest (will be added dynamically by path-fix.js) -->
     <meta name="theme-color" content="#2FA84F">
@@ -284,27 +285,28 @@
                 </div>
                 
                 <div class="slider-track">
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0008.jpg" alt="Referans Logo 1" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0009.jpg" alt="Referans Logo 2" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0010.jpg" alt="Referans Logo 3" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0011.jpg" alt="Referans Logo 4" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0012.jpg" alt="Referans Logo 5" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0013.jpg" alt="Referans Logo 6" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0014.jpg" alt="Referans Logo 7" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0015.jpg" alt="Referans Logo 8" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0016.jpg" alt="Referans Logo 9" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0017.jpg" alt="Referans Logo 10" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0018.jpg" alt="Referans Logo 11" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0019.jpg" alt="Referans Logo 12" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0020.jpg" alt="Referans Logo 13" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0021.jpg" alt="Referans Logo 14" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0022.jpg" alt="Referans Logo 15" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0023.jpg" alt="Referans Logo 16" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0024.jpg" alt="Referans Logo 17" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0025.jpg" alt="Referans Logo 18" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0026.jpg" alt="Referans Logo 19" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0027.jpg" alt="Referans Logo 20" loading="lazy"></div>
-                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0028.jpg" alt="Referans Logo 21" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0008.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0009.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0010.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0011.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/ÇoruhAmbalaj.png" alt="Çoruh Ambalaj" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0013.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0014.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0015.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0016.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0017.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0018.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0019.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0020.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0021.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0022.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0023.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0024.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0025.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0026.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/ÇORUH.jpg" alt="Çoruh Ambalaj" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/IMG-20251108-WA0028.jpg" alt="Referans Marka" loading="lazy"></div>
+                    <div class="slider-item"><img src="assets/marka_logos/migros.webp" alt="Migros" loading="lazy"></div>
                 </div>
                 
                 <div style="text-align: center; margin-top: 3rem;" data-aos="fade-up">
@@ -322,15 +324,15 @@
                         <p style="font-size: 1.25rem; opacity: 0.95;" data-i18n="common.years_experience">Yıllık Tecrübe</p>
                     </div>
                     <div data-aos="fade-up">
-                        <div style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;" class="stat-counter" data-target="200" data-suffix="+">0+</div>
+                        <div style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;" class="stat-counter" data-target="500" data-suffix="+">0+</div>
                         <p style="font-size: 1.25rem; opacity: 0.95;" data-i18n="common.happy_customers">Mutlu Müşteri</p>
                     </div>
                     <div data-aos="fade-up">
-                        <div style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;" class="stat-counter" data-target="10" data-suffix="K+">0K+</div>
-                        <p style="font-size: 1.25rem; opacity: 0.95;" data-i18n="common.daily_production">Günlük Üretim</p>
+                        <div style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;">1 Ton+</div>
+                        <p style="font-size: 1.25rem; opacity: 0.95;">Aylık Üretim</p>
                     </div>
                     <div data-aos="fade-up">
-                        <div style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;" class="stat-counter" data-target="100" data-prefix="%">%0</div>
+                        <div style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;" class="stat-counter" data-target="99" data-prefix="%">%0</div>
                         <p style="font-size: 1.25rem; opacity: 0.95;" data-i18n="common.customer_satisfaction">Müşteri Memnuniyeti</p>
                     </div>
                 </div>
@@ -352,7 +354,7 @@
                             <div class="news-card-date" data-i18n="news.news1_date">15 Ekim 2024</div>
                             <h3 class="news-card-title" data-i18n="news.news1_title">Yeni Üretim Hatlarımız Devreye Girdi</h3>
                             <p class="news-card-excerpt" data-i18n="news.news1_excerpt">Kapasite artırma çalışmalarımız kapsamında yeni üretim hatlarımızı faaliyete geçirdik. Artan üretim kapasitemiz ile müşterilerimize daha hızlı hizmet sunabiliyoruz.</p>
-                            <a href="news-detail.html" class="btn btn-primary" style="margin-top: 1rem;" data-i18n="common.read_more">Devamını Oku</a>
+                            <a href="news-detail.html?id=1" class="btn btn-primary" style="margin-top: 1rem;" data-i18n="common.read_more">Devamını Oku</a>
                         </div>
                     </article>
                     
@@ -362,7 +364,7 @@
                             <div class="news-card-date" data-i18n="news.news2_date">10 Ekim 2024</div>
                             <h3 class="news-card-title" data-i18n="news.news2_title">Fuar Katılımımız Tamamlandı</h3>
                             <p class="news-card-excerpt" data-i18n="news.news2_excerpt">Bu yıl da sektörün önde gelen fuarlarından birinde yerimizi aldık. Yeni ürünlerimizi tanıttık ve değerli bağlantılar kurduk.</p>
-                            <a href="news-detail.html" class="btn btn-primary" style="margin-top: 1rem;" data-i18n="common.read_more">Devamını Oku</a>
+                            <a href="news-detail.html?id=2" class="btn btn-primary" style="margin-top: 1rem;" data-i18n="common.read_more">Devamını Oku</a>
                         </div>
                     </article>
                     
@@ -372,7 +374,7 @@
                             <div class="news-card-date" data-i18n="news.news3_date">5 Ekim 2024</div>
                             <h3 class="news-card-title" data-i18n="news.news3_title">Sürdürülebilirlik Sertifikamızı Aldık</h3>
                             <p class="news-card-excerpt" data-i18n="news.news3_excerpt">Çevre dostu üretim süreçlerimiz uluslararası sertifikasyon kuruluşları tarafından onaylandı. Sürdürülebilirlik alanındaki başarımız tescillendi.</p>
-                            <a href="news-detail.html" class="btn btn-primary" style="margin-top: 1rem;" data-i18n="common.read_more">Devamını Oku</a>
+                            <a href="news-detail.html?id=3" class="btn btn-primary" style="margin-top: 1rem;" data-i18n="common.read_more">Devamını Oku</a>
                         </div>
                     </article>
                 </div>
@@ -388,6 +390,7 @@
     <!-- Note: partials.js is loaded by path-fix.js automatically -->
     <script src="/js/translations.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/js/whatsapp-fix.js"></script>
     <script src="/js/index.js"></script>
 </body>
 </html>

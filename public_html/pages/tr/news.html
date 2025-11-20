@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <!-- Path Fix Script - MUST BE FIRST -->
+    <!-- Error Handler - MUST BE FIRST to catch all errors -->
+    <script src="../../js/error-handler.js"></script>
+    <!-- Path Fix Script -->
     <script src="../../js/path-fix.js"></script>
     
     <!-- Google tag (gtag.js) -->
@@ -40,10 +42,13 @@
     <main id="main-content" role="main">
         <!-- Page Hero Banner -->
         <section class="page-banner" style="margin-top: var(--header-height);">
-            <img src="/assets/img/ArkaPlan.png" alt="Arka Plan" class="page-banner-image">
-            <div class="section-title">
-                <h2>BİZDEN HABERLER</h2>
-                <p class="section-subtitle">Son gelişmeler ve haberler</p>
+        </section>
+        
+        <!-- Page Title Section -->
+        <section class="page-title-section" style="text-align: left !important;">
+            <div class="section-title" style="text-align: left !important; margin-left: 0 !important; margin-right: auto !important; width: auto !important;">
+                <h2 style="text-align: left !important; margin-left: 0 !important; display: block !important;" data-i18n="news.page_title">BİZDEN HABERLER</h2>
+                <p class="section-subtitle" style="text-align: left !important; margin-left: 0 !important;" data-i18n="news.page_subtitle">Son gelişmeler ve haberler</p>
             </div>
         </section>
         

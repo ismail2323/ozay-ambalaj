@@ -150,16 +150,25 @@
         var signal = controller.signal;
         activeFetches.push(controller);
         
-        return fetch(fullPath, { signal: signal })
-            .then(function(response) {
+        // Wrap fetch in try-catch to silently handle all errors
+        var fetchPromise = fetch(fullPath, { signal: signal }).catch(function(fetchError) {
+            // Silently catch network errors, abort errors, etc.
+            // Return a rejected promise that will be handled silently
+            return Promise.reject(fetchError);
+        });
+        
+        return fetchPromise.then(function(response) {
                 // Remove controller from active list
                 var index = activeFetches.indexOf(controller);
                 if (index > -1) {
                     activeFetches.splice(index, 1);
                 }
                 
+                // Silently handle 404 and other non-ok responses
                 if (!response.ok) {
-                    throw new Error('Failed to load partial: ' + partialPath);
+                    // For 404 or any error, silently fail (expected during navigation or missing files)
+                    // Don't log or throw - just reject silently
+                    return Promise.reject(new Error('Partial not found'));
                 }
                 return response.text();
             })
@@ -170,15 +179,19 @@
                     activeFetches.splice(index, 1);
                 }
                 
-                // Ignore abort errors (user navigated away) - don't log or show these
-                if (error.name === 'AbortError' || error.message === 'The user aborted a request.') {
-                    // Silently reject - this is expected when navigating
+                // Silently ignore abort errors and 404 errors (expected when navigating or file missing)
+                if (error.name === 'AbortError' || 
+                    error.message === 'The user aborted a request.' ||
+                    error.message === 'Partial not found' ||
+                    error.message.includes('404') ||
+                    error.message.includes('Failed to fetch')) {
+                    // Silently reject - this is expected
                     return Promise.reject(error);
                 }
                 
-                // Only log non-abort errors
-                console.error('Error loading partial:', error);
-                throw error;
+                // Silently handle all errors - don't log or throw
+                // These are expected during navigation or when files are missing
+                return Promise.reject(error);
             })
             .then(function(html) {
                 var target = document.querySelector(targetSelector);
@@ -255,12 +268,12 @@
                     
                     return true;
                 } else {
-                    console.warn('Target element not found:', targetSelector);
+                    // Silently return - target might not exist yet
                     return false;
                 }
             })
             .catch(function(error) {
-                console.error('Error loading partial:', error);
+                // Silently ignore errors - expected during navigation
                 // Clear loading flag on error
                 if (partialPath.includes('footer') || partialPath.includes('Footer')) {
                     loadingPartials.footer = false;
@@ -306,7 +319,7 @@
                     try {
                         allFooters[idx].parentNode.removeChild(allFooters[idx]);
                     } catch (e2) {
-                        console.warn('Could not remove existing footer:', e2);
+                        // Silently ignore - footer might already be removed
                     }
                 }
             }
@@ -328,7 +341,7 @@
                     try {
                         existingHeaders[i].parentNode.removeChild(existingHeaders[i]);
                     } catch (e2) {
-                        console.warn('Could not remove duplicate header:', e2);
+                        // Silently ignore - header might already be removed
                     }
                 }
             }
@@ -350,14 +363,14 @@
                         if (window.reinitTranslations) {
                             window.reinitTranslations();
                         } else {
-                            console.error('reinitTranslations function not available yet');
+                            // Silently ignore - translations might not be loaded yet
                         }
                     }, 300);
                     // Clean up duplicates after header is loaded
                     setTimeout(cleanupDuplicates, 100);
                 })
                 .catch(function(error) {
-                    console.error('Error loading header partial:', error);
+                    // Silently ignore errors - expected during navigation
                 });
         } else if (existingHeaders.length > 0) {
             // Header already exists, just update nav
@@ -392,7 +405,7 @@
                     // Reset flag on error so it can retry
                     footerLoadAttempted = false;
                     loadingPartials.footer = false;
-                    console.error('Error loading footer:', error);
+                    // Silently ignore errors - expected during navigation
                 });
         } else {
             // Fallback: insert before closing body tag
@@ -412,7 +425,7 @@
                     // Reset flag on error so it can retry
                     footerLoadAttempted = false;
                     loadingPartials.footer = false;
-                    console.error('Error loading footer:', error);
+                    // Silently ignore errors - expected during navigation
                 });
         }
     }
@@ -458,7 +471,7 @@
                         try {
                             footer.parentNode.removeChild(footer);
                         } catch (e2) {
-                            console.warn('Could not remove duplicate footer:', e2);
+                            // Silently ignore - footer might already be removed
                         }
                     }
                 }
