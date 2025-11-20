@@ -532,7 +532,17 @@ window.Translations = {
             return;
         }
         
+        // Get all elements with data-i18n attribute (including those in page-title-section)
         const elements = document.querySelectorAll('[data-i18n]');
+        
+        // Debug: Log how many elements found
+        if (elements.length === 0) {
+            // If no elements found, try again after a short delay
+            setTimeout(function() {
+                applyTranslations(lang);
+            }, 100);
+            return;
+        }
         
         elements.forEach(function(element) {
             const key = element.getAttribute('data-i18n');
@@ -593,8 +603,13 @@ window.Translations = {
                         } else if (element.tagName === 'OPTION') {
                             element.textContent = translation;
                         } else {
-                            // For other elements, replace innerHTML (to support <br> tags)
-                            element.innerHTML = translation;
+                            // For other elements (H2, P, etc.), use innerHTML to support HTML tags like <br>
+                            // But prefer textContent if no HTML tags
+                            if (translation.includes('<br>') || translation.includes('<')) {
+                                element.innerHTML = translation;
+                            } else {
+                                element.textContent = translation;
+                            }
                         }
                     }
                     // Silently skip if translation not found - element will show original text
@@ -725,8 +740,12 @@ window.Translations = {
             }
         });
         
-        // Apply translations to current page
+        // Apply translations to current page - with retry to catch all elements
         applyTranslations(lang);
+        // Retry after a short delay to ensure all elements are translated
+        setTimeout(function() {
+            applyTranslations(lang);
+        }, 100);
         
         // Update language attribute
         document.documentElement.lang = lang;
@@ -840,8 +859,20 @@ window.Translations = {
         }
         metaLang.setAttribute('content', currentLang);
         
-        // Apply translations for current language
-        applyTranslations(currentLang);
+        // Apply translations for current language - with multiple attempts to catch all elements
+        function applyTranslationsWithRetry(lang, retries) {
+            retries = retries || 0;
+            applyTranslations(lang);
+            
+            // Retry after a short delay to catch elements that load later (like page-title-section)
+            if (retries < 3) {
+                setTimeout(function() {
+                    applyTranslationsWithRetry(lang, retries + 1);
+                }, 200);
+            }
+        }
+        
+        applyTranslationsWithRetry(currentLang);
         
         // Update internal links to preserve language code
         updateInternalLinks();
