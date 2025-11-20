@@ -725,16 +725,6 @@ window.Translations = {
             }
         });
         
-        // Clear cached translations for page-specific elements to force retranslation
-        const pageElements = document.querySelectorAll('[data-i18n^="about."], [data-i18n^="products."], [data-i18n^="quality."], [data-i18n^="references."], [data-i18n^="news."], [data-i18n^="contact."]');
-        pageElements.forEach(function(element) {
-            const key = element.getAttribute('data-i18n');
-            if (key && originalContent[key] !== undefined) {
-                // Clear cached original content to force retranslation
-                delete originalContent[key];
-            }
-        });
-        
         // Apply translations to current page
         applyTranslations(lang);
         

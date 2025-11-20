@@ -414,6 +414,13 @@ section.page-title-section .section-title h2,
   text-decoration: none;
   position: relative;
   overflow: hidden;
+  /* Touch-friendly: minimum 44x44px for mobile */
+  min-height: 44px;
+  min-width: 44px;
+  /* Better touch interaction */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .btn::before {
@@ -1020,6 +1027,12 @@ section.page-title-section .section-title h2,
   font-size: 1rem;
   font-family: var(--font-sans);
   transition: all var(--transition-base);
+  /* Touch-friendly: minimum 44px height for mobile */
+  min-height: 44px;
+  /* Better mobile interaction */
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  touch-action: manipulation;
 }
 
 .form-input:focus,
@@ -1085,12 +1098,24 @@ section.page-title-section .section-title h2,
   
   .mobile-menu-toggle {
     display: flex;
+    /* Touch-friendly: minimum 44x44px */
+    min-width: 44px;
+    min-height: 44px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    touch-action: manipulation;
   }
   
   .mobile-menu {
     top: 70px;
     height: calc(100vh - 70px);
     min-height: calc(100vh - 70px);
+  }
+  
+  .mobile-menu .mobile-nav-links a {
+    /* Touch-friendly: minimum 44px height */
+    min-height: 44px;
+    -webkit-tap-highlight-color: rgba(47, 168, 79, 0.1);
+    touch-action: manipulation;
   }
   
   .footer-map-grid {
@@ -1100,6 +1125,12 @@ section.page-title-section .section-title h2,
   h1 { font-size: 2.5rem; }
   h2 { font-size: 2rem; }
   h3 { font-size: 1.5rem; }
+  
+  /* Ensure buttons are touch-friendly on mobile */
+  .btn {
+    min-height: 44px;
+    padding: 0.875rem 1.5rem;
+  }
   
   /* Index and About page specific responsive styles moved to index.css and about.css */
 }
