@@ -131,6 +131,32 @@ window.Translations = {
         'products.cta_title': 'Looking for a Custom Product?',
         'products.cta_text': 'Contact us for custom packaging solutions tailored to your needs. Our expert team is ready to offer you the most suitable solution!',
         
+        // Product Names and Descriptions
+        'products.bukum_burgu_sapli_canta': 'Twisted (Corkscrew) Handle Bag',
+        'products.bukum_burgu_sapli_canta_desc': 'Suitable for retail stores, restaurants, cosmetics, bakeries and various sectors.',
+        'products.flat_duz_sapli_canta': 'Flat Handle Bag',
+        'products.flat_duz_sapli_canta_desc': 'Produced from original coffee kraft, recycled coffee kraft, coated kraft and white kraft paper types.',
+        'products.el_gecmeli_canta': 'Hand-Cut Bag',
+        'products.el_gecmeli_canta_desc': 'Carrying strength increased with extra paper reinforcement applied to the hand-cut area.',
+        'products.koruksuz_pizza_canta': 'Gussetless (Pizza) Bag',
+        'products.koruksuz_pizza_canta_desc': 'Generally suitable for pizza restaurants, bakery companies and various sectors.',
+        'products.hediye_zarfi': 'Gift Envelope',
+        'products.hediye_zarfi_desc': '100% recyclable. Produced in two different options: double-sided tape and tape-free.',
+        'products.dipli_kese_kagidi': 'Gusseted Paper Bag',
+        'products.dipli_kese_kagidi_desc': 'Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option.',
+        'products.pencereli_dipli_kese_kagidi': 'Gusseted Paper Bag with Window',
+        'products.pencereli_dipli_kese_kagidi_desc': 'The window opened on the front face allows the products inside the paper bag to be visible.',
+        'products.dipsiz_kese_kagidi': 'Gussetless Paper Bag',
+        'products.dipsiz_kese_kagidi_desc': 'Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option.',
+        'products.pencereli_dipsiz_kese_kagidi': 'Gussetless Paper Bag with Window',
+        'products.pencereli_dipsiz_kese_kagidi_desc': 'Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option.',
+        'products.ambalaj_sarim_tepsi_kagidi_ve_turta': 'Packaging Wrap/Tray Paper and Tart',
+        'products.ambalaj_sarim_tepsi_kagidi_ve_turta_desc': 'Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option.',
+        
+        // Index Page Product Showcase
+        'index.products_title': 'PRODUCT GROUPS',
+        'index.products_subtitle': 'Wide product range in environmentally friendly packaging solutions',
+        
         // Contact Page
         'contact.info_title': 'Contact Information',
         'contact.form_title': 'Contact Form',
@@ -151,6 +177,39 @@ window.Translations = {
         'quality.subtitle': 'Our quality standards and sustainability approach',
         'quality.page_title': 'QUALITY',
         'quality.page_subtitle': 'Our quality standards and sustainability approach',
+        'quality.qms_title': 'Quality Management System',
+        'quality.qms_description': 'With our ISO 9001:2015 quality management system certificate, we maintain quality standards at the highest level in all our production processes. We aim to offer the highest quality products to our customers by working with the principle of continuous improvement.',
+        'quality.qms_item1': 'ISO 9001:2015 certified quality management system',
+        'quality.qms_item2': 'Regular quality control and audit processes',
+        'quality.qms_item3': 'Continuous improvement and development programs',
+        'quality.qms_item4': 'Customer satisfaction-oriented approach',
+        'quality.sustainability_title': 'Sustainability',
+        'quality.sustainability_description': 'We work for a sustainable future with our environmentally respectful production processes. We minimize our environmental impact by using recyclable materials and increasing energy efficiency.',
+        'quality.sustainability_item1': '100% recyclable material usage',
+        'quality.sustainability_item2': 'Energy efficient production processes',
+        'quality.sustainability_item3': 'Waste management and recycling programs',
+        'quality.sustainability_item4': 'Carbon footprint reduction efforts',
+        'quality.recycling_title': 'Recycling Process',
+        'quality.recycling_step1': 'Collection',
+        'quality.recycling_step1_desc': 'Collection of waste materials',
+        'quality.recycling_step2': 'Separation',
+        'quality.recycling_step2_desc': 'Separation of materials by type',
+        'quality.recycling_step3': 'Cleaning',
+        'quality.recycling_step3_desc': 'Chemical and physical cleaning',
+        'quality.recycling_step4': 'Processing',
+        'quality.recycling_step4_desc': 'Conversion to reusable raw material',
+        'quality.recycling_step5': 'Production',
+        'quality.recycling_step5_desc': 'Use in new product production',
+        'quality.compliance_title': 'Raw Material Compliance',
+        'quality.compliance_description': 'All our raw materials are selected in accordance with international standards and tested regularly. Special certified materials are used for our products that come into contact with food.',
+        'quality.compliance_item1': 'FDA Approved',
+        'quality.compliance_item1_desc': 'Food contact compliance',
+        'quality.compliance_item2': 'REACH Compliant',
+        'quality.compliance_item2_desc': 'Chemical safety standards',
+        'quality.compliance_item3': 'ISO 14001',
+        'quality.compliance_item3_desc': 'Environmental management system',
+        'quality.compliance_item4': 'FSC Certified',
+        'quality.compliance_item4_desc': 'Sustainable forest management',
         
         // References Page
         'references.page_title': 'REFERENCES',
@@ -168,6 +227,15 @@ window.Translations = {
         'news.news3_date': 'October 5, 2024',
         'news.news3_title': 'We Received Our Sustainability Certificate',
         'news.news3_excerpt': 'Our environmentally friendly production processes have been approved by international certification organizations. Our success in sustainability has been certified.',
+        'news.news4_date': 'September 28, 2024',
+        'news.news4_title': 'Our Facility Renovation Work Has Started',
+        'news.news4_excerpt': 'Work has started in our new production facility equipped with modern technology. With our new facility, we will produce more efficiently and environmentally friendly.',
+        'news.news5_date': 'September 20, 2024',
+        'news.news5_title': 'Our New Product Catalog Has Been Published',
+        'news.news5_excerpt': 'Our 2024-2025 product catalog has been published. You can review our catalog for detailed information about our new products and current prices.',
+        'news.news6_date': 'September 15, 2024',
+        'news.news6_title': 'Customer Satisfaction Survey Results',
+        'news.news6_excerpt': 'The results of the customer satisfaction survey we conducted in the first half of the year have been announced. We have gained the trust of our customers with a 98% satisfaction rate.',
         'news.coming_soon': 'News will be published here soon.',
         'news.back_to_home': 'Back to Home',
         
@@ -313,6 +381,32 @@ window.Translations = {
         'products.cta_title': 'Suchen Sie ein maßgeschneidertes Produkt?',
         'products.cta_text': 'Kontaktieren Sie uns für maßgeschneiderte Verpackungslösungen nach Ihren Bedürfnissen. Unser Expertenteam ist bereit, Ihnen die passendste Lösung anzubieten!',
         
+        // Product Names and Descriptions
+        'products.bukum_burgu_sapli_canta': 'Gedrehte (Korkenzieher) Grifftasche',
+        'products.bukum_burgu_sapli_canta_desc': 'Geeignet für Einzelhandelsgeschäfte, Restaurants, Kosmetik, Bäckereien und verschiedene Branchen.',
+        'products.flat_duz_sapli_canta': 'Flache Grifftasche',
+        'products.flat_duz_sapli_canta_desc': 'Hergestellt aus originalem Kaffeekraft, recyceltem Kaffeekraft, beschichtetem Kraft und weißem Kraftpapier.',
+        'products.el_gecmeli_canta': 'Handloch-Tasche',
+        'products.el_gecmeli_canta_desc': 'Tragfähigkeit erhöht durch zusätzliche Papierverstärkung im Handlochbereich.',
+        'products.koruksuz_pizza_canta': 'Falzlose (Pizza) Tasche',
+        'products.koruksuz_pizza_canta_desc': 'Geeignet für Pizzarestaurants, Bäckereien und verschiedene Branchen.',
+        'products.hediye_zarfi': 'Geschenkumschlag',
+        'products.hediye_zarfi_desc': '100% recycelbar. Hergestellt in zwei Varianten: doppelseitiges Klebeband und klebebandfrei.',
+        'products.dipli_kese_kagidi': 'Falz-Papiertüte',
+        'products.dipli_kese_kagidi_desc': 'Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption.',
+        'products.pencereli_dipli_kese_kagidi': 'Falz-Papiertüte mit Fenster',
+        'products.pencereli_dipli_kese_kagidi_desc': 'Das Fenster auf der Vorderseite ermöglicht es, die Produkte in der Papiertüte zu sehen.',
+        'products.dipsiz_kese_kagidi': 'Falzlose Papiertüte',
+        'products.dipsiz_kese_kagidi_desc': 'Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption.',
+        'products.pencereli_dipsiz_kese_kagidi': 'Falzlose Papiertüte mit Fenster',
+        'products.pencereli_dipsiz_kese_kagidi_desc': 'Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption.',
+        'products.ambalaj_sarim_tepsi_kagidi_ve_turta': 'Verpackungswickel/Tellerpapier und Torte',
+        'products.ambalaj_sarim_tepsi_kagidi_ve_turta_desc': 'Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption.',
+        
+        // Index Page Product Showcase
+        'index.products_title': 'PRODUKTGRUPPEN',
+        'index.products_subtitle': 'Breites Produktsortiment in umweltfreundlichen Verpackungslösungen',
+        
         // Contact Page
         'contact.info_title': 'Kontaktinformationen',
         'contact.form_title': 'Kontaktformular',
@@ -333,6 +427,39 @@ window.Translations = {
         'quality.subtitle': 'Unsere Qualitätsstandards und Nachhaltigkeitsansatz',
         'quality.page_title': 'QUALITÄT',
         'quality.page_subtitle': 'Unsere Qualitätsstandards und Nachhaltigkeitsansatz',
+        'quality.qms_title': 'Qualitätsmanagementsystem',
+        'quality.qms_description': 'Mit unserem ISO 9001:2015 Qualitätsmanagementsystem-Zertifikat halten wir Qualitätsstandards auf höchstem Niveau in allen unseren Produktionsprozessen. Wir streben danach, unseren Kunden die höchste Qualität zu bieten, indem wir nach dem Prinzip der kontinuierlichen Verbesserung arbeiten.',
+        'quality.qms_item1': 'ISO 9001:2015 zertifiziertes Qualitätsmanagementsystem',
+        'quality.qms_item2': 'Regelmäßige Qualitätskontroll- und Auditprozesse',
+        'quality.qms_item3': 'Kontinuierliche Verbesserungs- und Entwicklungsprogramme',
+        'quality.qms_item4': 'Kundenorientierter Ansatz',
+        'quality.sustainability_title': 'Nachhaltigkeit',
+        'quality.sustainability_description': 'Wir arbeiten mit unseren umweltbewussten Produktionsprozessen für eine nachhaltige Zukunft. Wir minimieren unsere Umweltauswirkungen durch die Verwendung recycelbarer Materialien und die Steigerung der Energieeffizienz.',
+        'quality.sustainability_item1': '100% recycelbare Materialverwendung',
+        'quality.sustainability_item2': 'Energieeffiziente Produktionsprozesse',
+        'quality.sustainability_item3': 'Abfallmanagement- und Recyclingprogramme',
+        'quality.sustainability_item4': 'Kohlenstoff-Fußabdruck-Reduzierungsbemühungen',
+        'quality.recycling_title': 'Recyclingprozess',
+        'quality.recycling_step1': 'Sammlung',
+        'quality.recycling_step1_desc': 'Sammlung von Abfallmaterialien',
+        'quality.recycling_step2': 'Trennung',
+        'quality.recycling_step2_desc': 'Trennung der Materialien nach Art',
+        'quality.recycling_step3': 'Reinigung',
+        'quality.recycling_step3_desc': 'Chemische und physikalische Reinigung',
+        'quality.recycling_step4': 'Verarbeitung',
+        'quality.recycling_step4_desc': 'Umwandlung in wiederverwendbares Rohmaterial',
+        'quality.recycling_step5': 'Produktion',
+        'quality.recycling_step5_desc': 'Verwendung bei der Herstellung neuer Produkte',
+        'quality.compliance_title': 'Rohstoffkonformität',
+        'quality.compliance_description': 'Alle unsere Rohstoffe werden in Übereinstimmung mit internationalen Standards ausgewählt und regelmäßig getestet. Für unsere Produkte, die mit Lebensmitteln in Kontakt kommen, werden spezielle zertifizierte Materialien verwendet.',
+        'quality.compliance_item1': 'FDA zugelassen',
+        'quality.compliance_item1_desc': 'Lebensmittelkontakt-Konformität',
+        'quality.compliance_item2': 'REACH-konform',
+        'quality.compliance_item2_desc': 'Chemische Sicherheitsstandards',
+        'quality.compliance_item3': 'ISO 14001',
+        'quality.compliance_item3_desc': 'Umweltmanagementsystem',
+        'quality.compliance_item4': 'FSC-zertifiziert',
+        'quality.compliance_item4_desc': 'Nachhaltige Forstwirtschaft',
         
         // References Page
         'references.page_title': 'REFERENZEN',
@@ -350,6 +477,15 @@ window.Translations = {
         'news.news3_date': '5. Oktober 2024',
         'news.news3_title': 'Wir haben unser Nachhaltigkeitszertifikat erhalten',
         'news.news3_excerpt': 'Unsere umweltfreundlichen Produktionsprozesse wurden von internationalen Zertifizierungsorganisationen genehmigt. Unser Erfolg in der Nachhaltigkeit wurde zertifiziert.',
+        'news.news4_date': '28. September 2024',
+        'news.news4_title': 'Unsere Anlagenerneuerungsarbeiten haben begonnen',
+        'news.news4_excerpt': 'Die Arbeiten in unserer neuen Produktionsanlage, die mit modernster Technologie ausgestattet ist, haben begonnen. Mit unserer neuen Anlage werden wir effizienter und umweltfreundlicher produzieren.',
+        'news.news5_date': '20. September 2024',
+        'news.news5_title': 'Unser neuer Produktkatalog wurde veröffentlicht',
+        'news.news5_excerpt': 'Unser Produktkatalog 2024-2025 wurde veröffentlicht. Sie können unseren Katalog für detaillierte Informationen über unsere neuen Produkte und aktuelle Preise einsehen.',
+        'news.news6_date': '15. September 2024',
+        'news.news6_title': 'Kundenzufriedenheitsumfrageergebnisse',
+        'news.news6_excerpt': 'Die Ergebnisse der Kundenzufriedenheitsumfrage, die wir im ersten Halbjahr durchgeführt haben, wurden bekannt gegeben. Wir haben das Vertrauen unserer Kunden mit einer Zufriedenheitsrate von 98% gewonnen.',
         'news.coming_soon': 'Nachrichten werden hier bald veröffentlicht.',
         'news.back_to_home': 'Zur Startseite',
         
@@ -372,6 +508,7 @@ window.Translations = {
 // ============================================================================
 // Language Switcher - Changes URL to /pages/{lang}/ format and applies translations
 // ============================================================================
+// Note: URL redirect handling is done in path-fix.js (which loads first)
 
 (function() {
     'use strict';
@@ -546,9 +683,36 @@ window.Translations = {
             newUrl = cleanBasePath + '/pages/' + lang + '/' + pageName;
         }
         
+        // Check if the requested file exists before changing URL
+        // Since Python HTTP server doesn't support .htaccess, we need to verify the file exists
+        // All language URLs should point to /pages/tr/ files, but we still need to handle navigation
+        
+        // For Python HTTP server, we need to use window.location instead of pushState
+        // because the server doesn't support URL rewriting
+        // However, we'll try pushState first and handle the error if page reloads
+        
         // Update URL in browser without reloading
         if (window.history && window.history.pushState) {
-            window.history.pushState({lang: lang}, '', newUrl);
+            try {
+                window.history.pushState({lang: lang}, '', newUrl);
+                // After URL change, check if we need to redirect on reload
+                // Store the language preference
+                try {
+                    sessionStorage.setItem('currentLang', lang);
+                    sessionStorage.setItem('currentUrl', newUrl);
+                    sessionStorage.setItem('trUrl', (basePath === '/' || basePath === '') ? '/pages/tr/' + pageName : basePath.replace(/\/$/, '') + '/pages/tr/' + pageName);
+                } catch (e) {
+                    // Silently ignore - sessionStorage might not be available
+                }
+            } catch (e) {
+                // If pushState fails, use location.href (will reload page)
+                window.location.href = (basePath === '/' || basePath === '') ? '/pages/tr/' + pageName : basePath.replace(/\/$/, '') + '/pages/tr/' + pageName;
+                return;
+            }
+        } else {
+            // Fallback for browsers without history API
+            window.location.href = (basePath === '/' || basePath === '') ? '/pages/tr/' + pageName : basePath.replace(/\/$/, '') + '/pages/tr/' + pageName;
+            return;
         }
         
         // Clear cached translations for page-specific elements to force retranslation
@@ -627,12 +791,49 @@ window.Translations = {
         });
     }
 
+    // Handle popstate event (browser back/forward or URL change)
+    window.addEventListener('popstate', function(event) {
+        // When URL changes (e.g., from back/forward button), reinitialize
+        setTimeout(function() {
+            const currentLang = getCurrentLang();
+            applyTranslations(currentLang);
+            updateInternalLinks();
+            setupLanguageButtons(currentLang);
+        }, 50);
+    });
+    
+    // Handle page reload with language in URL
+    // Note: The actual redirect is handled by the immediate function at the top of this file
+    // This function just ensures the URL is correct after redirect
+    function handleLanguageUrlOnLoad() {
+        // Check if we just completed a redirect
+        const savedTargetLang = sessionStorage.getItem('targetLang');
+        const savedTargetUrl = sessionStorage.getItem('targetUrl');
+        
+        if (savedTargetLang && savedTargetUrl && window.history && window.history.replaceState) {
+            // Restore language URL without reload (if not already done)
+            const currentUrl = window.location.pathname + window.location.search;
+            if (currentUrl !== savedTargetUrl) {
+                window.history.replaceState({lang: savedTargetLang}, '', savedTargetUrl);
+            }
+            sessionStorage.removeItem('targetLang');
+            sessionStorage.removeItem('targetUrl');
+        }
+        
+        return true; // Continue with normal initialization
+    }
+    
     // Function to initialize
     function init() {
         // Wait for Translations object to be available
         if (!window.Translations) {
             setTimeout(init, 50);
             return;
+        }
+        
+        // CRITICAL FIX: Handle language URL on page load (before translations)
+        if (!handleLanguageUrlOnLoad()) {
+            return; // Page is redirecting, will restart after redirect
         }
         
         const currentLang = getCurrentLang();

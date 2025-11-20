@@ -154,28 +154,35 @@
 }
 
 .gallery-item {
-  position: relative;
+  position: relative !important;
   border-radius: var(--border-radius-lg);
-  overflow: visible; /* Overflow'u visible yap - padding görünsün */
+  overflow: visible !important; /* Overflow'u visible yap - padding görünsün */
   cursor: pointer;
   aspect-ratio: 1;
-  background: var(--gray-100);
-  padding: 3rem; /* Görselin etrafında çok daha fazla boşluk bırak */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--gray-100) !important;
+  padding: 4rem !important; /* Görselin etrafında çok daha fazla boşluk bırak */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
 }
 
 .gallery-item img {
-  width: 50% !important; /* Görseli %50'ye küçült - çok daha uzaktan görünsün */
-  height: 50% !important; /* Görseli %50'ye küçült */
-  max-width: 50% !important;
-  max-height: 50% !important;
+  width: 30% !important; /* Görseli %30'a küçült - çok daha uzaktan görünsün */
+  height: 30% !important; /* Görseli %30'a küçült */
+  max-width: 30% !important;
+  max-height: 30% !important;
+  min-width: 30% !important;
+  min-height: 30% !important;
   object-fit: contain !important; /* Görseli uzaklaştır - tam görünsün */
   object-position: center center !important; /* Merkezde konumlandır */
-  transition: transform 0.3s ease;
-  display: block;
-  margin: 0 auto;
+  transition: transform 0.3s ease !important;
+  display: block !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
 }
 
 .gallery-item:hover img {
@@ -420,14 +427,28 @@
   }
   
   .gallery-item {
-    padding: 1rem; /* Mobilde biraz daha az padding */
+    padding: 3rem !important; /* Mobilde de yeterli padding */
+    overflow: visible !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   
   .gallery-item img {
-    width: 60% !important; /* Mobilde daha da küçült */
-    height: 60% !important;
-    max-width: 60% !important;
-    max-height: 60% !important;
+    width: 25% !important; /* Mobilde çok daha küçült - %25 */
+    height: 25% !important;
+    max-width: 25% !important;
+    max-height: 25% !important;
+    min-width: 25% !important;
+    min-height: 25% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    display: block !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    box-sizing: border-box !important;
   }
   
   .process-steps {

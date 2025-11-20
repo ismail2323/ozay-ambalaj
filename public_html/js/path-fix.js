@@ -5,6 +5,83 @@
  * MUST BE LOADED FIRST in all HTML pages
  */
 
+// CRITICAL: Handle URL redirect BEFORE anything else (for Python HTTP server compatibility)
+// This must run immediately, before DOM is ready
+(function handleUrlRedirectImmediate() {
+    'use strict';
+    
+    var pathname = window.location.pathname || '/';
+    var langMatch = pathname.match(/\/pages\/(tr|en|de)\/(.+)$/);
+    
+    // Only handle if URL contains /pages/en/ or /pages/de/ (non-Turkish languages)
+    if (langMatch && (langMatch[1] === 'en' || langMatch[1] === 'de')) {
+        var targetLang = langMatch[1];
+        var pageName = langMatch[2];
+        
+        // Calculate base path
+        var basePath = '/';
+        var pagesIndex = pathname.indexOf('/pages/');
+        if (pagesIndex > 0) {
+            basePath = pathname.substring(0, pagesIndex);
+            if (!basePath.endsWith('/')) {
+                basePath += '/';
+            }
+        }
+        
+        // Build Turkish URL (actual file location)
+        var trUrl = (basePath === '/' || basePath === '') 
+            ? '/pages/tr/' + pageName 
+            : basePath.replace(/\/$/, '') + '/pages/tr/' + pageName;
+        
+        // Build language URL (desired URL to show)
+        var langUrl = (basePath === '/' || basePath === '') 
+            ? '/pages/' + targetLang + '/' + pageName 
+            : basePath.replace(/\/$/, '') + '/pages/' + targetLang + '/' + pageName;
+        
+        // Check if we're already in a redirect loop
+        var redirectKey = 'redirecting_' + targetLang + '_' + pageName;
+        var isRedirecting = false;
+        try {
+            isRedirecting = sessionStorage.getItem(redirectKey) === 'true';
+        } catch (e) {
+            // sessionStorage might not be available
+        }
+        
+        if (!isRedirecting) {
+            // First time - redirect to Turkish file
+            try {
+                sessionStorage.setItem(redirectKey, 'true');
+                sessionStorage.setItem('targetLang', targetLang);
+                sessionStorage.setItem('targetUrl', langUrl);
+                sessionStorage.setItem('trUrl', trUrl);
+            } catch (e) {
+                // sessionStorage might not be available, continue anyway
+            }
+            
+            // Redirect to actual file location
+            window.location.replace(trUrl);
+            return; // Stop execution
+        } else {
+            // We've been redirected - restore the language URL
+            try {
+                sessionStorage.removeItem(redirectKey);
+                var savedTargetLang = sessionStorage.getItem('targetLang');
+                var savedTargetUrl = sessionStorage.getItem('targetUrl');
+                
+                if (savedTargetLang && savedTargetUrl && window.history && window.history.replaceState) {
+                    // Restore language URL without reload
+                    window.history.replaceState({lang: savedTargetLang}, '', savedTargetUrl);
+                    sessionStorage.removeItem('targetLang');
+                    sessionStorage.removeItem('targetUrl');
+                    sessionStorage.removeItem('trUrl');
+                }
+            } catch (e) {
+                // sessionStorage might not be available
+            }
+        }
+    }
+})();
+
 (function() {
     'use strict';
 
