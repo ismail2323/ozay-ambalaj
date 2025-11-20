@@ -155,7 +155,7 @@
   height: 300px;
   object-fit: contain;
   object-position: center;
-  background-color: var(--gray-50);
+  background-color: transparent;
   padding: 1rem;
   display: block;
 }

@@ -168,7 +168,7 @@ window.Translations = {
         // Contact Page
         'contact.address_text': 'Sample Neighborhood, Sample Street No:1<br>34000 Istanbul, Turkey',
         'contact.address_text_footer': 'Sample Neighborhood, Sample Street No:1<br>Istanbul, Turkey',
-        'contact.phone_number': '0 (541) 903 08 78',
+        'contact.phone_number': '0 (535) 468 19 68',
         'contact.email_address': 'info@ozay-ambalaj.com',
         
         // Quality Page
@@ -344,7 +344,7 @@ window.Translations = {
         // Contact Page
         'contact.address_text': 'Beispielviertel, Beispielstraße Nr. 1<br>34000 Istanbul, Türkei',
         'contact.address_text_footer': 'Beispielviertel, Beispielstraße Nr. 1<br>Istanbul, Türkei',
-        'contact.phone_number': '0 (541) 903 08 78',
+        'contact.phone_number': '0 (535) 468 19 68',
         'contact.email_address': 'info@ozay-ambalaj.com',
         
         // Quality Page
