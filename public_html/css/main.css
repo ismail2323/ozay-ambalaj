@@ -498,8 +498,11 @@ section.page-title-section .section-title h2,
   left: 0;
   right: 0;
   z-index: 1000;
-  background: var(--white);
-  box-shadow: var(--shadow-md);
+  /* Üst paneldeki beyaz kartı hafif şeffaf yapıp arka planı göstermesi için */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
               box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateY(0);

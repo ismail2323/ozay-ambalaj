@@ -123,6 +123,21 @@
   color: white;
 }
 
+/* Hero text below video */
+.hero-below .section-title {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.hero-below-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--gray-900);
+}
+
 /* ==========================================================================
    Product Grid
    ========================================================================== */
@@ -183,6 +198,75 @@
   gap: var(--spacing-md);
 }
 
+/* ==========================================================================
+   Numbers Section - Sayılarla Öz-Ay Ambalaj
+   ========================================================================== */
+.numbers-section {
+  background: var(--gray-50);
+  padding-top: var(--spacing-3xl);
+  padding-bottom: var(--spacing-3xl);
+}
+
+.numbers-section .section-title {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.numbers-section .section-subtitle {
+  font-size: 1.05rem;
+  color: var(--gray-700);
+}
+
+.numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-3xl);
+}
+
+.number-card {
+  background: var(--white);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+
+.number-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin: 0 auto 0.75rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  background: radial-gradient(circle at 30% 20%, #ffffff 0%, #25D366 40%, #1c8f4f 100%);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+}
+
+.number-brand {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  margin-bottom: 0.35rem;
+}
+
+.number-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--green-primary);
+  margin-bottom: 0.5rem;
+}
+
+.number-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--gray-800);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 /* ==========================================================================
    Sustainability Block
    ========================================================================== */

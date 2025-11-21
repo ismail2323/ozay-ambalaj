@@ -205,7 +205,7 @@
             if (currentScroll <= 0) {
                 header.classList.remove('header-hidden');
             }
-            
+
             lastScroll = currentScroll;
         });
     }
