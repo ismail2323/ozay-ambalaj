@@ -1,5 +1,5 @@
 # Öz-Ay Ambalaj ve Plastik - Robots.txt
-# https://www.ozay-ambalaj.com
+# https://www.ozayambalaj.com
 
 User-agent: *
 Allow: /
@@ -11,10 +11,10 @@ Disallow: /.htaccess
 Disallow: /.env
 
 # Sitemaps
-Sitemap: https://www.ozay-ambalaj.com/sitemap.xml
-Sitemap: https://www.ozay-ambalaj.com/sitemap-tr.xml
-Sitemap: https://www.ozay-ambalaj.com/sitemap-en.xml
-Sitemap: https://www.ozay-ambalaj.com/sitemap-de.xml
+Sitemap: https://www.ozayambalaj.com/sitemap.xml
+Sitemap: https://www.ozayambalaj.com/sitemap-tr.xml
+Sitemap: https://www.ozayambalaj.com/sitemap-en.xml
+Sitemap: https://www.ozayambalaj.com/sitemap-de.xml
 
 # Allow search engines to crawl CSS and JS
 User-agent: *

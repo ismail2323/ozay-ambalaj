@@ -8,21 +8,21 @@
 
 // SMTP Configuration
 // IMPORTANT: SMTP_PASS değerini gerçek şifre ile değiştirin!
-// cPanel > Email Accounts > info@ozay-ambalaj.com > şifreyi kopyalayın
-define('SMTP_HOST', 'mail.ozay-ambalaj.com'); // Your SMTP server
+// cPanel > Email Accounts > info@ozayambalaj.com > şifreyi kopyalayın
+define('SMTP_HOST', 'mail.ozayambalaj.com'); // Your SMTP server
 define('SMTP_PORT', 587); // TLS port (or 465 for SSL)
-define('SMTP_USER', 'info@ozay-ambalaj.com'); // SMTP username
+define('SMTP_USER', 'info@ozayambalaj.com'); // SMTP username
 define('SMTP_PASS', 'YOUR_SMTP_PASSWORD_HERE'); // SMTP password - GERÇEK ŞİFRE İLE DEĞİŞTİRİN!
 
 // Email Recipients
-define('MAIL_TO_SALES', 'info@ozay-ambalaj.com'); // Sales inquiries
-define('MAIL_TO_HR', 'hr@ozay-ambalaj.com'); // HR applications
-define('MAIL_FROM', 'noreply@ozay-ambalaj.com'); // From address
+define('MAIL_TO_SALES', 'info@ozayambalaj.com'); // Sales inquiries
+define('MAIL_TO_HR', 'hr@ozayambalaj.com'); // HR applications
+define('MAIL_FROM', 'noreply@ozayambalaj.com'); // From address
 
 // Site Configuration
 define('SITE_NAME', 'Öz-Ay Ambalaj ve Plastik');
-// XAMPP Local Development
-define('SITE_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/ozay-ambalaj/public_html');
+// Base site URL - cPanel ve local ortamlarla uyumlu (alt dizin eklemez)
+define('SITE_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']);
 
 // Security
 define('RECAPTCHA_SITE_KEY', ''); // Optional: Add your reCAPTCHA site key

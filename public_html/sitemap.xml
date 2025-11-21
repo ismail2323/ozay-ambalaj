@@ -4,58 +4,58 @@
   
   <!-- Turkish Pages -->
   <url>
-    <loc>https://www.ozay-ambalaj.com/pages/tr/index.html</loc>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://www.ozay-ambalaj.com/pages/tr/index.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ozay-ambalaj.com/pages/en/index.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.ozay-ambalaj.com/pages/de/index.html"/>
+    <loc>https://www.ozayambalaj.com/pages/tr/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.ozayambalaj.com/pages/tr/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ozayambalaj.com/pages/en/index.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.ozayambalaj.com/pages/de/index.html"/>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
-    <loc>https://www.ozay-ambalaj.com/pages/tr/about.html</loc>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://www.ozay-ambalaj.com/pages/tr/about.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ozay-ambalaj.com/pages/en/about.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.ozay-ambalaj.com/pages/de/about.html"/>
+    <loc>https://www.ozayambalaj.com/pages/tr/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.ozayambalaj.com/pages/tr/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ozayambalaj.com/pages/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.ozayambalaj.com/pages/de/about.html"/>
     <lastmod>2024-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://www.ozay-ambalaj.com/pages/tr/products.html</loc>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://www.ozay-ambalaj.com/pages/tr/products.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ozay-ambalaj.com/pages/en/products.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.ozay-ambalaj.com/pages/de/products.html"/>
+    <loc>https://www.ozayambalaj.com/pages/tr/products.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.ozayambalaj.com/pages/tr/products.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ozayambalaj.com/pages/en/products.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.ozayambalaj.com/pages/de/products.html"/>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   
   <url>
-    <loc>https://www.ozay-ambalaj.com/pages/tr/quality.html</loc>
+    <loc>https://www.ozayambalaj.com/pages/tr/quality.html</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://www.ozay-ambalaj.com/pages/tr/references.html</loc>
+    <loc>https://www.ozayambalaj.com/pages/tr/references.html</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://www.ozay-ambalaj.com/pages/tr/news.html</loc>
+    <loc>https://www.ozayambalaj.com/pages/tr/news.html</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://www.ozay-ambalaj.com/pages/tr/contact.html</loc>
+    <loc>https://www.ozayambalaj.com/pages/tr/contact.html</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -63,7 +63,7 @@
   
   <!-- Product Pages -->
   <url>
-    <loc>https://www.ozay-ambalaj.com/pages/tr/product-kutu.html</loc>
+    <loc>https://www.ozayambalaj.com/pages/tr/product-kutu.html</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

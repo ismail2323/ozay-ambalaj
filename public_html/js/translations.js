@@ -160,6 +160,23 @@ window.Translations = {
         // Index Page Product Showcase
         'index.products_title': 'PRODUCT GROUPS',
         'index.products_subtitle': 'Wide product range in environmentally friendly packaging solutions',
+
+        // Index Page Numbers Section
+        'numbers.title': 'ÖZ-AY PACKAGING IN NUMBERS',
+        'numbers.subtitle': 'With our team, equipment, product variety and machinery capable of exporting to all over the world, our company has always been a pioneering organization in its sector with its strong-experienced general management, competent engineering team, architecture-design-production staff and competitive pricing policy.',
+        'numbers.brand': 'Öz-Ay Packaging',
+        'numbers.year': '2015',
+        'numbers.year_label': 'YEAR OF ESTABLISHMENT',
+        'numbers.customers': '1000+',
+        'numbers.customers_label': 'HAPPY CUSTOMERS',
+        'numbers.capacity': '6kg',
+        'numbers.capacity_label': 'BAG CARRYING CAPACITY',
+        'numbers.export_countries': '60+',
+        'numbers.export_countries_label': 'EXPORT TO COUNTRIES',
+        'numbers.colors': '8 colors',
+        'numbers.colors_label': 'FLEXO PRINTING',
+        'numbers.recycling': '100%',
+        'numbers.recycling_label': 'RECYCLING',
         
         // Contact Page
         'contact.info_title': 'Contact Information',
@@ -247,7 +264,7 @@ window.Translations = {
         'contact.address_text': 'Tem34 İkitelli iosb mahallesi Pik Dökümcüler Sanayi Sitesi no:27/263<br>34944 Başakşehir/İstanbul',
         'contact.address_text_footer': 'Tem34 İkitelli iosb mahallesi Pik Dökümcüler Sanayi Sitesi no:27/263<br>34944 Başakşehir/İstanbul',
         'contact.phone_number': '0 (535) 468 19 68',
-        'contact.email_address': 'info@ozay-ambalaj.com',
+        'contact.email_address': 'info@ozayambalaj.com',
         
         // Quality Page
         'quality.coming_soon': 'Our quality policy and documents will be available here soon.',
@@ -263,7 +280,7 @@ window.Translations = {
         'nav.home': 'Startseite',
         'nav.about': 'Über uns',
         'nav.products': 'Produkte',
-        'nav.catalog': 'Katalog',
+        'nav.catalog': 'Produktkatalog',
         'nav.quality': 'Qualität',
         'nav.references': 'Referenzen',
         'nav.contact': 'Kontakt',
@@ -413,6 +430,23 @@ window.Translations = {
         // Index Page Product Showcase
         'index.products_title': 'PRODUKTGRUPPEN',
         'index.products_subtitle': 'Breites Produktsortiment in umweltfreundlichen Verpackungslösungen',
+
+        // Index Page Numbers Section
+        'numbers.title': 'ZAHLEN ZU ÖZ-AY VERPACKUNG',
+        'numbers.subtitle': 'Mit unserem Team, unserer Ausstattung, Produktvielfalt und Maschinerie, die in die ganze Welt exportieren kann, ist unser Unternehmen dank seiner starken und erfahrenen Geschäftsführung, seinem kompetenten Ingenieurteam, seinen Architektur-, Design- und Produktionsmitarbeitern sowie seiner wettbewerbsfähigen Preispolitik ein führendes Unternehmen in der Branche.',
+        'numbers.brand': 'Öz-Ay Verpackung',
+        'numbers.year': '2015',
+        'numbers.year_label': 'GRÜNDUNGSJAHR',
+        'numbers.customers': '1000+',
+        'numbers.customers_label': 'ZUFRIEDENE KUNDEN',
+        'numbers.capacity': '6kg',
+        'numbers.capacity_label': 'TRAGKAPAZITÄT DER TASCHE',
+        'numbers.export_countries': '60+',
+        'numbers.export_countries_label': 'EXPORT IN LÄNDER',
+        'numbers.colors': '8 Farben',
+        'numbers.colors_label': 'FLEXODRUCK',
+        'numbers.recycling': '100%',
+        'numbers.recycling_label': 'RECYCLING',
         
         // Contact Page
         'contact.info_title': 'Kontaktinformationen',
@@ -500,7 +534,7 @@ window.Translations = {
         'contact.address_text': 'Tem34 İkitelli iosb mahallesi Pik Dökümcüler Sanayi Sitesi no:27/263<br>34944 Başakşehir/İstanbul',
         'contact.address_text_footer': 'Tem34 İkitelli iosb mahallesi Pik Dökümcüler Sanayi Sitesi no:27/263<br>34944 Başakşehir/İstanbul',
         'contact.phone_number': '0 (535) 468 19 68',
-        'contact.email_address': 'info@ozay-ambalaj.com',
+        'contact.email_address': 'info@ozayambalaj.com',
         
         // Quality Page
         'quality.coming_soon': 'Unsere Qualitätspolitik und Dokumente werden hier bald verfügbar sein.',
@@ -625,8 +659,9 @@ window.Translations = {
         });
     }
 
-    // Function to get current language from URL
-    // URL format: baseurl/pages/{lang}/page.html (e.g., /pages/tr/index.html, /pages/en/index.html)
+    // Function to get current language
+    // Primary source: URL format baseurl/pages/{lang}/page.html (e.g., /pages/tr/index.html)
+    // Fallback: stored preferredLanguage in localStorage (for static servers without URL rewriting)
     function getCurrentLang() {
         const pathname = window.location.pathname;
         
@@ -644,96 +679,27 @@ window.Translations = {
             const lang = langMatch[1];
             return lang;
         }
-        
+
+        // Fallback: stored language preference
+        try {
+            const stored = localStorage.getItem('preferredLanguage');
+            if (stored === 'tr' || stored === 'en' || stored === 'de') {
+                return stored;
+            }
+        } catch (e) {
+            // localStorage might be unavailable; ignore
+        }
+
         return 'tr'; // Default
     }
 
     // Function to change language (applies translations on current page)
-    // Since we don't have separate EN/DE pages, we apply translations dynamically
+    // We apply translations dynamically WITHOUT changing the physical URL,
+    // so that static servers (Python/Node/http-server) don't return 404 on refresh.
     function changeLanguage(lang) {
         // If clicking the same language, do nothing
         const currentLang = getCurrentLang();
         if (currentLang === lang) {
-            return;
-        }
-        
-        // Update URL without reloading (using History API)
-        const currentPath = window.location.pathname;
-        const basePath = window.__BASE_PATH || '/';
-        
-        // Extract current page name
-        let pageName = 'index.html';
-        
-        // Try to extract page name from current URL
-        if (currentPath.includes('/pages/')) {
-            const pagesMatch = currentPath.match(/\/pages\/(tr|en|de)\/(.+)$/);
-            if (pagesMatch) {
-                pageName = pagesMatch[2] || 'index.html';
-            } else {
-                const parts = currentPath.split('/pages/');
-                if (parts.length > 1) {
-                    const pathAfterPages = parts[1];
-                    const pathParts = pathAfterPages.split('/');
-                    if (pathParts.length > 1) {
-                        pageName = pathParts.slice(1).join('/') || 'index.html';
-                    } else {
-                        pageName = 'index.html';
-                    }
-                }
-            }
-        } else {
-            const parts = currentPath.split('/').filter(function(p) { return p; });
-            if (parts.length > 0) {
-                const lastPart = parts[parts.length - 1];
-                if (lastPart.endsWith('.html')) {
-                    pageName = lastPart;
-                }
-            }
-        }
-        
-        // Ensure pageName is not empty
-        if (!pageName || pageName === '') {
-            pageName = 'index.html';
-        }
-        
-        // Build new URL: /pages/{lang}/{pageName}
-        let newUrl;
-        if (basePath === '/' || basePath === '') {
-            newUrl = '/pages/' + lang + '/' + pageName;
-        } else {
-            const cleanBasePath = basePath.replace(/\/$/, '');
-            newUrl = cleanBasePath + '/pages/' + lang + '/' + pageName;
-        }
-        
-        // Check if the requested file exists before changing URL
-        // Since Python HTTP server doesn't support .htaccess, we need to verify the file exists
-        // All language URLs should point to /pages/tr/ files, but we still need to handle navigation
-        
-        // For Python HTTP server, we need to use window.location instead of pushState
-        // because the server doesn't support URL rewriting
-        // However, we'll try pushState first and handle the error if page reloads
-        
-        // Update URL in browser without reloading
-        if (window.history && window.history.pushState) {
-            try {
-                window.history.pushState({lang: lang}, '', newUrl);
-                // After URL change, check if we need to redirect on reload
-                // Store the language preference
-                try {
-                    sessionStorage.setItem('currentLang', lang);
-                    sessionStorage.setItem('currentUrl', newUrl);
-                    sessionStorage.setItem('trUrl', (basePath === '/' || basePath === '') ? '/pages/tr/' + pageName : basePath.replace(/\/$/, '') + '/pages/tr/' + pageName);
-                } catch (e) {
-                    // Silently ignore - sessionStorage might not be available
-                }
-            } catch (e) {
-                // If pushState fails, use location.href (will reload page)
-                window.location.href = (basePath === '/' || basePath === '') ? '/pages/tr/' + pageName : basePath.replace(/\/$/, '') + '/pages/tr/' + pageName;
-                return;
-            }
-        } else {
-            // Fallback for browsers without history API
-            window.location.href = (basePath === '/' || basePath === '') ? '/pages/tr/' + pageName : basePath.replace(/\/$/, '') + '/pages/tr/' + pageName;
             return;
         }
         
@@ -769,7 +735,7 @@ window.Translations = {
         // Update active button state
         setupLanguageButtons(lang);
         
-        // Update internal links
+        // Update internal links (no longer add /en or /de prefixes, just normalize paths)
         updateInternalLinks();
         
         // Save language preference to localStorage
@@ -780,31 +746,13 @@ window.Translations = {
         }
     }
 
-    // Function to update internal links to preserve language code
-    // URL format: baseurl/pages/{lang}/page.html (e.g., /pages/tr/index.html, /pages/en/index.html)
+    // Function to update internal links
+    // NOTE: We keep original relative URLs (about.html, contact.html, etc.)
+    // to avoid 404 errors on static servers when refreshing in EN/DE.
     function updateInternalLinks() {
-        const currentLang = getCurrentLang();
-        const basePath = window.__BASE_PATH || '/';
-        
-        // Update all internal links to include language code
-        const links = document.querySelectorAll('a[href]');
-        links.forEach(function(link) {
-            const href = link.getAttribute('href');
-            if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
-                // Skip if already has /pages/{lang}/ format
-                if (!href.match(/\/pages\/(tr|en|de)\//)) {
-                    // Skip if has /{lang}/ format (will be redirected by .htaccess)
-                    if (!href.match(/^\/(tr|en|de)\//)) {
-                        // If it's a relative link to an HTML file
-                        if (href.endsWith('.html') || href === '' || href === '/') {
-                            const cleanHref = href.replace(/^\.\//, '').replace(/^\//, '') || 'index.html';
-                            const newHref = basePath.replace(/\/$/, '') + '/pages/' + currentLang + '/' + cleanHref;
-                            link.setAttribute('href', newHref);
-                        }
-                    }
-                }
-            }
-        });
+        // Intentionally left minimal: do not rewrite URLs with /en or /de prefixes.
+        // All links continue to point to the actual physical files under /pages/tr/.
+        return;
     }
 
     // Handle popstate event (browser back/forward or URL change)

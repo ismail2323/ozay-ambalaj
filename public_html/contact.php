@@ -67,7 +67,7 @@ if ($kvkk === null) {
 }
 
 // Build email content
-$to      = 'info@ozay-ambalaj.com'; // Hedef e-posta adresinizi buraya yazın
+$to      = 'info@ozayambalaj.com'; // Hedef e-posta adresinizi buraya yazın
 $subjectLine = 'İletişim Formu: ' . ($subject !== '' ? $subject : 'Yeni Mesaj');
 
 $body  = "<h2>Web Sitesi İletişim Formu</h2>";

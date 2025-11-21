@@ -13,7 +13,7 @@
 Terminal'de şu komutu çalıştır:
 
 ```powershell
-Set-Location "D:\Projeler\ozay-ambalaj\public_html"
+Set-Location "C:\Users\23ism\Desktop\ozay-ambalaj\ozay-ambalaj\public_html"
 python -m http.server 8080
 ```
 
@@ -23,7 +23,7 @@ Sonra browser'da: `http://localhost:8080/pages/tr/index.html`
 
 ```powershell
 npm install -g http-server
-cd D:\Projeler\ozay-ambalaj\public_html
+cd C:\Users\23ism\Desktop\ozay-ambalaj\ozay-ambalaj\public_html
 http-server -p 8080
 ```
 
