@@ -526,7 +526,8 @@ section.page-title-section .section-title h2,
 }
 
 .nav {
-  margin-right: calc(var(--spacing-sm) * -1);
+  /* Menü ve dil seçimlerini biraz daha sola yaklaştırmak için sağ marjı sıfırladık */
+  margin-right: 0;
 }
 
 .logo img {
@@ -549,6 +550,11 @@ section.page-title-section .section-title h2,
   gap: var(--spacing-lg);
   list-style: none;
   margin: 0;
+  /* Menü ile sağdaki bayraklar arasında ekstra boşluk bırakıp,
+     menü başlıklarını logo ile bayraklar arasında daha dengeli konumlandırmak için */
+  margin-right: var(--spacing-xl);
+  /* Menü başlıklarını logoya daha da yaklaştırmak için (biraz daha sola al) */
+  transform: translateX(-95px);
   padding: 0;
 }
 

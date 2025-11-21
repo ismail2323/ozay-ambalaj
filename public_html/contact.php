@@ -1,4 +1,114 @@
 <?php
+// Simple contact form handler with SMTP-ready structure.
+// NOTE: This version uses PHP's mail() by default.
+// For real SMTP (Gmail, Outlook, etc.), replace the sendMail() function with PHPMailer or your host's SMTP library.
+
+header('Content-Type: application/json; charset=utf-8');
+
+// Allow only POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode([
+        'ok' => false,
+        'message' => 'Geçersiz istek yöntemi.'
+    ]);
+    exit;
+}
+
+// Basic CSRF / origin hardening (optional, can be relaxed if needed)
+// if (!isset($_SERVER['HTTP_ORIGIN']) || strpos($_SERVER['HTTP_ORIGIN'], $_SERVER['HTTP_HOST']) === false) {
+//     http_response_code(400);
+//     echo json_encode(['ok' => false, 'message' => 'Geçersiz istek.']);
+//     exit;
+// }
+
+// Honeypot – bots doldurursa reddet
+$honeypot = isset($_POST['website']) ? trim($_POST['website']) : '';
+if ($honeypot !== '') {
+    echo json_encode([
+        'ok' => true,
+        'message' => 'Mesajınız başarıyla gönderildi.' // Botlara gerçek sonucu göstermeyelim
+    ]);
+    exit;
+}
+
+// Form fields
+$name    = isset($_POST['name']) ? trim($_POST['name']) : '';
+$email   = isset($_POST['email']) ? trim($_POST['email']) : '';
+$phone   = isset($_POST['phone']) ? trim($_POST['phone']) : '';
+$company = isset($_POST['company']) ? trim($_POST['company']) : '';
+$subject = isset($_POST['subject']) ? trim($_POST['subject']) : '';
+$message = isset($_POST['message']) ? trim($_POST['message']) : '';
+$kvkk    = isset($_POST['kvkk']) ? $_POST['kvkk'] : null;
+
+// Validation
+if ($name === '' || $email === '' || $message === '') {
+    echo json_encode([
+        'ok' => false,
+        'message' => 'Lütfen zorunlu alanları doldurun (Ad Soyad, E-posta, Mesaj).'
+    ]);
+    exit;
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode([
+        'ok' => false,
+        'message' => 'Lütfen geçerli bir e-posta adresi girin.'
+    ]);
+    exit;
+}
+
+if ($kvkk === null) {
+    echo json_encode([
+        'ok' => false,
+        'message' => 'KVKK metnini onaylamadan formu gönderemezsiniz.'
+    ]);
+    exit;
+}
+
+// Build email content
+$to      = 'info@ozay-ambalaj.com'; // Hedef e-posta adresinizi buraya yazın
+$subjectLine = 'İletişim Formu: ' . ($subject !== '' ? $subject : 'Yeni Mesaj');
+
+$body  = "<h2>Web Sitesi İletişim Formu</h2>";
+$body .= "<p><strong>Ad Soyad:</strong> " . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . "</p>";
+$body .= "<p><strong>E-posta:</strong> " . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . "</p>";
+if ($phone !== '') {
+    $body .= "<p><strong>Telefon:</strong> " . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . "</p>";
+}
+if ($company !== '') {
+    $body .= "<p><strong>Firma:</strong> " . htmlspecialchars($company, ENT_QUOTES, 'UTF-8') . "</p>";
+}
+if ($subject !== '') {
+    $body .= "<p><strong>Konu:</strong> " . htmlspecialchars($subject, ENT_QUOTES, 'UTF-8') . "</p>";
+}
+$body .= "<p><strong>Mesaj:</strong><br>" . nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8')) . "</p>";
+$body .= "<hr><p>Bu e-posta, web sitesindeki iletişim formundan otomatik olarak gönderilmiştir.</p>";
+
+// Headers
+$headers   = [];
+$headers[] = 'MIME-Version: 1.0';
+$headers[] = 'Content-type: text/html; charset=utf-8';
+$headers[] = 'From: Öz-Ay Ambalaj <no-reply@' . $_SERVER['HTTP_HOST'] . '>';
+$headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
+$headers[] = 'X-Mailer: PHP/' . phpversion();
+
+$mailOk = mail($to, '=?UTF-8?B?' . base64_encode($subjectLine) . '?=', $body, implode("\r\n", $headers));
+
+if ($mailOk) {
+    echo json_encode([
+        'ok' => true,
+        'message' => 'Mesajınız başarıyla gönderildi. En kısa sürede sizinle iletişime geçeceğiz.'
+    ]);
+} else {
+    echo json_encode([
+        'ok' => false,
+        'message' => 'Mesaj gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.'
+    ]);
+}
+
+exit;
+<?php
 /**
  * Öz-Ay Ambalaj ve Plastik - Contact Form Handler
  * 

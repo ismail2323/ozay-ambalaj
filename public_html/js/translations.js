@@ -9,6 +9,7 @@ window.Translations = {
         'nav.home': 'Home',
         'nav.about': 'About Us',
         'nav.products': 'Products',
+        'nav.catalog': 'Catalog',
         'nav.quality': 'Quality',
         'nav.references': 'References',
         'nav.contact': 'Contact',
@@ -40,6 +41,10 @@ window.Translations = {
         'references.subtitle': 'We serve Turkey\'s leading brands',
         'references.all_references': 'All References',
         
+        // Catalog Page
+        'catalog.page_title': 'Product Catalog',
+        'catalog.page_subtitle': 'Browse Öz-Ay Packaging\'s bag, paper bag, plastic bag and special packaging solutions on a single page.',
+        
         // News
         'news.title': 'News',
         'news.subtitle': 'Latest news from our company and the industry',
@@ -66,6 +71,7 @@ window.Translations = {
         'footer.quick_links': 'Quick Links',
         'footer.about': 'About Us',
         'footer.products': 'Our Products',
+        'footer.catalog': 'Catalog',
         'footer.quality': 'Quality & Sustainability',
         'footer.references': 'Our References',
         'footer.contact': 'Contact',
@@ -238,8 +244,8 @@ window.Translations = {
         'news.back_to_home': 'Back to Home',
         
         // Contact Page
-        'contact.address_text': 'Sample Neighborhood, Sample Street No:1<br>34000 Istanbul, Turkey',
-        'contact.address_text_footer': 'Sample Neighborhood, Sample Street No:1<br>Istanbul, Turkey',
+        'contact.address_text': 'Tem34 İkitelli iosb mahallesi Pik Dökümcüler Sanayi Sitesi no:27/263<br>34944 Başakşehir/İstanbul',
+        'contact.address_text_footer': 'Tem34 İkitelli iosb mahallesi Pik Dökümcüler Sanayi Sitesi no:27/263<br>34944 Başakşehir/İstanbul',
         'contact.phone_number': '0 (535) 468 19 68',
         'contact.email_address': 'info@ozay-ambalaj.com',
         
@@ -257,6 +263,7 @@ window.Translations = {
         'nav.home': 'Startseite',
         'nav.about': 'Über uns',
         'nav.products': 'Produkte',
+        'nav.catalog': 'Katalog',
         'nav.quality': 'Qualität',
         'nav.references': 'Referenzen',
         'nav.contact': 'Kontakt',
@@ -287,6 +294,10 @@ window.Translations = {
         'references.title': 'Unsere Referenzen',
         'references.subtitle': 'Wir bedienen die führenden Marken der Türkei',
         'references.all_references': 'Alle Referenzen',
+        
+        // Catalog Page
+        'catalog.page_title': 'Produktkatalog',
+        'catalog.page_subtitle': 'Sehen Sie alle Taschen-, Papiertüten-, Beutel- und Spezialverpackungslösungen von Öz-Ay Verpackung auf einer einzigen Seite.',
         
         // News
         'news.title': 'Nachrichten',
@@ -486,8 +497,8 @@ window.Translations = {
         'news.back_to_home': 'Zur Startseite',
         
         // Contact Page
-        'contact.address_text': 'Beispielviertel, Beispielstraße Nr. 1<br>34000 Istanbul, Türkei',
-        'contact.address_text_footer': 'Beispielviertel, Beispielstraße Nr. 1<br>Istanbul, Türkei',
+        'contact.address_text': 'Tem34 İkitelli iosb mahallesi Pik Dökümcüler Sanayi Sitesi no:27/263<br>34944 Başakşehir/İstanbul',
+        'contact.address_text_footer': 'Tem34 İkitelli iosb mahallesi Pik Dökümcüler Sanayi Sitesi no:27/263<br>34944 Başakşehir/İstanbul',
         'contact.phone_number': '0 (535) 468 19 68',
         'contact.email_address': 'info@ozay-ambalaj.com',
         

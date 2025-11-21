@@ -379,9 +379,12 @@
 .product-cta .container {
   position: relative;
   z-index: 2; /* İçeriği görselin üstünde */
-  background: rgba(255, 255, 255, 0.96); /* Yazıların arkasına beyaz kart */
+  /* Kartı sayfanın tamamına yakın genişlikte ve görünür tut */
+  max-width: 100%;
+  /* Kartın kendisi: hafif şeffaf beyaz arka plan, tam genişlik hissi */
+  background: rgba(255, 255, 255, 0.9);
   padding: 2.5rem 3rem;
-  border-radius: var(--border-radius-lg);
+  border-radius: 0; /* Kenarlardan tam sayfaya otursun */
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
 }
 
