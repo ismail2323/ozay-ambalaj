@@ -567,6 +567,14 @@ section.page-title-section .section-title h2,
   background: rgba(47, 168, 79, 0.1);
 }
 
+/* Eski cache'lenmiş headerlarda bile 'Bizden Haberler' / news.html linkini gizle */
+.nav-links a[href*="news.html"],
+.mobile-nav-links a[href*="news.html"],
+.nav-links a[data-i18n="nav.news"],
+.mobile-nav-links a[data-i18n="nav.news"] {
+  display: none !important;
+}
+
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
