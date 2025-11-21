@@ -379,6 +379,10 @@
 .product-cta .container {
   position: relative;
   z-index: 2; /* İçeriği görselin üstünde */
+  background: rgba(255, 255, 255, 0.96); /* Yazıların arkasına beyaz kart */
+  padding: 2.5rem 3rem;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
 }
 
 .product-cta h2 {
@@ -391,7 +395,7 @@
 .product-cta p {
   font-size: 1.25rem;
   margin-bottom: var(--spacing-xl);
-  color: var(--gray-700); /* Koyu gri renk - arka plan görseli üzerinde okunabilir */
+  color: #000000 !important; /* Alt taraftaki açıklama yazısını tüm ürünlerde siyah yap */
   text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8); /* Beyaz gölge - okunabilirlik için */
   max-width: 700px;
   margin-left: auto;
@@ -399,15 +403,18 @@
 }
 
 .product-cta .btn {
-  background: var(--white);
-  color: var(--green-primary);
+  background: var(--green-primary) !important; /* Buton arka planını yeşil yap */
+  color: #ffffff !important; /* Yazıyı beyaz yap */
+  border-color: var(--green-primary) !important;
   font-weight: 700;
   padding: 1rem 2.5rem;
   font-size: 1.125rem;
 }
 
 .product-cta .btn:hover {
-  background: var(--gray-100);
+  background: #0b7a3a !important; /* Hover için daha koyu yeşil ton */
+  color: #ffffff !important;
+  border-color: #0b7a3a !important;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }

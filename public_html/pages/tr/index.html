@@ -72,8 +72,8 @@
     <main id="main-content" role="main">
         <!-- Top Video Section - Only visible on medium screens -->
         <section class="top-video-section">
-            <video class="top-video" autoplay muted loop playsinline>
-                <source src="assets/video/video.mp4" type="video/mp4">
+            <video class="top-video" id="top-video" autoplay muted loop playsinline>
+                <source src="/assets/video/video.mp4" type="video/mp4">
                 Tarayıcınız video oynatmayı desteklemiyor.
             </video>
         </section>
@@ -339,51 +339,6 @@
             </div>
         </section>
 
-        <!-- News Preview -->
-        <section class="section" style="background: var(--gray-50);">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2 data-i18n="news.title">Bizden Haberler</h2>
-                    <p class="section-subtitle" data-i18n="news.subtitle">Şirketimizden ve sektörden son haberler</p>
-                </div>
-                
-                <div class="news-grid">
-                    <article class="news-card" data-aos="fade-up">
-                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&h=400&fit=crop" alt="Haber 1" class="news-card-image" loading="lazy">
-                        <div class="news-card-content">
-                            <div class="news-card-date" data-i18n="news.news1_date">15 Ekim 2024</div>
-                            <h3 class="news-card-title" data-i18n="news.news1_title">Yeni Üretim Hatlarımız Devreye Girdi</h3>
-                            <p class="news-card-excerpt" data-i18n="news.news1_excerpt">Kapasite artırma çalışmalarımız kapsamında yeni üretim hatlarımızı faaliyete geçirdik. Artan üretim kapasitemiz ile müşterilerimize daha hızlı hizmet sunabiliyoruz.</p>
-                            <a href="news-detail.html?id=1" class="btn btn-primary" style="margin-top: 1rem;" data-i18n="common.read_more">Devamını Oku</a>
-                        </div>
-                    </article>
-                    
-                    <article class="news-card" data-aos="fade-up">
-                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop" alt="Haber 2" class="news-card-image" loading="lazy">
-                        <div class="news-card-content">
-                            <div class="news-card-date" data-i18n="news.news2_date">10 Ekim 2024</div>
-                            <h3 class="news-card-title" data-i18n="news.news2_title">Fuar Katılımımız Tamamlandı</h3>
-                            <p class="news-card-excerpt" data-i18n="news.news2_excerpt">Bu yıl da sektörün önde gelen fuarlarından birinde yerimizi aldık. Yeni ürünlerimizi tanıttık ve değerli bağlantılar kurduk.</p>
-                            <a href="news-detail.html?id=2" class="btn btn-primary" style="margin-top: 1rem;" data-i18n="common.read_more">Devamını Oku</a>
-                        </div>
-                    </article>
-                    
-                    <article class="news-card" data-aos="fade-up">
-                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop" alt="Haber 3" class="news-card-image" loading="lazy">
-                        <div class="news-card-content">
-                            <div class="news-card-date" data-i18n="news.news3_date">5 Ekim 2024</div>
-                            <h3 class="news-card-title" data-i18n="news.news3_title">Sürdürülebilirlik Sertifikamızı Aldık</h3>
-                            <p class="news-card-excerpt" data-i18n="news.news3_excerpt">Çevre dostu üretim süreçlerimiz uluslararası sertifikasyon kuruluşları tarafından onaylandı. Sürdürülebilirlik alanındaki başarımız tescillendi.</p>
-                            <a href="news-detail.html?id=3" class="btn btn-primary" style="margin-top: 1rem;" data-i18n="common.read_more">Devamını Oku</a>
-                        </div>
-                    </article>
-                </div>
-                
-                <div style="text-align: center; margin-top: 3rem;" data-aos="fade-up">
-                    <a href="news.html" class="btn btn-secondary" data-i18n="news.all_news">Tüm Haberler</a>
-                </div>
-            </div>
-        </section>
     </main>
     
     <!-- JavaScript Files -->

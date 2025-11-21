@@ -11,7 +11,6 @@ window.Translations = {
         'nav.products': 'Products',
         'nav.quality': 'Quality',
         'nav.references': 'References',
-        'nav.news': 'News',
         'nav.contact': 'Contact',
         
         // Hero Section
@@ -69,7 +68,6 @@ window.Translations = {
         'footer.products': 'Our Products',
         'footer.quality': 'Quality & Sustainability',
         'footer.references': 'Our References',
-        'footer.news': 'News',
         'footer.contact': 'Contact',
         'footer.description': 'A pioneer in environmentally friendly and sustainable packaging solutions. A trusted brand in the industry since 2010 with a quality production and customer satisfaction-oriented service approach.',
         'footer.copyright': '© 2022 Artinlife Tech. All rights reserved.',
@@ -261,7 +259,6 @@ window.Translations = {
         'nav.products': 'Produkte',
         'nav.quality': 'Qualität',
         'nav.references': 'Referenzen',
-        'nav.news': 'Nachrichten',
         'nav.contact': 'Kontakt',
         
         // Hero Section
@@ -319,7 +316,6 @@ window.Translations = {
         'footer.products': 'Unsere Produkte',
         'footer.quality': 'Qualität & Nachhaltigkeit',
         'footer.references': 'Unsere Referenzen',
-        'footer.news': 'Nachrichten',
         'footer.contact': 'Kontakt',
         'footer.description': 'Ein Pionier in umweltfreundlichen und nachhaltigen Verpackungslösungen. Eine vertrauenswürdige Marke in der Branche seit 2010 mit einem qualitätsorientierten Produktions- und kundenorientierten Serviceansatz.',
         'footer.copyright': '© 2022 Artinlife Tech. Alle Rechte vorbehalten.',
