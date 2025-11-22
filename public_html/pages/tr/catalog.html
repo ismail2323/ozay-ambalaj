@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
+    <!-- INLINE URL Redirect - MUST BE FIRST, BEFORE ANY OTHER SCRIPT -->
+    <script>
+        (function() {
+            var pathname = window.location.pathname || '/';
+            var langMatch = pathname.match(/\/pages\/(tr|en|de)\/(.+)$/);
+            
+            // If URL contains /pages/en/ or /pages/de/, redirect to /pages/tr/ immediately
+            if (langMatch && (langMatch[1] === 'en' || langMatch[1] === 'de')) {
+                var targetLang = langMatch[1];
+                var pageName = langMatch[2];
+                var trUrl = '/pages/tr/' + pageName + window.location.search;
+                
+                // Save language preference
+                try {
+                    localStorage.setItem('preferredLanguage', targetLang);
+                    sessionStorage.setItem('targetLang', targetLang);
+                    sessionStorage.setItem('targetUrl', pathname + window.location.search);
+                } catch (e) {}
+                
+                // Redirect immediately
+                window.location.replace(trUrl);
+            }
+        })();
+    </script>
+    
     <!-- Error Handler - MUST BE FIRST to catch all errors -->
     <script src="../../js/error-handler.js"></script>
     <!-- Path Fix Script -->
@@ -23,186 +48,242 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/products.css">
+    <link rel="stylesheet" href="/css/about.css">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
     <main id="main-content" role="main" style="margin-top: var(--header-height);">
-        <!-- Page Hero Banner (ürünler sayfasındaki gibi üst görsel alanı) -->
-        <section class="page-banner" style="margin-top: var(--header-height);">
+        <!-- Page Hero with Background -->
+        <section class="about-hero-section">
+            <div class="about-hero-overlay"></div>
         </section>
-
-        <!-- Page Title Section (diğer sayfalardaki gibi sola hizalı ve yeşil çizgili) -->
-        <section class="page-title-section" style="text-align: left !important;">
-            <div class="section-title" style="text-align: left !important; margin-left: 0 !important; margin-right: auto !important; width: auto !important;">
-                <h2 style="text-align: left !important; margin-left: 0 !important; display: block !important;"
-                    data-i18n="catalog.page_title">
-                    ÜRÜN KATALOĞU
-                </h2>
-                <p class="section-subtitle" style="text-align: left !important; margin-left: 0 !important;"
-                   data-i18n="catalog.page_subtitle">
-                    Öz-Ay Ambalaj'ın çanta, kese kağıdı, poşet ve özel ambalaj çözümlerini tek sayfada inceleyin.
-                </p>
-            </div>
-        </section>
-
-        <!-- Catalog Grid (same ürünler, katalog mantığında tek tek görünüm) -->
-        <section class="section" style="padding-top: 0;">
-            <div class="container">
-                <!-- Katalog sayfasında ürünler tek tek (tek sütun) gözüksün diye ekstra sınıf verdik -->
-                <div class="product-grid catalog-grid">
+        
+        <!-- Main Content with Sidebar -->
+        <section class="about-main-section">
+            <div class="container about-container">
+                <div class="about-layout-grid">
+                    <!-- Left Sidebar Navigation -->
+                    <aside class="about-sidebar" data-aos="fade-right">
+                        <div class="sidebar-header">
+                            <div class="sidebar-logo">
+                                <img src="/assets/img/logo.png" alt="Öz-Ay Ambalaj" style="height: 40px; width: auto;">
+                            </div>
+                            <h2 class="sidebar-title" data-i18n="catalog.sidebar_title">ÜRÜNLER</h2>
+                        </div>
+                        <nav class="sidebar-nav">
+                            <ul class="sidebar-nav-links">
+                                <li><a href="/pages/tr/catalog.html" class="sidebar-link active" data-i18n="catalog.sidebar_catalog">Ürün Kataloğu</a></li>
+                                <li><a href="/pages/tr/product-bukum-burgu-sapli-canta.html" class="sidebar-link">Büküm (Burgu) Saplı Çanta</a></li>
+                                <li><a href="/pages/tr/product-flat-duz-sapli-canta.html" class="sidebar-link">Flat (Düz) Saplı Çanta</a></li>
+                                <li><a href="/pages/tr/product-el-gecmeli-canta.html" class="sidebar-link">El Geçmeli Çanta</a></li>
+                                <li><a href="/pages/tr/product-koruksuz-pizza-canta.html" class="sidebar-link">Körüksüz (Pizza) Çanta</a></li>
+                                <li><a href="/pages/tr/product-hediye-zarfi.html" class="sidebar-link">Hediye Zarfı</a></li>
+                                <li><a href="/pages/tr/product-dipli-kese-kagidi.html" class="sidebar-link">Dipli Kese Kağıdı</a></li>
+                                <li><a href="/pages/tr/product-pencereli-dipli-kese-kagidi.html" class="sidebar-link">Pencereli Dipli Kese Kağıdı</a></li>
+                                <li><a href="/pages/tr/product-dipsiz-kese-kagidi.html" class="sidebar-link">Dipsiz Kese Kağıdı</a></li>
+                                <li><a href="/pages/tr/product-pencereli-dipsiz-kese-kagidi.html" class="sidebar-link">Pencereli Dipsiz Kese Kağıdı</a></li>
+                                <li><a href="/pages/tr/product-ambalaj-sarim-tepsi-kagidi-ve-turta.html" class="sidebar-link">Ambalaj Sarım/Tepsi Kağıdı ve Turta</a></li>
+                                <li><a href="/pages/tr/product-pasta-ve-baklava-kutusu.html" class="sidebar-link">Pasta ve Baklava Kutusu</a></li>
+                                <li><a href="/pages/tr/product-baskili-plastik-poset.html" class="sidebar-link">Baskılı Plastik Poşet</a></li>
+                                <li><a href="/pages/tr/product-pasta-alti.html" class="sidebar-link">Pasta Altı</a></li>
+                            </ul>
+                        </nav>
+                    </aside>
+                    
+                    <!-- Right Content Area -->
+                    <div class="about-content">
+                        <!-- Breadcrumb -->
+                        <nav class="about-breadcrumb" aria-label="Breadcrumb">
+                            <ol class="breadcrumb-list">
+                                <li><a href="/pages/tr/index.html" data-i18n="common.home">Ana Sayfa</a></li>
+                                <li><span>/</span></li>
+                                <li class="active" data-i18n="catalog.sidebar_catalog">Ürün Kataloğu</li>
+                            </ol>
+                        </nav>
+                        
+                        <!-- Main Title -->
+                        <h1 class="about-page-title" data-aos="fade-up">Ürün Kataloğu</h1>
+                        
+                        <!-- Subtitle -->
+                        <p class="about-content-text" style="margin-bottom: var(--spacing-3xl);" data-aos="fade-up" data-aos-delay="100">
+                            Öz-Ay Ambalaj'ın çanta, kese kağıdı, poşet ve özel ambalaj çözümlerini tek sayfada inceleyin.
+                        </p>
+                        
+                        <!-- Product Grid (same as index page) -->
+                        <div class="product-grid">
                     <!-- Büküm (Burgu) Saplı Çanta -->
                     <article class="product-card" data-aos="fade-up">
-                        <div class="product-card-image-wrapper">
-                            <img src="/assets/img/products/bukum-burgu-sapli-canta.png" 
-                                 alt="Büküm (Burgu) Saplı Çanta" 
-                                 class="product-card-image" 
-                                 loading="lazy">
-                        </div>
+                        <img src="/assets/img/products/bukum-burgu-sapli-canta.png" alt="Büküm (Burgu) Saplı Çanta" class="product-card-image" loading="lazy">
                         <div class="product-card-content">
-                            <h3>Büküm (Burgu) Saplı Çanta</h3>
-                            <p>Perakende mağazaları, restoran, kozmetik, pastahane ve çeşitli sektörlerin kullanımına uygundur.</p>
-                            <a href="/pages/tr/product-bukum-burgu-sapli-canta.html" class="btn btn-outline">Detaylı İncele</a>
+                            <h3 class="product-card-title">Büküm (Burgu) Saplı Çanta</h3>
+                            <p class="product-card-description">Perakende mağazaları, restoran, kozmetik, pastahane ve çeşitli sektörlerin kullanımına uygundur.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-bukum-burgu-sapli-canta.html" class="product-detail-link">detay →</a>
+                            </div>
                         </div>
                     </article>
-
+                    
                     <!-- Flat (Düz) Saplı Çanta -->
                     <article class="product-card" data-aos="fade-up">
-                        <div class="product-card-image-wrapper">
-                            <img src="/assets/img/products/flat-duz-sapli-canta.png" 
-                                 alt="Flat (Düz) Saplı Çanta" 
-                                 class="product-card-image" 
-                                 loading="lazy">
-                        </div>
+                        <img src="/assets/img/products/flat-duz-sapli-canta.png" alt="Flat (Düz) Saplı Çanta" class="product-card-image" loading="lazy">
                         <div class="product-card-content">
-                            <h3>Flat (Düz) Saplı Çanta</h3>
-                            <p>Orijinal kahve kraft, dönüşüm kahve kraft, kuşe kraft ve beyaz kraft kâğıt türlerinden üretim yapılır.</p>
-                            <a href="/pages/tr/product-flat-duz-sapli-canta.html" class="btn btn-outline">Detaylı İncele</a>
+                            <h3 class="product-card-title">Flat (Düz) Saplı Çanta</h3>
+                            <p class="product-card-description">Orijinal kahve kraft, dönüşüm kahve kraft, kuşe kraft ve beyaz kraft kâğıt türlerinden üretim yapılır.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-flat-duz-sapli-canta.html" class="product-detail-link">detay →</a>
+                            </div>
                         </div>
                     </article>
-
+                    
                     <!-- El Geçmeli Çanta -->
                     <article class="product-card" data-aos="fade-up">
-                        <div class="product-card-image-wrapper">
-                            <img src="/assets/img/products/el-gecmeli-canta.png" 
-                                 alt="El Geçmeli Çanta" 
-                                 class="product-card-image" 
-                                 loading="lazy">
-                        </div>
+                        <img src="/assets/img/products/el-gecmeli-canta.png" alt="El Geçmeli Çanta" class="product-card-image" loading="lazy">
                         <div class="product-card-content">
-                            <h3>El Geçmeli Çanta</h3>
-                            <p>El geçme bölgesine yapılan, ekstra kâğıt takviyesi ile taşıma mukavemeti artırılmıştır.</p>
-                            <a href="/pages/tr/product-el-gecmeli-canta.html" class="btn btn-outline">Detaylı İncele</a>
+                            <h3 class="product-card-title">El Geçmeli Çanta</h3>
+                            <p class="product-card-description">El geçme bölgesine yapılan, ekstra kâğıt takviyesi ile taşıma mukavemeti artırılmıştır.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-el-gecmeli-canta.html" class="product-detail-link">detay →</a>
+                            </div>
                         </div>
                     </article>
-
+                    
                     <!-- Körüksüz (Pizza) Çanta -->
                     <article class="product-card" data-aos="fade-up">
-                        <div class="product-card-image-wrapper">
-                            <img src="/assets/img/products/koruksuz-pizza-canta.png" 
-                                 alt="Körüksüz (Pizza) Çanta" 
-                                 class="product-card-image" 
-                                 loading="lazy">
-                        </div>
+                        <img src="/assets/img/products/koruksuz-pizza-canta.png" alt="Körüksüz (Pizza) Çanta" class="product-card-image" loading="lazy">
                         <div class="product-card-content">
-                            <h3>Körüksüz (Pizza) Çanta</h3>
-                            <p>Genellikle pizza restoran, pastahane firmaları ve çeşitli sektörlerin kullanımına uygundur.</p>
-                            <a href="/pages/tr/product-koruksuz-pizza-canta.html" class="btn btn-outline">Detaylı İncele</a>
+                            <h3 class="product-card-title">Körüksüz (Pizza) Çanta</h3>
+                            <p class="product-card-description">Genellikle pizza restoran, pastahane firmaları ve çeşitli sektörlerin kullanımına uygundur.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-koruksuz-pizza-canta.html" class="product-detail-link">detay →</a>
+                            </div>
                         </div>
                     </article>
-
+                    
                     <!-- Hediye Zarfı -->
                     <article class="product-card" data-aos="fade-up">
-                        <div class="product-card-image-wrapper">
-                            <img src="/assets/img/products/hediye-zarfi.png" 
-                                 alt="Hediye Zarfı" 
-                                 class="product-card-image" 
-                                 loading="lazy">
-                        </div>
+                        <img src="/assets/img/products/hediye-zarfi.png" alt="Hediye Zarfı" class="product-card-image" loading="lazy">
                         <div class="product-card-content">
-                            <h3>Hediye Zarfı</h3>
-                            <p>%100 geri dönüştürülebilir. Çift taraflı bant ve bantsız olarak iki farklı seçenekte üretilir.</p>
-                            <a href="/pages/tr/product-hediye-zarfi.html" class="btn btn-outline">Detaylı İncele</a>
+                            <h3 class="product-card-title">Hediye Zarfı</h3>
+                            <p class="product-card-description">%100 geri dönüştürülebilir. Çift taraflı bant ve bantsız olarak iki farklı seçenekte üretilir.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-hediye-zarfi.html" class="product-detail-link">detay →</a>
+                            </div>
                         </div>
                     </article>
-
+                    
                     <!-- Dipli Kese Kağıdı -->
                     <article class="product-card" data-aos="fade-up">
-                        <div class="product-card-image-wrapper">
-                            <img src="/assets/img/products/dipli-kese-kagidi.png" 
-                                 alt="Dipli Kese Kağıdı" 
-                                 class="product-card-image" 
-                                 loading="lazy">
-                        </div>
+                        <img src="/assets/img/products/dipli-kese-kagidi.png" alt="Dipli Kese Kağıdı" class="product-card-image" loading="lazy">
                         <div class="product-card-content">
-                            <h3>Dipli Kese Kağıdı</h3>
-                            <p>Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
-                            <a href="/pages/tr/product-dipli-kese-kagidi.html" class="btn btn-outline">Detaylı İncele</a>
+                            <h3 class="product-card-title">Dipli Kese Kağıdı</h3>
+                            <p class="product-card-description">Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-dipli-kese-kagidi.html" class="product-detail-link">detay →</a>
+                            </div>
                         </div>
                     </article>
-
+                    
                     <!-- Pencereli Dipli Kese Kağıdı -->
                     <article class="product-card" data-aos="fade-up">
-                        <div class="product-card-image-wrapper">
-                            <img src="/assets/img/products/pencereli-dipli-kese-kagidi.png" 
-                                 alt="Pencereli Dipli Kese Kağıdı" 
-                                 class="product-card-image" 
-                                 loading="lazy">
-                        </div>
+                        <img src="/assets/img/products/pencereli-dipli-kese-kagidi.png" alt="Pencereli Dipli Kese Kağıdı" class="product-card-image" loading="lazy">
                         <div class="product-card-content">
-                            <h3>Pencereli Dipli Kese Kağıdı</h3>
-                            <p>Ön yüze açılan pencere ile kese kağıdının içindeki ürünlerin görünmesi sağlanır.</p>
-                            <a href="/pages/tr/product-pencereli-dipli-kese-kagidi.html" class="btn btn-outline">Detaylı İncele</a>
+                            <h3 class="product-card-title">Pencereli Dipli Kese Kağıdı</h3>
+                            <p class="product-card-description">Ön yüze açılan pencere ile kese kağıdının içindeki ürünlerin görünmesi sağlanır.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-pencereli-dipli-kese-kagidi.html" class="product-detail-link">detay →</a>
+                            </div>
                         </div>
                     </article>
-
+                    
                     <!-- Dipsiz Kese Kağıdı -->
                     <article class="product-card" data-aos="fade-up">
-                        <div class="product-card-image-wrapper">
-                            <img src="/assets/img/9.png" 
-                                 alt="Dipsiz Kese Kağıdı" 
-                                 class="product-card-image" 
-                                 loading="lazy">
-                        </div>
+                        <img src="/assets/img/9.png" alt="Dipsiz Kese Kağıdı" class="product-card-image" loading="lazy">
                         <div class="product-card-content">
-                            <h3>Dipsiz Kese Kağıdı</h3>
-                            <p>Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
-                            <a href="/pages/tr/product-dipsiz-kese-kagidi.html" class="btn btn-outline">Detaylı İncele</a>
+                            <h3 class="product-card-title">Dipsiz Kese Kağıdı</h3>
+                            <p class="product-card-description">Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-dipsiz-kese-kagidi.html" class="product-detail-link">detay →</a>
+                            </div>
                         </div>
                     </article>
-
+                    
                     <!-- Pencereli Dipsiz Kese Kağıdı -->
                     <article class="product-card" data-aos="fade-up">
-                        <div class="product-card-image-wrapper">
-                            <img src="/assets/img/8.png" 
-                                 alt="Pencereli Dipsiz Kese Kağıdı" 
-                                 class="product-card-image" 
-                                 loading="lazy">
-                        </div>
+                        <img src="/assets/img/8.png" alt="Pencereli Dipsiz Kese Kağıdı" class="product-card-image" loading="lazy">
                         <div class="product-card-content">
-                            <h3>Pencereli Dipsiz Kese Kağıdı</h3>
-                            <p>Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
-                            <a href="/pages/tr/product-pencereli-dipsiz-kese-kagidi.html" class="btn btn-outline">Detaylı İncele</a>
+                            <h3 class="product-card-title">Pencereli Dipsiz Kese Kağıdı</h3>
+                            <p class="product-card-description">Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-pencereli-dipsiz-kese-kagidi.html" class="product-detail-link">detay →</a>
+                            </div>
                         </div>
                     </article>
-
+                    
                     <!-- Ambalaj Sarım/Tepsi Kağıdı ve Turta -->
                     <article class="product-card" data-aos="fade-up">
-                        <div class="product-card-image-wrapper">
-                            <img src="/assets/img/products/ambalaj-sarim-tepsi-kagidi-ve-turta.png" 
-                                 alt="Ambalaj Sarım/Tepsi Kağıdı ve Turta" 
-                                 class="product-card-image" 
-                                 loading="lazy">
-                        </div>
+                        <img src="/assets/img/products/ambalaj-sarim-tepsi-kagidi-ve-turta.png" alt="Ambalaj Sarım/Tepsi Kağıdı ve Turta" class="product-card-image" loading="lazy">
                         <div class="product-card-content">
-                            <h3>Ambalaj Sarım/Tepsi Kağıdı ve Turta</h3>
-                            <p>Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
-                            <a href="/pages/tr/product-ambalaj-sarim-tepsi-kagidi-ve-turta.html" class="btn btn-outline">Detaylı İncele</a>
+                            <h3 class="product-card-title">Ambalaj Sarım/Tepsi Kağıdı ve Turta</h3>
+                            <p class="product-card-description">Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-ambalaj-sarim-tepsi-kagidi-ve-turta.html" class="product-detail-link">detay →</a>
+                            </div>
                         </div>
                     </article>
+                    
+                    <!-- Pasta ve Baklava Kutusu -->
+                    <article class="product-card" data-aos="fade-up">
+                        <img src="/assets/img/11.png" alt="Pasta ve Baklava Kutusu" class="product-card-image" loading="lazy">
+                        <div class="product-card-content">
+                            <h3 class="product-card-title">Pasta ve Baklava Kutusu</h3>
+                            <p class="product-card-description">Pastane, fırın ve şekerleme sektörü için özel tasarlanmış, gıdaya uygun kaliteli kâğıt kutulardan üretilir.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-pasta-ve-baklava-kutusu.html" class="product-detail-link">detay →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Baskılı Plastik Poşet -->
+                    <article class="product-card" data-aos="fade-up">
+                        <img src="/assets/img/12.png" alt="Baskılı Plastik Poşet" class="product-card-image" loading="lazy">
+                        <div class="product-card-content">
+                            <h3 class="product-card-title">Baskılı Plastik Poşet</h3>
+                            <p class="product-card-description">Marka kimliğinizi yansıtan, yüksek kaliteli baskılı plastik poşetler. Perakende, mağazacılık ve promosyon sektörleri için idealdir.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-baskili-plastik-poset.html" class="product-detail-link">detay →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Kese Kağıdı -->
+                    <article class="product-card" data-aos="fade-up">
+                        <img src="/assets/img/9.png" alt="Kese Kağıdı" class="product-card-image" loading="lazy">
+                        <div class="product-card-content">
+                            <h3 class="product-card-title">Kese Kağıdı</h3>
+                            <p class="product-card-description">Çevre dostu ve geri dönüştürülebilir kese kağıdı çözümleri. Farklı boyut ve tasarım seçenekleri ile ihtiyacınıza uygun üretim.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-kese-kagidi.html" class="product-detail-link">detay →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Pasta Altı -->
+                    <article class="product-card" data-aos="fade-up">
+                        <img src="/assets/img/13.png" alt="Pasta Altı" class="product-card-image" loading="lazy">
+                        <div class="product-card-content">
+                            <h3 class="product-card-title">Pasta Altı</h3>
+                            <p class="product-card-description">Pastane ve fırın sektörü için özel tasarlanmış, gıdaya uygun kâğıt pasta altı ürünleri. Temiz ve hijyenik sunum sağlar.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-pasta-alti.html" class="product-detail-link">detay →</a>
+                            </div>
+                        </div>
+                    </article>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

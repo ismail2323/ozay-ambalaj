@@ -141,10 +141,108 @@
 /* ==========================================================================
    Product Grid
    ========================================================================== */
+/* Product Showcase Section Container */
+/* ==========================================================================
+   Products Showcase Section - Ürün Grupları
+   ========================================================================== */
+.products-showcase-section {
+  position: relative;
+  padding-top: var(--spacing-3xl);
+  padding-bottom: var(--spacing-3xl);
+  background: var(--white);
+  overflow: hidden;
+}
+
+/* Minimal Dünya Haritası Arka Planı */
+.products-showcase-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/assets/svg/dunya.svg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  filter: blur(0.5px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Gradient Overlay - Yumuşak Geçiş */
+.products-showcase-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.2) 80%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.products-showcase-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.section:has(.product-grid) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.section:has(.product-grid) .container {
+  max-width: 100%;
+  padding-left: var(--spacing-xl);
+  padding-right: var(--spacing-xl);
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: var(--spacing-xl);
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1400px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+  
+  .section:has(.product-grid) .container {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
 }
 
 .product-card {
@@ -154,141 +252,321 @@
   box-shadow: var(--shadow-md);
   cursor: pointer;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
 }
 
 .product-card:hover {
-  transform: none;
-  box-shadow: var(--shadow-md);
-}
-
-.product-card:hover .product-card-image {
-  transform: none;
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
 }
 
 .product-card-image {
   width: 100%;
-  height: 300px;
+  height: 280px;
+  min-height: 280px;
   object-fit: contain;
   object-position: center;
-  background-color: transparent;
-  padding: 1rem;
+  background-color: var(--gray-50);
+  padding: var(--spacing-md);
   display: block;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  flex-shrink: 0;
 }
 
 .product-card-content {
-  padding: var(--spacing-xl);
+  padding: var(--spacing-md) var(--spacing-sm);
   position: relative;
   z-index: 2;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 150px;
 }
 
 .product-card-title {
-  font-size: 1.5rem;
-  margin-bottom: var(--spacing-md);
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
   color: var(--gray-900);
+  line-height: 1.3;
 }
 
 .product-card-description {
-  color: var(--gray-600);
-  line-height: 1.7;
-  margin-bottom: var(--spacing-lg);
+  color: var(--gray-700);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.9rem;
+  flex-grow: 1;
 }
 
 .product-card-cta {
   display: flex;
-  gap: var(--spacing-md);
+  margin-top: auto;
+}
+
+.product-detail-link {
+  color: var(--green-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.product-detail-link:hover {
+  color: var(--green-dark);
+  text-decoration: underline;
+}
+
+.product-detail-link {
+  color: var(--green-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.product-detail-link:hover {
+  color: var(--green-dark);
+  text-decoration: underline;
 }
 
 /* ==========================================================================
    Numbers Section - Sayılarla Öz-Ay Ambalaj
    ========================================================================== */
 .numbers-section {
-  background: var(--gray-50);
+  background: var(--white);
   padding-top: var(--spacing-3xl);
   padding-bottom: var(--spacing-3xl);
+  width: 100%;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.numbers-section .container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .numbers-section .section-title {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
+  width: 100%;
+}
+
+.numbers-section .section-title h2 {
+  position: relative;
+  display: inline-block;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Görseldeki gibi yeşil alt çizgi - sadece "ÖZ-AY" kısmının altında */
+.numbers-section .section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: var(--green-primary);
+  border-radius: 2px;
 }
 
 .numbers-section .section-subtitle {
   font-size: 1.05rem;
   color: var(--gray-700);
+  text-align: center;
 }
 
 .numbers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--spacing-xl);
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--spacing-md);
   margin-top: var(--spacing-3xl);
+  width: 100%;
+  max-width: 100%;
+  justify-items: stretch;
+  align-items: stretch;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .numbers-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .numbers-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+  
+  .number-card {
+    padding: var(--spacing-lg);
+  }
+  
+  .number-icon {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .number-value {
+    font-size: 2rem;
+  }
+  
+  .number-label {
+    font-size: 0.85rem;
+  }
 }
 
 .number-card {
   background: var(--white);
   border-radius: var(--border-radius-lg);
-  padding: var(--spacing-xl);
+  padding: var(--spacing-2xl);
   box-shadow: var(--shadow-md);
   text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.number-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
 }
 
 .number-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  margin: 0 auto 0.75rem auto;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2rem auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  background: radial-gradient(circle at 30% 20%, #ffffff 0%, #25D366 40%, #1c8f4f 100%);
-  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+  flex-shrink: 0;
 }
 
-.number-brand {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--gray-600);
-  margin-bottom: 0.35rem;
+.number-icon-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block !important;
+  max-width: 100%;
+  max-height: 100%;
+  visibility: visible !important;
+  opacity: 1 !important;
+  /* SVG'ler zaten yeşil renkte, sadece hafif gölge ekle */
+  filter: drop-shadow(0 2px 8px rgba(46, 204, 113, 0.2));
 }
 
 .number-value {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 800;
-  color: var(--green-primary);
-  margin-bottom: 0.5rem;
+  color: #1C2833;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
 }
 
 .number-label {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  color: var(--gray-800);
+  color: var(--gray-700);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  line-height: 1.4;
 }
 /* ==========================================================================
    Sustainability Block
    ========================================================================== */
 .sustainability-block {
-  background: linear-gradient(135deg, var(--green-primary) 0%, var(--earth-green) 50%, var(--forest-green) 100%);
-  color: var(--white);
+  background: var(--white);
+  color: var(--gray-900);
   padding: var(--spacing-3xl) 0;
   position: relative;
   overflow: hidden;
-  box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Dünya Haritası Arka Planı - Sustainability Block */
+.sustainability-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/assets/svg/dunya.svg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  filter: blur(0.5px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Sustainability Text Styling */
+.sustainability-text {
+  position: relative;
+  z-index: 2;
+}
+
+.sustainability-text h2 {
+  color: var(--green-primary) !important;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.sustainability-subtitle {
+  color: var(--gray-700) !important;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.sustainability-description {
+  color: var(--gray-700) !important;
+  line-height: 1.8;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.sustainability-stats p {
+  color: var(--green-primary) !important;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
 }
 
 /* Scrolling Text Banner */
 .scrolling-banner {
   width: 100%;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(46, 204, 113, 0.1);
   backdrop-filter: blur(10px);
   padding: 1.5rem 0;
-  border-top: 2px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 2px solid rgba(46, 204, 113, 0.2);
+  border-bottom: 2px solid rgba(46, 204, 113, 0.2);
   position: relative;
+  z-index: 2;
 }
 
 .scrolling-banner-top {
@@ -317,8 +595,8 @@
   font-size: 1.5rem;
   font-weight: 600;
   font-family: var(--font-display);
-  color: var(--white);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: var(--green-primary);
+  text-shadow: 0 2px 8px rgba(46, 204, 113, 0.1);
   letter-spacing: 0.02em;
   transition: all 0.3s ease;
 }
@@ -351,28 +629,24 @@
   animation-play-state: paused;
 }
 
-.sustainability-block::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: float 20s ease-in-out infinite;
-}
-
+/* Decorative gradient overlays - güncellendi, dünya haritasının üstünde */
 .sustainability-block::after {
   content: '';
   position: absolute;
-  bottom: -30%;
-  left: -5%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: float 25s ease-in-out infinite reverse;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.1) 80%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
 }
 
 @keyframes float {
@@ -393,24 +667,27 @@
   gap: var(--spacing-3xl);
   align-items: center;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .sustainability-stats {
   text-align: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(46, 204, 113, 0.1);
   padding: var(--spacing-3xl);
   border-radius: var(--border-radius-lg);
   backdrop-filter: blur(10px);
+  border: 2px solid rgba(46, 204, 113, 0.2);
+  position: relative;
+  z-index: 2;
 }
 
 .percentage {
   font-size: 5rem;
   font-weight: 900;
-  color: var(--white);
-  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  color: var(--green-primary);
+  text-shadow: 0 4px 16px rgba(46, 204, 113, 0.2);
   margin-bottom: var(--spacing-md);
-  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
+  background: linear-gradient(135deg, var(--green-primary) 0%, var(--earth-green) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -423,6 +700,369 @@
   }
   50% {
     filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+  }
+}
+
+/* ==========================================================================
+   News and Contact Section
+   ========================================================================== */
+.news-contact-section {
+  background: var(--gray-50);
+  padding: var(--spacing-xl) 0;
+}
+
+.news-contact-section .container {
+  max-width: 100%;
+  width: 100%;
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .news-contact-section .container {
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+  }
+}
+
+@media (min-width: 1200px) {
+  .news-contact-section .container {
+    padding-left: var(--spacing-2xl);
+    padding-right: var(--spacing-2xl);
+  }
+}
+
+@media (min-width: 1400px) {
+  .news-contact-section .container {
+    padding-left: var(--spacing-3xl);
+    padding-right: var(--spacing-3xl);
+  }
+}
+
+.news-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  align-items: stretch;
+  width: 100%;
+}
+
+/* News Section */
+.news-section {
+  background: var(--white);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.section-title-left {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: var(--spacing-lg);
+  text-align: left;
+  line-height: 1.2;
+}
+
+.news-carousel-wrapper {
+  position: relative;
+}
+
+.news-carousel {
+  position: relative;
+  min-height: auto;
+}
+
+.news-item {
+  display: none;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.news-item.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.news-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: stretch;
+}
+
+.news-image {
+  width: 100%;
+  min-height: 280px;
+  max-height: 400px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.news-image img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.news-text {
+  flex: 1;
+}
+
+.news-text h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.3;
+}
+
+.news-text p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--gray-700);
+  margin-bottom: var(--spacing-sm);
+}
+
+.news-meta {
+  margin-bottom: var(--spacing-sm);
+}
+
+.news-date {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.news-read-more {
+  color: var(--green-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.news-read-more:hover {
+  color: var(--green-dark);
+  text-decoration: underline;
+}
+
+.news-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-sm);
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-top: 1px solid var(--gray-300);
+}
+
+.news-dots {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+  justify-content: center;
+}
+
+.news-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gray-300);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.news-dot.active {
+  background: var(--green-primary);
+}
+
+/* Contact Form Section - Minimalist */
+.contact-form-section {
+  background: var(--white);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form-section .section-title-left {
+  margin-bottom: var(--spacing-xl);
+}
+
+.contact-form {
+  margin-top: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-select {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: var(--white);
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: var(--green-primary);
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gray-900);
+  margin-bottom: var(--spacing-xs);
+}
+
+.form-label .required {
+  color: var(--green-primary);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+  background: var(--white);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--green-primary);
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.form-checkbox input[type="checkbox"] {
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+
+.form-checkbox label {
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .news-contact-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+  
+  .news-item-content {
+    flex-direction: column;
+  }
+  
+  .news-image {
+    width: 100%;
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .news-contact-section {
+    padding: var(--spacing-2xl) 0;
+  }
+  
+  .news-section,
+  .contact-form-section {
+    padding: var(--spacing-lg);
+  }
+  
+  .section-title-left {
+    font-size: 1.75rem;
+  }
+  
+  .news-text h3 {
+    font-size: 1.25rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .form-group {
+    margin-bottom: var(--spacing-sm);
   }
 }
 
@@ -608,6 +1248,73 @@
   
   .percentage {
     font-size: 3.5rem;
+  }
+}
+
+/* ==========================================================================
+   About Section - Hakkımızda (Görseldeki gibi)
+   ========================================================================== */
+.about-section {
+  background: var(--white);
+  padding: var(--spacing-3xl) 0;
+}
+
+.about-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3xl);
+  align-items: center;
+}
+
+.about-image-wrapper {
+  position: relative;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.about-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: var(--border-radius-lg);
+}
+
+.about-text-wrapper {
+  padding: var(--spacing-lg);
+}
+
+.about-text-content h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--green-primary);
+}
+
+.about-text-content p {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--gray-700);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 968px) {
+  .about-content-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+  
+  .about-image-wrapper {
+    order: 1;
+  }
+  
+  .about-text-wrapper {
+    order: 2;
+  }
+  
+  .about-text-content h3 {
+    font-size: 1.75rem;
   }
 }
 

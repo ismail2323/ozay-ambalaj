@@ -1,0 +1,30 @@
+# Deny access to all files in config directory
+<FilesMatch ".*">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Specifically deny access to sensitive files
+<FilesMatch "\.(env|ini|conf)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Deny access to mail-config.php (contains password)
+<FilesMatch "^mail-config\.php$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Allow access to example files ONLY (for reference, safe to view)
+<FilesMatch "\.example\.(php|env|ini|conf)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Allow access to README.md (documentation only)
+<FilesMatch "^README\.md$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+

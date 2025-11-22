@@ -1,11 +1,42 @@
 <?php
-// Simple contact form handler with SMTP-ready structure.
-// NOTE: This version uses PHP's mail() by default.
-// For real SMTP (Gmail, Outlook, etc.), replace the sendMail() function with PHPMailer or your host's SMTP library.
+/**
+ * Öz-Ay Ambalaj ve Plastik - Contact Form Handler
+ * 
+ * Handles contact forms from:
+ * 1. index.html (home contact form)
+ * 2. contact.html (contact page form)
+ * 
+ * Uses SMTP with Outlook Mail configuration
+ */
 
 header('Content-Type: application/json; charset=utf-8');
+header('X-Content-Type-Options: nosniff');
 
-// Allow only POST
+// Enable error reporting for debugging (disable in production)
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
+// Error handler to catch all PHP errors
+function handleContactFormError($errno, $errstr, $errfile, $errline) {
+    error_log("Contact form PHP error: [$errno] $errstr in $errfile on line $errline");
+    return true;
+}
+set_error_handler('handleContactFormError');
+
+// Exception handler
+function handleContactFormException($exception) {
+    error_log("Contact form exception: " . $exception->getMessage());
+    http_response_code(500);
+    echo json_encode([
+        'ok' => false,
+        'message' => 'Sunucu hatası oluştu. Lütfen tekrar deneyin.'
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+set_exception_handler('handleContactFormException');
+
+// Allow only POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode([
@@ -15,356 +46,452 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Basic CSRF / origin hardening (optional, can be relaxed if needed)
-// if (!isset($_SERVER['HTTP_ORIGIN']) || strpos($_SERVER['HTTP_ORIGIN'], $_SERVER['HTTP_HOST']) === false) {
-//     http_response_code(400);
-//     echo json_encode(['ok' => false, 'message' => 'Geçersiz istek.']);
-//     exit;
-// }
+// Load mail configuration
+$mailConfigPath = __DIR__ . '/config/mail-config.php';
+$smtpPassword = null;
+
+// First, try to load password from .env file (if exists and readable)
+$envPath = __DIR__ . '/config/.env';
+if (file_exists($envPath) && is_readable($envPath)) {
+    try {
+        $envLines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($envLines as $line) {
+            $line = trim($line);
+            if (empty($line) || strpos($line, '#') === 0) continue; // Skip empty lines and comments
+            if (strpos($line, '=') !== false) {
+                list($key, $value) = explode('=', $line, 2);
+                $key = trim($key);
+                $value = trim($value);
+                if ($key === 'SMTP_PASSWORD' && !empty($value)) {
+                    $smtpPassword = $value;
+                    // Also set as environment variable
+                    putenv('SMTP_PASSWORD=' . $value);
+                    $_ENV['SMTP_PASSWORD'] = $value;
+                    break;
+                }
+            }
+        }
+    } catch (Exception $e) {
+        error_log('Contact form: Error reading .env file - ' . $e->getMessage());
+    }
+}
+
+// If .env didn't provide password, try environment variable
+if (empty($smtpPassword)) {
+    $smtpPassword = getenv('SMTP_PASSWORD');
+    if ($smtpPassword === false || empty($smtpPassword)) {
+        $smtpPassword = isset($_ENV['SMTP_PASSWORD']) ? $_ENV['SMTP_PASSWORD'] : null;
+    }
+}
+
+// Now load mail-config.php
+if (file_exists($mailConfigPath)) {
+    try {
+        // Temporarily set password if we found it in .env
+        if (!empty($smtpPassword)) {
+            putenv('SMTP_PASSWORD=' . $smtpPassword);
+        }
+        
+        require_once $mailConfigPath;
+        
+        // Override password from .env if it exists and config has placeholder
+        if (!empty($smtpPassword) && defined('SMTP_PASSWORD') && SMTP_PASSWORD === 'YOUR_MAIL_PASSWORD_HERE') {
+            // Re-define with actual password from .env
+            if (!defined('SMTP_PASSWORD_OVERRIDE')) {
+                // We need to check if we can redefine
+                error_log('Contact form: Using password from .env file');
+            }
+        }
+        
+        // Verify required constants are defined
+        if (!defined('SMTP_HOST') || !defined('SMTP_USERNAME') || !defined('MAIL_TO_EMAIL')) {
+            throw new Exception('Mail yapılandırması eksik. Lütfen config/mail-config.php dosyasını kontrol edin.');
+        }
+        
+        // Check if password is set (not placeholder)
+        if (!defined('SMTP_PASSWORD') || SMTP_PASSWORD === 'YOUR_MAIL_PASSWORD_HERE') {
+            if (!empty($smtpPassword)) {
+                // Use password from .env
+                define('SMTP_PASSWORD', $smtpPassword);
+                error_log('Contact form: Password loaded from .env file');
+            } else {
+                throw new Exception('SMTP şifresi ayarlanmamış. Lütfen config/.env dosyasında SMTP_PASSWORD değerini ayarlayın.');
+            }
+        }
+    } catch (Exception $e) {
+        error_log('Contact form: Error loading mail config - ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode([
+            'ok' => false,
+            'message' => 'Mail yapılandırması yüklenemedi: ' . $e->getMessage()
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+} else {
+    // Fallback configuration if mail-config.php doesn't exist
+    if (empty($smtpPassword)) {
+        error_log('Contact form: mail-config.php not found and SMTP_PASSWORD not set in .env or environment');
+        http_response_code(500);
+        echo json_encode([
+            'ok' => false,
+            'message' => 'Mail yapılandırması eksik. Lütfen config/mail-config.php veya config/.env dosyasını kontrol edin.'
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+    
+    // Use fallback configuration with password from .env
+    define('SMTP_HOST', 'smtp.turkticaret.net');
+    define('SMTP_PORT', 587);
+    define('SMTP_SECURE', 'tls');
+    define('SMTP_AUTH', true);
+    define('SMTP_USERNAME', 'info@ozayambalaj.com');
+    define('SMTP_PASSWORD', $smtpPassword);
+    define('MAIL_FROM_EMAIL', 'info@ozayambalaj.com');
+    define('MAIL_FROM_NAME', 'Öz-Ay Ambalaj ve Plastik');
+    define('MAIL_TO_EMAIL', 'info@ozayambalaj.com');
+    define('MAIL_TO_NAME', 'Öz-Ay Ambalaj');
+    define('SMTP_DEBUG', false);
+}
 
 // Honeypot – bots doldurursa reddet
 $honeypot = isset($_POST['website']) ? trim($_POST['website']) : '';
 if ($honeypot !== '') {
+    // Bot detected - return success to fool them
     echo json_encode([
         'ok' => true,
-        'message' => 'Mesajınız başarıyla gönderildi.' // Botlara gerçek sonucu göstermeyelim
+        'message' => 'Mesajınız başarıyla gönderildi.'
     ]);
     exit;
 }
 
-// Form fields
+// Form fields - handle both forms (home and contact page)
 $name    = isset($_POST['name']) ? trim($_POST['name']) : '';
 $email   = isset($_POST['email']) ? trim($_POST['email']) : '';
 $phone   = isset($_POST['phone']) ? trim($_POST['phone']) : '';
+$address = isset($_POST['address']) ? trim($_POST['address']) : '';
 $company = isset($_POST['company']) ? trim($_POST['company']) : '';
 $subject = isset($_POST['subject']) ? trim($_POST['subject']) : '';
 $message = isset($_POST['message']) ? trim($_POST['message']) : '';
 $kvkk    = isset($_POST['kvkk']) ? $_POST['kvkk'] : null;
+$captcha = isset($_POST['captcha']) ? trim($_POST['captcha']) : '';
 
-// Validation
-if ($name === '' || $email === '' || $message === '') {
+// Validate captcha (simple math: 4 + 3 = 7)
+if (!empty($captcha) && intval($captcha) !== 7) {
     echo json_encode([
         'ok' => false,
-        'message' => 'Lütfen zorunlu alanları doldurun (Ad Soyad, E-posta, Mesaj).'
+        'message' => 'Lütfen işlem sonucunu doğru girin (4 + 3 = 7).'
     ]);
     exit;
 }
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo json_encode([
-        'ok' => false,
-        'message' => 'Lütfen geçerli bir e-posta adresi girin.'
-    ]);
-    exit;
-}
-
-if ($kvkk === null) {
-    echo json_encode([
-        'ok' => false,
-        'message' => 'KVKK metnini onaylamadan formu gönderemezsiniz.'
-    ]);
-    exit;
-}
-
-// Build email content
-$to      = 'info@ozayambalaj.com'; // Hedef e-posta adresinizi buraya yazın
-$subjectLine = 'İletişim Formu: ' . ($subject !== '' ? $subject : 'Yeni Mesaj');
-
-$body  = "<h2>Web Sitesi İletişim Formu</h2>";
-$body .= "<p><strong>Ad Soyad:</strong> " . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . "</p>";
-$body .= "<p><strong>E-posta:</strong> " . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . "</p>";
-if ($phone !== '') {
-    $body .= "<p><strong>Telefon:</strong> " . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . "</p>";
-}
-if ($company !== '') {
-    $body .= "<p><strong>Firma:</strong> " . htmlspecialchars($company, ENT_QUOTES, 'UTF-8') . "</p>";
-}
-if ($subject !== '') {
-    $body .= "<p><strong>Konu:</strong> " . htmlspecialchars($subject, ENT_QUOTES, 'UTF-8') . "</p>";
-}
-$body .= "<p><strong>Mesaj:</strong><br>" . nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8')) . "</p>";
-$body .= "<hr><p>Bu e-posta, web sitesindeki iletişim formundan otomatik olarak gönderilmiştir.</p>";
-
-// Headers
-$headers   = [];
-$headers[] = 'MIME-Version: 1.0';
-$headers[] = 'Content-type: text/html; charset=utf-8';
-$headers[] = 'From: Öz-Ay Ambalaj <no-reply@' . $_SERVER['HTTP_HOST'] . '>';
-$headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
-$headers[] = 'X-Mailer: PHP/' . phpversion();
-
-$mailOk = mail($to, '=?UTF-8?B?' . base64_encode($subjectLine) . '?=', $body, implode("\r\n", $headers));
-
-if ($mailOk) {
-    echo json_encode([
-        'ok' => true,
-        'message' => 'Mesajınız başarıyla gönderildi. En kısa sürede sizinle iletişime geçeceğiz.'
-    ]);
-} else {
-    echo json_encode([
-        'ok' => false,
-        'message' => 'Mesaj gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.'
-    ]);
-}
-
-exit;
-<?php
-/**
- * Öz-Ay Ambalaj ve Plastik - Contact Form Handler
- * 
- * PHP 8.1+ Required
- * Uses PHPMailer for SMTP
- */
-
-// Security headers
-header('Content-Type: application/json; charset=utf-8');
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
-
-// Only accept POST requests
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['ok' => false, 'message' => 'Method not allowed']);
-    exit;
-}
-
-// Check if XMLHttpRequest
-if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || 
-    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest') {
-    http_response_code(400);
-    echo json_encode(['ok' => false, 'message' => 'Invalid request']);
-    exit;
-}
-
-// Load configuration
-if (!file_exists(__DIR__ . '/config/config.php')) {
-    error_log('Contact form error: config.php not found');
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'message' => 'Configuration error']);
-    exit;
-}
-
-require_once __DIR__ . '/config/config.php';
-
-// Honeypot check (anti-spam)
-if (!empty($_POST['website'])) {
-    error_log('Contact form: Honeypot triggered from IP: ' . $_SERVER['REMOTE_ADDR']);
-    // Return success to fool bots
-    echo json_encode(['ok' => true, 'message' => 'Message sent']);
-    exit;
-}
-
-// Sanitize and validate input
-$name = filter_var(trim($_POST['name'] ?? ''), FILTER_SANITIZE_STRING);
-$email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
-$phone = filter_var(trim($_POST['phone'] ?? ''), FILTER_SANITIZE_STRING);
-$company = filter_var(trim($_POST['company'] ?? ''), FILTER_SANITIZE_STRING);
-$subject = filter_var(trim($_POST['subject'] ?? ''), FILTER_SANITIZE_STRING);
-$message = filter_var(trim($_POST['message'] ?? ''), FILTER_SANITIZE_STRING);
-$kvkk = isset($_POST['kvkk']) && $_POST['kvkk'] === 'on';
 
 // Validation
 $errors = [];
 
 if (empty($name) || strlen($name) < 2) {
-    $errors[] = 'Name is required and must be at least 2 characters';
+    $errors[] = 'Ad Soyad en az 2 karakter olmalıdır.';
 }
 
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors[] = 'Valid email is required';
+    $errors[] = 'Lütfen geçerli bir e-posta adresi girin.';
 }
 
 if (empty($message) || strlen($message) < 10) {
-    $errors[] = 'Message is required and must be at least 10 characters';
+    $errors[] = 'Mesaj en az 10 karakter olmalıdır.';
 }
 
-if (!$kvkk) {
-    $errors[] = 'KVKK consent is required';
+// KVKK validation - can be 'on' (checkbox), '1', 'true', or true (checked)
+if (empty($kvkk) || ($kvkk !== 'on' && $kvkk !== '1' && $kvkk !== true && $kvkk !== 'true')) {
+    $errors[] = 'KVKK metnini onaylamadan formu gönderemezsiniz.';
 }
 
 if (!empty($errors)) {
-    http_response_code(400);
-    echo json_encode(['ok' => false, 'message' => implode(', ', $errors)]);
+    echo json_encode([
+        'ok' => false,
+        'message' => implode(' ', $errors)
+    ]);
     exit;
 }
 
-// Rate limiting (simple IP-based)
-$rateLimit = checkRateLimit($_SERVER['REMOTE_ADDR']);
-if (!$rateLimit) {
-    http_response_code(429);
-    echo json_encode(['ok' => false, 'message' => 'Too many requests. Please try again later.']);
-    exit;
-}
+// Build email content - Professional HTML format
+$subjectLine = 'İletişim Formu: ' . ($subject !== '' ? htmlspecialchars($subject, ENT_QUOTES, 'UTF-8') : 'Yeni Mesaj');
 
-// Send email using PHPMailer
-try {
-    // Check if PHPMailer is available
-    if (!class_exists('PHPMailer\PHPMailer\PHPMailer')) {
-        // Fallback to native mail() if PHPMailer not available
-        $to = MAIL_TO_SALES;
-        $emailSubject = "İletişim Formu: " . ($subject ?: 'Genel');
-        $emailBody = "
-İsim: $name
-E-posta: $email
-Telefon: $phone
-Firma: $company
-Konu: $subject
-
-Mesaj:
-$message
-
----
-IP: {$_SERVER['REMOTE_ADDR']}
-Tarih: " . date('Y-m-d H:i:s') . "
-        ";
-        
-        $headers = [
-            'From: ' . MAIL_FROM,
-            'Reply-To: ' . $email,
-            'Content-Type: text/plain; charset=UTF-8',
-            'X-Mailer: PHP/' . phpversion()
-        ];
-        
-        $mailSent = mail($to, $emailSubject, $emailBody, implode("\r\n", $headers));
-        
-        if (!$mailSent) {
-            throw new Exception('Failed to send email');
+$body = '<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
         }
-    } else {
-        // Use PHPMailer
-        require_once __DIR__ . '/vendor/PHPMailer/PHPMailer.php';
-        require_once __DIR__ . '/vendor/PHPMailer/SMTP.php';
-        require_once __DIR__ . '/vendor/PHPMailer/Exception.php';
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        .header {
+            background-color: #2d5f3f;
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .content {
+            padding: 30px 20px;
+        }
+        .info-section {
+            background-color: #f9f9f9;
+            border-left: 4px solid #2d5f3f;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .info-row {
+            margin: 12px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-weight: bold;
+            color: #2d5f3f;
+            display: inline-block;
+            width: 120px;
+        }
+        .value {
+            color: #555555;
+        }
+        .message-box {
+            background-color: #ffffff;
+            border: 2px solid #2d5f3f;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .footer {
+            background-color: #e9e9e9;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666666;
+            border-top: 1px solid #dddddd;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>📧 Web Sitesi İletişim Formu</h1>
+        </div>
+        <div class="content">
+            <div class="info-section">
+                <div class="info-row">
+                    <span class="label">Ad Soyad:</span>
+                    <span class="value">' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">E-posta:</span>
+                    <span class="value"><a href="mailto:' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</a></span>
+                </div>';
+                
+if (!empty($phone)) {
+    $body .= '
+                <div class="info-row">
+                    <span class="label">Telefon:</span>
+                    <span class="value"><a href="tel:' . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . '</a></span>
+                </div>';
+}
+
+if (!empty($address)) {
+    $body .= '
+                <div class="info-row">
+                    <span class="label">Adres:</span>
+                    <span class="value">' . htmlspecialchars($address, ENT_QUOTES, 'UTF-8') . '</span>
+                </div>';
+}
+
+if (!empty($company)) {
+    $body .= '
+                <div class="info-row">
+                    <span class="label">Firma:</span>
+                    <span class="value">' . htmlspecialchars($company, ENT_QUOTES, 'UTF-8') . '</span>
+                </div>';
+}
+
+if (!empty($subject)) {
+    $body .= '
+                <div class="info-row">
+                    <span class="label">Konu:</span>
+                    <span class="value">' . htmlspecialchars($subject, ENT_QUOTES, 'UTF-8') . '</span>
+                </div>';
+}
+
+$body .= '
+            </div>
+            
+            <div>
+                <h3 style="color: #2d5f3f; margin-top: 30px; margin-bottom: 10px;">Mesaj:</h3>
+                <div class="message-box">' . nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8')) . '</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Bu e-posta, Öz-Ay Ambalaj web sitesindeki iletişim formundan otomatik olarak gönderilmiştir.</strong></p>
+            <p>IP Adresi: ' . htmlspecialchars($_SERVER['REMOTE_ADDR'] ?? 'Bilinmiyor', ENT_QUOTES, 'UTF-8') . '</p>
+            <p>Tarih: ' . date('d.m.Y H:i:s') . '</p>
+        </div>
+    </div>
+</body>
+</html>';
+
+// Try to send email using SMTP (if PHPMailer is available) or fallback to mail()
+$mailSent = false;
+$errorMessage = '';
+
+// Check if PHPMailer is available
+if (class_exists('PHPMailer\PHPMailer\PHPMailer')) {
+    try {
+        require_once __DIR__ . '/vendor/autoload.php';
         
         $mail = new PHPMailer\PHPMailer\PHPMailer(true);
         
-        // Server settings
+        // SMTP Configuration
         $mail->isSMTP();
         $mail->Host = SMTP_HOST;
-        $mail->SMTPAuth = true;
-        $mail->Username = SMTP_USER;
-        $mail->Password = SMTP_PASS;
-        $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->SMTPAuth = SMTP_AUTH;
+        $mail->Username = SMTP_USERNAME;
+        $mail->Password = SMTP_PASSWORD;
+        $mail->SMTPSecure = SMTP_SECURE === 'ssl' ? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS : PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = SMTP_PORT;
         $mail->CharSet = 'UTF-8';
         
+        if (defined('SMTP_DEBUG') && SMTP_DEBUG) {
+            $mail->SMTPDebug = 2;
+            $mail->Debugoutput = 'error_log';
+        }
+        
         // Recipients
-        $mail->setFrom(MAIL_FROM, 'Öz-Ay Ambalaj İletişim Formu');
-        $mail->addAddress(MAIL_TO_SALES);
+        $mail->setFrom(MAIL_FROM_EMAIL, MAIL_FROM_NAME);
+        $mail->addAddress(MAIL_TO_EMAIL, MAIL_TO_NAME);
         $mail->addReplyTo($email, $name);
         
         // Content
-        $mail->isHTML(false);
-        $mail->Subject = "İletişim Formu: " . ($subject ?: 'Genel');
-        $mail->Body = "
-İsim: $name
-E-posta: $email
-Telefon: $phone
-Firma: $company
-Konu: $subject
-
-Mesaj:
-$message
-
----
-IP: {$_SERVER['REMOTE_ADDR']}
-Tarih: " . date('Y-m-d H:i:s');
+        $mail->isHTML(true);
+        $mail->Subject = '=?UTF-8?B?' . base64_encode($subjectLine) . '?=';
+        $mail->Body = $body;
+        $mail->AltBody = strip_tags($body);
         
         $mail->send();
+        $mailSent = true;
+        
+    } catch (Exception $e) {
+        $errorMessage = $e->getMessage();
+        error_log('SMTP Mail Error: ' . $errorMessage);
+        
+        // Fallback to native mail() function
+        $mailSent = false;
     }
-    
-    // Log successful submission (with masked PII)
-    logSubmission($name, maskEmail($email), $phone, $subject, true);
-    
-    echo json_encode([
-        'ok' => true,
-        'message' => 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.'
-    ]);
-    
+}
+
+// Fallback to native mail() if PHPMailer failed or not available
+if (!$mailSent) {
+    try {
+        // Check if required constants are defined
+        if (!defined('MAIL_TO_EMAIL') || !defined('MAIL_FROM_EMAIL') || !defined('MAIL_FROM_NAME')) {
+            throw new Exception('Mail yapılandırması eksik. Lütfen config/mail-config.php dosyasını kontrol edin.');
+        }
+        
+        // Check if password is set (not default)
+        if (defined('SMTP_PASSWORD') && SMTP_PASSWORD === 'YOUR_MAIL_PASSWORD_HERE') {
+            error_log('Contact form: SMTP password is still set to default value. Please update mail-config.php or .env file.');
+            // Continue anyway - mail() might work without SMTP on some servers
+        }
+        
+        $to = MAIL_TO_EMAIL;
+        $headers = [];
+        $headers[] = 'MIME-Version: 1.0';
+        $headers[] = 'Content-type: text/html; charset=utf-8';
+        $headers[] = 'From: ' . MAIL_FROM_NAME . ' <' . MAIL_FROM_EMAIL . '>';
+        $headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
+        $headers[] = 'X-Mailer: PHP/' . phpversion();
+        
+        // Suppress warnings but log errors
+        $prevErrorLevel = error_reporting(E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
+        $mailSent = @mail($to, '=?UTF-8?B?' . base64_encode($subjectLine) . '?=', $body, implode("\r\n", $headers));
+        error_reporting($prevErrorLevel);
+        
+        if (!$mailSent) {
+            $lastError = error_get_last();
+            $errorMsg = ($lastError && isset($lastError['message'])) ? $lastError['message'] : 'Mail gönderilemedi. Localhost ortamında mail() fonksiyonu çalışmayabilir. Lütfen canlı sunucuda test edin veya PHPMailer kullanın.';
+            error_log('Native mail() function failed. Error: ' . $errorMsg);
+            $errorMessage = $errorMsg;
+        } else {
+            error_log('Mail successfully sent using native mail() function to: ' . $to);
+        }
+    } catch (Exception $e) {
+        error_log('Mail sending exception: ' . $e->getMessage());
+        $errorMessage = $e->getMessage();
+        $mailSent = false;
+    } catch (Error $e) {
+        error_log('Mail sending fatal error: ' . $e->getMessage());
+        $errorMessage = 'Kritik hata: ' . $e->getMessage();
+        $mailSent = false;
+    }
+}
+
+// Response
+try {
+    if ($mailSent) {
+        $response = [
+            'ok' => true,
+            'message' => 'Mesajınız başarıyla gönderildi. En kısa sürede sizinle iletişime geçeceğiz.'
+        ];
+        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    } else {
+        // Return user-friendly error message (don't expose technical details)
+        $errorMsg = !empty($errorMessage) ? $errorMessage : 'Mail gönderilemedi. Lütfen daha sonra tekrar deneyin.';
+        error_log('Contact form: Mail sending failed. Error: ' . $errorMsg);
+        
+        // Clean error message for user
+        $userMessage = 'Mesaj gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin veya doğrudan bizimle iletişime geçin: info@ozayambalaj.com';
+        
+        $response = [
+            'ok' => false,
+            'message' => $userMessage
+        ];
+        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
 } catch (Exception $e) {
-    error_log('Contact form error: ' . $e->getMessage());
-    logSubmission($name, maskEmail($email), $phone, $subject, false, $e->getMessage());
-    
+    error_log('Contact form: JSON encoding error - ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode([
+    $response = [
         'ok' => false,
-        'message' => 'Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin veya doğrudan bizimle iletişime geçin.'
-    ]);
+        'message' => 'Sunucu hatası oluştu. Lütfen tekrar deneyin.'
+    ];
+    echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+} catch (Error $e) {
+    error_log('Contact form: Fatal error - ' . $e->getMessage());
+    http_response_code(500);
+    $response = [
+        'ok' => false,
+        'message' => 'Sunucu hatası oluştu. Lütfen tekrar deneyin.'
+    ];
+    echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 }
 
-/**
- * Simple rate limiting
- */
-function checkRateLimit($ip) {
-    $limitFile = __DIR__ . '/logs/rate-limit.json';
-    $maxRequests = 5; // max requests
-    $timeWindow = 3600; // per hour
-    
-    if (!file_exists(dirname($limitFile))) {
-        mkdir(dirname($limitFile), 0755, true);
-    }
-    
-    $data = file_exists($limitFile) ? json_decode(file_get_contents($limitFile), true) : [];
-    $now = time();
-    
-    // Clean old entries
-    $data = array_filter($data, function($timestamp) use ($now, $timeWindow) {
-        return ($now - $timestamp) < $timeWindow;
-    });
-    
-    // Count requests from this IP
-    $ipRequests = array_filter($data, function($timestamp, $key) use ($ip) {
-        return strpos($key, $ip) === 0;
-    }, ARRAY_FILTER_USE_BOTH);
-    
-    if (count($ipRequests) >= $maxRequests) {
-        return false;
-    }
-    
-    // Add new request
-    $data[$ip . '_' . $now] = $now;
-    file_put_contents($limitFile, json_encode($data));
-    
-    return true;
-}
-
-/**
- * Mask email for logging
- */
-function maskEmail($email) {
-    $parts = explode('@', $email);
-    if (count($parts) !== 2) return '***';
-    
-    $name = $parts[0];
-    $domain = $parts[1];
-    
-    $maskedName = substr($name, 0, 2) . str_repeat('*', max(1, strlen($name) - 2));
-    return $maskedName . '@' . $domain;
-}
-
-/**
- * Log submission
- */
-function logSubmission($name, $email, $phone, $subject, $success, $error = '') {
-    $logDir = __DIR__ . '/logs';
-    if (!file_exists($logDir)) {
-        mkdir($logDir, 0755, true);
-    }
-    
-    $logFile = $logDir . '/contact-' . date('Ym') . '.log';
-    $logEntry = sprintf(
-        "[%s] %s | Name: %s | Email: %s | Phone: %s | Subject: %s | Status: %s%s\n",
-        date('Y-m-d H:i:s'),
-        $_SERVER['REMOTE_ADDR'],
-        $name,
-        $email,
-        $phone ? substr($phone, 0, 3) . '***' . substr($phone, -2) : 'N/A',
-        $subject ?: 'General',
-        $success ? 'SUCCESS' : 'FAILED',
-        $error ? ' | Error: ' . $error : ''
-    );
-    
-    file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX);
-}
-
+exit;

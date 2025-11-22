@@ -32,63 +32,102 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/about.css">
     <link rel="stylesheet" href="/css/product-detail.css">
 </head>
 <body>
-    <main id="main-content" role="main">
-        <!-- Product Hero -->
-        <section class="product-hero">
-            <div class="product-hero-content">
-                <h1>Flat (Düz) Saplı Çanta</h1>
-                <img src="/assets/img/products/flat-duz-sapli-canta.png" 
-                     alt="Flat (Düz) Saplı Çanta - Öz-Ay Ambalaj" 
-                     class="product-hero-image"
-                     loading="eager">
-            </div>
-        </section>
-        
-        <!-- Product Description -->
-        <section class="product-section">
-            <div class="container">
-                <div class="product-description" data-aos="fade-up">
-                    <p>
-                        Orijinal kahve kraft, dönüşüm kahve kraft, kuşe kraft ve beyaz kraft kâğıt türlerinden üretim yapılır.
-                    </p>
-                </div>
-                
-                <!-- Usage Areas -->
-                <div class="product-usage-areas" data-aos="fade-up">
-                    <h3>Kullanım Alanları</h3>
-                    <p>Orijinal kahve kraft, dönüşüm kahve kraft, kuşe kraft ve beyaz kraft kâğıt türlerinden üretim yapılır.</p>
-                </div>
-                
-                <!-- Product Gallery -->
-                <div class="product-gallery" data-aos="fade-up">
-                    <h3>Ürün Görselleri</h3>
-                    <div class="gallery-grid">
-                        <div class="gallery-item">
-                            <img src="/assets/img/products/flat-duz-sapli-canta.png" alt="Flat (Düz) Saplı Çanta - Öz-Ay Ambalaj" loading="lazy">
+    <main id="main-content" role="main" style="margin-top: var(--header-height);">
+        <!-- Main Content with Sidebar -->
+        <section class="about-main-section">
+            <div class="container about-container">
+                <div class="about-layout-grid">
+                    <!-- Left Sidebar Navigation -->
+                    <aside class="about-sidebar" data-aos="fade-right">
+                        <div class="sidebar-header">
+                            <div class="sidebar-logo">
+                                <img src="/assets/img/logo.png" alt="Öz-Ay Ambalaj" style="height: 40px; width: auto;">
+                            </div>
+                            <h2 class="sidebar-title">ÜRÜNLER</h2>
+                        </div>
+                        <nav class="sidebar-nav">
+                            <ul class="sidebar-nav-links">
+                                <li><a href="/pages/tr/catalog.html" class="sidebar-link">Ürün Kataloğu</a></li>
+                                <li><a href="/pages/tr/product-bukum-burgu-sapli-canta.html" class="sidebar-link">Büküm (Burgu) Saplı Çanta</a></li>
+                                <li><a href="/pages/tr/product-flat-duz-sapli-canta.html" class="sidebar-link active">Flat (Düz) Saplı Çanta</a></li>
+                                <li><a href="/pages/tr/product-el-gecmeli-canta.html" class="sidebar-link">El Geçmeli Çanta</a></li>
+                                <li><a href="/pages/tr/product-koruksuz-pizza-canta.html" class="sidebar-link">Körüksüz (Pizza) Çanta</a></li>
+                                <li><a href="/pages/tr/product-hediye-zarfi.html" class="sidebar-link">Hediye Zarfı</a></li>
+                                <li><a href="/pages/tr/product-dipli-kese-kagidi.html" class="sidebar-link">Dipli Kese Kağıdı</a></li>
+                                <li><a href="/pages/tr/product-pencereli-dipli-kese-kagidi.html" class="sidebar-link">Pencereli Dipli Kese Kağıdı</a></li>
+                                <li><a href="/pages/tr/product-dipsiz-kese-kagidi.html" class="sidebar-link">Dipsiz Kese Kağıdı</a></li>
+                                <li><a href="/pages/tr/product-pencereli-dipsiz-kese-kagidi.html" class="sidebar-link">Pencereli Dipsiz Kese Kağıdı</a></li>
+                                <li><a href="/pages/tr/product-kese-kagidi.html" class="sidebar-link">Kese Kağıdı</a></li>
+                                <li><a href="/pages/tr/product-ambalaj-sarim-tepsi-kagidi-ve-turta.html" class="sidebar-link">Ambalaj Sarım/Tepsi Kağıdı ve Turta</a></li>
+                                <li><a href="/pages/tr/product-pasta-ve-baklava-kutusu.html" class="sidebar-link">Pasta ve Baklava Kutusu</a></li>
+                                <li><a href="/pages/tr/product-baskili-plastik-poset.html" class="sidebar-link">Baskılı Plastik Poşet</a></li>
+                                <li><a href="/pages/tr/product-pasta-alti.html" class="sidebar-link">Pasta Altı</a></li>
+                            </ul>
+                        </nav>
+                    </aside>
+                    
+                    <!-- Right Content Area -->
+                    <div class="about-content">
+                        <!-- Breadcrumb -->
+                        <nav class="about-breadcrumb" aria-label="Breadcrumb">
+                            <ol class="breadcrumb-list">
+                                <li><a href="/pages/tr/index.html">Ana Sayfa</a></li>
+                                <li><span>/</span></li>
+                                <li><a href="/pages/tr/catalog.html">Ürünler</a></li>
+                                <li><span>/</span></li>
+                                <li class="active">Flat (Düz) Saplı Çanta</li>
+                            </ol>
+                        </nav>
+                        
+                        <!-- Main Title -->
+                        <h1 class="about-page-title" data-aos="fade-up">Flat (Düz) Saplı Çanta</h1>
+                        
+                        <!-- Product Images Showcase -->
+                        <div class="product-showcase" data-aos="fade-up" data-aos-delay="100">
+                            <div class="product-showcase-grid">
+                                <div class="product-showcase-item">
+                                    <img src="/assets/img/products/flat-duz-sapli-canta.png" 
+                                         alt="Flat (Düz) Saplı Çanta - Öz-Ay Ambalaj" 
+                                         loading="eager">
+                                </div>
+                                <div class="product-showcase-item">
+                                    <img src="/assets/img/products/bukum-burgu-sapli-canta.png" 
+                                         alt="Büküm (Burgu) Saplı Çanta - Öz-Ay Ambalaj" 
+                                         loading="lazy">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product Description -->
+                        <div class="product-description" data-aos="fade-up" data-aos-delay="200">
+                            <p>
+                                Flat (düz) saplı çanta çözümlerimiz ile perakende mağazaları, restoran, kozmetik, pastahane ve çeşitli sektörlerin ihtiyacına uygun ambalaj seçenekleri sunuyoruz. 
+                                Orijinal kahve kraft, dönüşüm kahve kraft, kuşe kraft ve beyaz kraft kâğıt türlerinden üretim yapılır. 
+                                Özelleştirilebilir kâğıt ve sap renkleri, boyut seçenekleri ile ürünlerinizin güvenli bir şekilde taşınmasını sağlarken kurumsal imajınıza katkıda bulunur.
+                            </p>
+                        </div>
+                        
+                        <!-- Product Features -->
+                        <div class="product-features" data-aos="fade-up" data-aos-delay="300">
+                            <ul class="product-features-list">
+                                <li>• <strong>Kâğıt türleri:</strong> Orijinal kahve kraft, dönüşüm kahve kraft, kuşe kraft, beyaz kraft</li>
+                                <li>• <strong>Kağıt ağırlığı:</strong> 70 - 110 gsm</li>
+                                <li>• <strong>Kullanım alanları:</strong> Perakende mağazaları, restoran, kozmetik, pastahane ve çeşitli sektörler</li>
+                                <li>• <strong>%100 geri dönüştürülebilir</strong></li>
+                                <li>• <strong>Renkli sap seçenekleri</strong> mevcuttur</li>
+                                <li>• <strong>Baskısız veya baskılı üretim</strong> seçenekleri</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- CTA Section -->
-        <section class="product-cta">
-            <div class="container">
-                <h2>Flat (Düz) Saplı Çanta Çözümü İçin Teklif Alın</h2>
-                <p style="color:#000000;">
-                    İhtiyacınıza özel flat (düz) saplı çanta çözümleri için bizimle iletişime geçin. 
-                    Uzman ekibimiz size en uygun çözümü sunmak için hazır!
-                </p>
-                <a href="javascript:void(0);" class="btn quote-btn" data-product="Flat (Düz) Saplı Çanta" style="background:#2fa84f; color:#ffffff; border-color:#2fa84f;" onclick="var p=window.location.pathname;var b=window.__BASE_PATH||'/';var l=(p.match(/\/pages\/(tr|en|de)\//)||['','tr'])[1];var u=b.replace(/\/$/,'')+'/pages/'+l+'/contact.html?product='+encodeURIComponent('Flat (Düz) Saplı Çanta');window.location.href=u;return false;">
-                    Teklif Al
-                </a>
             </div>
         </section>
     </main>

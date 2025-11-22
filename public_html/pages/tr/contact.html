@@ -10,6 +10,31 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.ozayambalaj.com/pages/tr/contact.html">
     
+    <!-- INLINE URL Redirect - MUST BE FIRST, BEFORE ANY OTHER SCRIPT -->
+    <script>
+        (function() {
+            var pathname = window.location.pathname || '/';
+            var langMatch = pathname.match(/\/pages\/(tr|en|de)\/(.+)$/);
+            
+            // If URL contains /pages/en/ or /pages/de/, redirect to /pages/tr/ immediately
+            if (langMatch && (langMatch[1] === 'en' || langMatch[1] === 'de')) {
+                var targetLang = langMatch[1];
+                var pageName = langMatch[2];
+                var trUrl = '/pages/tr/' + pageName + window.location.search;
+                
+                // Save language preference
+                try {
+                    localStorage.setItem('preferredLanguage', targetLang);
+                    sessionStorage.setItem('targetLang', targetLang);
+                    sessionStorage.setItem('targetUrl', pathname + window.location.search);
+                } catch (e) {}
+                
+                // Redirect immediately
+                window.location.replace(trUrl);
+            }
+        })();
+    </script>
+    
     <!-- Error Handler - MUST BE FIRST to catch all errors -->
     <script src="../../js/error-handler.js"></script>
     <!-- Path Fix Script -->
@@ -26,10 +51,11 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/about.css">
     <link rel="stylesheet" href="/css/contact.css">
     
     <!-- Favicon -->
@@ -37,21 +63,51 @@
 </head>
 <body>
     <main id="main-content" role="main" style="margin-top: var(--header-height);">
-        <!-- Page Hero Banner -->
-        <section class="page-banner" style="margin-top: var(--header-height);">
+        <!-- Page Hero with Background -->
+        <section class="about-hero-section">
+            <div class="about-hero-overlay"></div>
         </section>
         
-        <!-- Page Title Section -->
-        <section class="page-title-section" style="text-align: left !important;">
-            <div class="section-title" style="text-align: left !important; margin-left: 0 !important; margin-right: auto !important; width: auto !important;">
-                <h2 style="text-align: left !important; margin-left: 0 !important; display: block !important;" data-i18n="contact.page_title">İLETİŞİM</h2>
-                <p class="section-subtitle" style="text-align: left !important; margin-left: 0 !important;" data-i18n="contact.page_subtitle">Bizimle iletişime geçin, size yardımcı olalım</p>
-            </div>
-        </section>
-        
-        <!-- Main Content -->
-        <section class="section">
-            <div class="container">
+        <!-- Main Content with Sidebar -->
+        <section class="about-main-section">
+            <div class="container about-container">
+                <div class="about-layout-grid">
+                    <!-- Left Sidebar Navigation -->
+                    <aside class="about-sidebar" data-aos="fade-right">
+                        <div class="sidebar-header">
+                            <div class="sidebar-logo">
+                                <img src="/assets/img/logo.png" alt="Öz-Ay Ambalaj" style="height: 40px; width: auto;">
+                            </div>
+                            <h2 class="sidebar-title" data-i18n="contact.sidebar_title">İLETİŞİM</h2>
+                        </div>
+                        <nav class="sidebar-nav">
+                            <ul class="sidebar-nav-links">
+                                <li><a href="/pages/tr/contact.html" class="sidebar-link active" data-i18n="contact.sidebar_contact">İletişim</a></li>
+                            </ul>
+                        </nav>
+                    </aside>
+                    
+                    <!-- Right Content Area -->
+                    <div class="about-content">
+                        <!-- Breadcrumb -->
+                        <nav class="about-breadcrumb" aria-label="Breadcrumb">
+                            <ol class="breadcrumb-list">
+                                <li><a href="/pages/tr/index.html" data-i18n="common.home">Ana Sayfa</a></li>
+                                <li><span>/</span></li>
+                                <li class="active" data-i18n="common.contact">İletişim</li>
+                            </ol>
+                        </nav>
+                        
+                        <!-- Main Title -->
+                        <h1 class="about-page-title" data-aos="fade-up">İletişim</h1>
+                        
+                        <!-- Subtitle -->
+                        <p class="about-content-text" style="margin-bottom: var(--spacing-3xl);" data-aos="fade-up" data-aos-delay="100">
+                            Bizimle iletişime geçin, size yardımcı olalım
+                        </p>
+                        
+                        <!-- Contact Content -->
+                        <div class="section" style="padding: 0; margin-top: 0;">
                 <div class="contact-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; align-items: start;">
                     <div>
                         <h2 data-i18n="contact.info_title">İletişim Bilgileri</h2>
@@ -139,6 +195,8 @@
                             
                             <button type="submit" class="btn btn-primary" data-i18n="contact.form.send">Gönder</button>
                         </form>
+                    </div>
+                        </div>
                     </div>
                 </div>
             </div>

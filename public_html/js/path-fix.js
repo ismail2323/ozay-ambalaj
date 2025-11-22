@@ -38,19 +38,37 @@
             ? '/pages/' + targetLang + '/' + pageName 
             : basePath.replace(/\/$/, '') + '/pages/' + targetLang + '/' + pageName;
         
-        // Check if we're already in a redirect loop
-        var redirectKey = 'redirecting_' + targetLang + '_' + pageName;
+        // Preserve query string if exists
+        if (window.location.search) {
+            trUrl += window.location.search;
+            langUrl += window.location.search;
+        }
+        
+        // Check if current path is already the Turkish path (we've been redirected)
+        var currentIsTr = pathname.indexOf('/pages/tr/') !== -1;
+        
+        // Check if we're already in a redirect loop using a more reliable method
+        var redirectKey = 'redirecting_' + targetLang + '_' + pageName.replace(/[^a-zA-Z0-9]/g, '_');
+        var redirectTimestamp = null;
         var isRedirecting = false;
+        
         try {
-            isRedirecting = sessionStorage.getItem(redirectKey) === 'true';
+            var redirectData = sessionStorage.getItem(redirectKey);
+            if (redirectData) {
+                redirectTimestamp = parseInt(redirectData);
+                // Check if redirect happened in the last 2 seconds (should be immediate)
+                isRedirecting = (Date.now() - redirectTimestamp) < 2000;
+            }
         } catch (e) {
             // sessionStorage might not be available
         }
         
-        if (!isRedirecting) {
-            // First time - redirect to Turkish file
+        if (!currentIsTr && !isRedirecting) {
+            // First time accessing /en/ or /de/ URL - redirect to Turkish file
+            // Save to localStorage FIRST before redirect (so next page load knows the language)
             try {
-                sessionStorage.setItem(redirectKey, 'true');
+                localStorage.setItem('preferredLanguage', targetLang);
+                sessionStorage.setItem(redirectKey, Date.now().toString());
                 sessionStorage.setItem('targetLang', targetLang);
                 sessionStorage.setItem('targetUrl', langUrl);
                 sessionStorage.setItem('trUrl', trUrl);
@@ -58,26 +76,96 @@
                 // sessionStorage might not be available, continue anyway
             }
             
-            // Redirect to actual file location
-            window.location.replace(trUrl);
+            // CRITICAL: Redirect to actual file location IMMEDIATELY
+            // Use window.location.href instead of replace to ensure it works
+            window.location.href = trUrl;
             return; // Stop execution
-        } else {
-            // We've been redirected - restore the language URL
+        } else if (currentIsTr) {
+            // We're on /pages/tr/ path - check if we need to restore language URL
             try {
-                sessionStorage.removeItem(redirectKey);
                 var savedTargetLang = sessionStorage.getItem('targetLang');
                 var savedTargetUrl = sessionStorage.getItem('targetUrl');
                 
-                if (savedTargetLang && savedTargetUrl && window.history && window.history.replaceState) {
-                    // Restore language URL without reload
-                    window.history.replaceState({lang: savedTargetLang}, '', savedTargetUrl);
-                    sessionStorage.removeItem('targetLang');
-                    sessionStorage.removeItem('targetUrl');
-                    sessionStorage.removeItem('trUrl');
+                // Also check if URL already shows the target language (to avoid double restore)
+                var urlShowsTargetLang = pathname.indexOf('/pages/' + targetLang + '/') !== -1;
+                
+                if (savedTargetLang && savedTargetUrl && !urlShowsTargetLang && window.history && window.history.replaceState) {
+                    // Wait a tiny bit for page to start loading, then restore URL
+                    // Use requestAnimationFrame for better timing
+                    if (window.requestAnimationFrame) {
+                        window.requestAnimationFrame(function() {
+                            window.history.replaceState({lang: savedTargetLang}, '', savedTargetUrl);
+                            // Clean up after URL is restored
+                            setTimeout(function() {
+                                try {
+                                    sessionStorage.removeItem(redirectKey);
+                                    sessionStorage.removeItem('targetLang');
+                                    sessionStorage.removeItem('targetUrl');
+                                    sessionStorage.removeItem('trUrl');
+                                } catch (e) {
+                                    // Ignore
+                                }
+                            }, 100);
+                        });
+                    } else {
+                        setTimeout(function() {
+                            window.history.replaceState({lang: savedTargetLang}, '', savedTargetUrl);
+                            // Clean up after URL is restored
+                            setTimeout(function() {
+                                try {
+                                    sessionStorage.removeItem(redirectKey);
+                                    sessionStorage.removeItem('targetLang');
+                                    sessionStorage.removeItem('targetUrl');
+                                    sessionStorage.removeItem('trUrl');
+                                } catch (e) {
+                                    // Ignore
+                                }
+                            }, 100);
+                        }, 50);
+                    }
+                } else if (urlShowsTargetLang) {
+                    // URL already shows target language, just clean up
+                    try {
+                        sessionStorage.removeItem(redirectKey);
+                        sessionStorage.removeItem('targetLang');
+                        sessionStorage.removeItem('targetUrl');
+                        sessionStorage.removeItem('trUrl');
+                    } catch (e) {
+                        // Ignore
+                    }
                 }
             } catch (e) {
                 // sessionStorage might not be available
             }
+        }
+    } else if (langMatch && langMatch[1] === 'tr') {
+        // Handle /pages/tr/ URLs - check localStorage for preferred language
+        // If user has selected en/de, update URL to show their preference
+        try {
+            var preferredLang = localStorage.getItem('preferredLanguage');
+            if ((preferredLang === 'en' || preferredLang === 'de') && window.history && window.history.replaceState) {
+                // Wait a bit for page to load before updating URL
+                setTimeout(function() {
+                    var pageName = langMatch[2];
+                    var basePath = '/';
+                    var pagesIndex = pathname.indexOf('/pages/');
+                    if (pagesIndex > 0) {
+                        basePath = pathname.substring(0, pagesIndex);
+                        if (!basePath.endsWith('/')) {
+                            basePath += '/';
+                        }
+                    }
+                    var preferredUrl = (basePath === '/' || basePath === '') 
+                        ? '/pages/' + preferredLang + '/' + pageName 
+                        : basePath.replace(/\/$/, '') + '/pages/' + preferredLang + '/' + pageName;
+                    if (window.location.search) {
+                        preferredUrl += window.location.search;
+                    }
+                    window.history.replaceState({lang: preferredLang}, '', preferredUrl);
+                }, 100);
+            }
+        } catch (e) {
+            // Ignore
         }
     }
 })();
@@ -330,7 +418,7 @@
         
         var style = document.createElement('style');
         style.id = styleId;
-        style.textContent = '.page-banner { background-image: url("' + imagePath + '") !important; z-index: 1 !important; background-size: 100% auto !important; } .page-banner::after { z-index: 0 !important; background: transparent !important; } .product-cta { background-image: url("' + imagePath + '") !important; z-index: 1 !important; background-size: 100% auto !important; } .product-cta::after { z-index: 0 !important; background: transparent !important; }';
+        style.textContent = '.page-banner { background-image: url("' + imagePath + '") !important; z-index: 1 !important; background-size: 100% auto !important; } .page-banner::after { z-index: 0 !important; background: transparent !important; } .product-cta { background-image: url("' + imagePath + '") !important; z-index: 1 !important; background-size: 100% auto !important; } .product-cta::after { z-index: 0 !important; background: transparent !important; } .about-hero-section { background-image: url("' + imagePath + '") !important; background-size: cover !important; background-position: center center !important; background-repeat: no-repeat !important; }';
         document.head.appendChild(style);
     }
     

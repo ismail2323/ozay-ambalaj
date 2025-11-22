@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
+    <!-- INLINE URL Redirect - MUST BE FIRST, BEFORE ANY OTHER SCRIPT -->
+    <script>
+        (function() {
+            var pathname = window.location.pathname || '/';
+            var langMatch = pathname.match(/\/pages\/(tr|en|de)\/(.+)$/);
+            
+            // If URL contains /pages/en/ or /pages/de/, redirect to /pages/tr/ immediately
+            if (langMatch && (langMatch[1] === 'en' || langMatch[1] === 'de')) {
+                var targetLang = langMatch[1];
+                var pageName = langMatch[2];
+                var trUrl = '/pages/tr/' + pageName + window.location.search;
+                
+                // Save language preference
+                try {
+                    localStorage.setItem('preferredLanguage', targetLang);
+                    sessionStorage.setItem('targetLang', targetLang);
+                    sessionStorage.setItem('targetUrl', pathname + window.location.search);
+                } catch (e) {}
+                
+                // Redirect immediately
+                window.location.replace(trUrl);
+            }
+        })();
+    </script>
+    
     <!-- Error Handler - MUST BE FIRST to catch all errors -->
     <script src="../../js/error-handler.js"></script>
     <!-- Path Fix Script -->
@@ -33,7 +58,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="/css/main.css">
@@ -41,181 +66,216 @@
 </head>
 <body>
     <main id="main-content" role="main" style="margin-top: var(--header-height);">
-        <!-- Page Hero Banner -->
-        <section class="page-banner" style="margin-top: var(--header-height);">
+        <!-- Page Hero with Background Products -->
+        <section class="about-hero-section">
+            <div class="about-hero-overlay"></div>
         </section>
         
-        <!-- Page Title Section -->
-        <section class="page-title-section" style="text-align: left !important;">
-            <div class="section-title" style="text-align: left !important; margin-left: 0 !important; margin-right: auto !important; width: auto !important;">
-                <h2 style="text-align: left !important; margin-left: 0 !important; display: block !important;" data-i18n="about.page_title">KURUMSAL</h2>
-                <p class="section-subtitle" style="text-align: left !important; margin-left: 0 !important;" data-i18n="about.page_subtitle">Şirketimiz hakkında bilgi edinin</p>
-            </div>
-        </section>
-        
-        <!-- Main Content -->
-        <section class="section">
-            <div class="container">
-                <!-- Company Story -->
-                <div style="margin-top: 3rem;">
-                    <h2 style="margin-bottom: 2rem;" data-aos="fade-up" data-i18n="about.company_story">Şirket Hikayemiz</h2>
-                    
-                    <div class="company-story-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 4rem;">
-                    <div data-aos="fade-right" >
-                        <img src="assets/img/biz.png" 
-                             alt="Öz-Ay Ambalaj Tesisleri" 
-                             style="width: 100%; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-xl);">
-                    </div>
-                    <div data-aos="fade-left" >
-                        <h3 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--green-primary);" data-i18n="about.since_2010">2010'dan Bugüne</h3>
-                        <p style="margin-bottom: 1.5rem;" data-i18n="about.company_description_1">
-                            Öz-Ay Ambalaj ve Plastik, 2010 yılında İstanbul'da kurulmuştur. Kuruluşumuzdan bu yana 
-                            çevre dostu ve sürdürülebilir ambalaj çözümleri üretme vizyonuyla sektörde öncü bir konum 
-                            elde ettik.
-                        </p>
-                        <p style="margin-bottom: 1.5rem;" data-i18n="about.company_description_2">
-                            5.000 m² kapalı alan üzerinde kurulu modern tesislerimizde, son teknoloji makinelerimiz ve 
-                            uzman ekibimizle günlük 50.000 adet üretim kapasitesine sahibiz.
-                        </p>
-                        <p data-i18n="about.company_description_3">
-                            Müşteri memnuniyeti odaklı çalışma prensiplerimiz ve kalite standartlarımızla 
-                            Türkiye'nin dört bir yanındaki 500'den fazla firmaya hizmet vermekteyiz.
-                        </p>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Vision & Mission -->
-        <section class="section" style="background: var(--gray-50); padding: 4rem 0;">
-            <div class="container">
-                <div class="vision-mission-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
-                    <!-- Vision -->
-                    <div class="product-card" style="height: 100%;" data-aos="fade-left" >
-                        <div style="padding: 3rem;">
-                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--green-primary), var(--earth-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
+        <!-- Main Content with Sidebar -->
+        <section class="about-main-section">
+            <div class="container about-container">
+                <div class="about-layout-grid">
+                    <!-- Left Sidebar Navigation -->
+                    <aside class="about-sidebar" data-aos="fade-right">
+                        <div class="sidebar-header">
+                            <div class="sidebar-logo">
+                                <img src="/assets/img/logo.png" alt="Öz-Ay Ambalaj" style="height: 40px; width: auto;">
                             </div>
-                            <h3 style="font-size: 1.75rem; margin-bottom: 1.5rem; color: var(--gray-900);" data-i18n="about.vision">Vizyonumuz</h3>
-                            <p style="line-height: 1.8; color: var(--gray-700);" data-i18n="about.vision_text">
-                                Türkiye'nin çevre dostu ambalaj sektöründe lider firma olmak ve sürdürülebilir 
-                                üretim standartlarını belirleyen, uluslararası pazarlarda tercih edilen bir marka 
-                                haline gelmek.
+                            <h2 class="sidebar-title" data-i18n="about.sidebar_title">KURUMSAL</h2>
+                        </div>
+                        <nav class="sidebar-nav">
+                            <ul class="sidebar-nav-links">
+                                <li><a href="/pages/tr/about.html" class="sidebar-link active" data-i18n="about.sidebar_about">Hakkımızda</a></li>
+                                <li><a href="/pages/tr/about.html#vision-mission" class="sidebar-link" data-i18n="about.sidebar_vision_mission">Misyon & Vizyon</a></li>
+                                <li><a href="/pages/tr/about.html#history" class="sidebar-link" data-i18n="about.sidebar_history">Tarihçe</a></li>
+                                <li><a href="/pages/tr/about.html#values" class="sidebar-link" data-i18n="about.sidebar_values">Kurumsal Değerlerimiz</a></li>
+                                <li><a href="/pages/tr/quality.html" class="sidebar-link" data-i18n="about.sidebar_quality">Kalite, İSG ve Çevre Politikamız</a></li>
+                                <li><a href="/pages/tr/about.html#social" class="sidebar-link" data-i18n="about.sidebar_social">Sosyal Sorumluluk Politikamız</a></li>
+                            </ul>
+                        </nav>
+                    </aside>
+                    
+                    <!-- Right Content Area -->
+                    <div class="about-content">
+                        <!-- Breadcrumb -->
+                        <nav class="about-breadcrumb" aria-label="Breadcrumb">
+                            <ol class="breadcrumb-list">
+                                <li><a href="/pages/tr/index.html" data-i18n="common.home">Ana Sayfa</a></li>
+                                <li><span>/</span></li>
+                                <li><a href="/pages/tr/about.html" data-i18n="common.corporate">Kurumsal</a></li>
+                                <li><span>/</span></li>
+                                <li class="active" data-i18n="about.sidebar_about">Hakkımızda</li>
+                            </ol>
+                        </nav>
+                        
+                        <!-- Main Title -->
+                        <h1 class="about-page-title" data-aos="fade-up">Hakkımızda</h1>
+                        
+                        <!-- Quote -->
+                        <blockquote class="about-quote" data-aos="fade-up" data-aos-delay="100" data-i18n="about.quote">
+                            "Sizlerle aynı kâğıdın ön ve arka yüzleri gibiyiz."
+                        </blockquote>
+                        
+                        <!-- Content -->
+                        <div class="about-content-text" data-aos="fade-up" data-aos-delay="200">
+                            <p class="about-paragraph">
+                                Öz-Ay Ambalaj, 2003 yılında İstanbul Beylikdüzü bölgesinde, 30.000 m² alanda kurulmuş, "özveri ve başarı" mottosuyla ticari faaliyetlerine başlamıştır. Firmamız, sürekli gelişmeyi ve yenilenmeyi hedefler. 19 yıldır zirveyi koruyan başarımızı, yıllardır edinmiş olduğumuz tecrübelerimize ve teknolojiye olan yatkınlığımıza borçluyuz.
+                            </p>
+                            
+                            <p class="about-paragraph">
+                                Öz-Ay Ambalaj, kurulduğu günden bugüne yapmış olduğu uzun yolculukta, güvenilirliğinden ve kalitesinden asla taviz vermeden müşterilerine en iyi hizmeti vermiştir. Sektörde var olan tecrübemizle, köklerimizi daha da güçlendirdik.
+                            </p>
+                            
+                            <p class="about-paragraph">
+                                Öz-Ay Ambalaj, 250 uzman çalışanı ile hız, kalite, güven, müşteri memnuniyeti ve istikrarın simgesi olmuş ve yerli sermaye ile kurulmuş sektörde en bilinen markalar arasında yer almaktadır. BRC (British Retail Consortium), ISO 9001 ve YUM Kalite Belgelerine sahip Öz-Ay Ambalaj, dünya standartlarının üzerindeki üretim anlayışı ve disiplinli çalışmalarıyla müşterilerinin memnuniyetini ve sürekliliğini kazanmayı da başarmıştır.
+                            </p>
+                            
+                            <p class="about-paragraph">
+                                Dünyanın her yerine ihracat yapabilecek ekip, donanım, ürün çeşitliliği ve teçhizata sahip olan firmamız, her zaman güçlü-deneyimli genel yönetimi, yetkin mühendislik ekibi, mimarlık-tasarım-üretim elemanları ve rekabetçi fiyat politikası ile sektöründe fark yaratmış öncü bir kuruluştur.
+                            </p>
+                            
+                            <p class="about-paragraph">
+                                Uzun vadeli başarımız sadece üretim stratejimize değil, aynı zamanda kurumsal değerlerimize de bağlıdır. Tüm çalışmalarımızda özveri, zaman, takip, azim, şeffaflık, araştırma, motivasyon, başarı, ar-ge, liyakat, adaptasyon ve jet teslimat ilkeleri doğrultusunda hareket ederiz.
+                            </p>
+                            
+                            <p class="about-paragraph">
+                                Çözümlerimiz müşterilerimizin gelecekte karşılaşabileceği sorunları ortadan kaldırmak üzerine fırsatlar sağlamaktadır. Özümüzde taşları üst üste koyup müşterilerimizin önüne engel oluşturmak değil; onları basamak haline getirip sorunlarını aşmalarına destek olmak vardır.
+                            </p>
+                            
+                            <p class="about-paragraph">
+                                Firmamız, güncel teknolojileri takip ederek, ürünlerimizin çevre üzerindeki etkisini en aza indirip, temel yasa ve yönetmeliklere uyarak, problemlere kalıcı çözümler üretir ve böylece amaç ve hedefleri doğrultusunda faaliyetlerini sürdürür. Geleceğe bakışımızı iyimser kılan temel noktalarımız kalite, hassasiyet, hızlı ve güvenilir teslimattır.
+                            </p>
+                            
+                            <p class="about-paragraph">
+                                Öz-Ay Ambalaj, ilk günkü heyecanını asla kaybetmeden geleceği şekillendirmek ve sektörde vazgeçilmez olabilmek için sürekli çalışır ve gelişir. Şirket olarak kendimizi, hizmet verdiğimiz firmaların bir parçası olarak kabul ederiz. Kaliteli ürünlerimiz, geniş ürün yelpazemiz ve müşterilerimize sunduğumuz güvenilir hizmet anlayışı her zaman temel hedefimizdir. Bu ilkeler doğrultusunda gelişmeyi ve büyümeyi hedef alarak, güvenilir bir firma anlayışıyla ilerleyerek, kurumsal değerlerimiz ışığında sizlere hizmet sunmaya devam edeceğiz.
+                            </p>
+                            
+                            <p class="about-paragraph">
+                                Sizlerle çalışmaktan ve hizmet vermekten kıvanç duyacağız.
                             </p>
                         </div>
-                    </div>
-                    
-                    <!-- Mission -->
-                    <div class="product-card" style="height: 100%;" data-aos="fade-left" >
-                        <div style="padding: 3rem;">
-                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--earth-green), var(--forest-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                                </svg>
+                        
+                        <!-- Vision & Mission Section - Continuation of About -->
+                        <div class="about-section-divider" id="vision-mission"></div>
+                        
+                        <h2 class="about-section-title" data-aos="fade-up">Misyon & Vizyon</h2>
+                        
+                        <div class="vision-mission-content">
+                            <!-- Vision -->
+                            <div class="vision-mission-item" data-aos="fade-up" data-aos-delay="100">
+                                <div class="vision-mission-icon">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </div>
+                                <h3 class="vision-mission-title">Vizyonumuz</h3>
+                                <p class="vision-mission-text">
+                                    Türkiye'nin çevre dostu ambalaj sektöründe lider firma olmak ve sürdürülebilir 
+                                    üretim standartlarını belirleyen, uluslararası pazarlarda tercih edilen bir marka 
+                                    haline gelmek.
+                                </p>
                             </div>
-                            <h3 style="font-size: 1.75rem; margin-bottom: 1.5rem; color: var(--gray-900);" data-i18n="about.mission">Misyonumuz</h3>
-                            <p style="line-height: 1.8; color: var(--gray-700);" data-i18n="about.mission_text">
-                                Müşterilerimize yüksek kaliteli, çevre dostu ve ekonomik ambalaj çözümleri sunarak, 
-                                sektörde fark yaratan, sürdürülebilir üretim anlayışıyla doğaya ve topluma değer 
-                                katan bir kuruluş olmak.
-                            </p>
+                            
+                            <!-- Mission -->
+                            <div class="vision-mission-item" data-aos="fade-up" data-aos-delay="200">
+                                <div class="vision-mission-icon">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="vision-mission-title">Misyonumuz</h3>
+                                <p class="vision-mission-text">
+                                    Müşterilerimize yüksek kaliteli, çevre dostu ve ekonomik ambalaj çözümleri sunarak, 
+                                    sektörde fark yaratan, sürdürülebilir üretim anlayışıyla doğaya ve topluma değer 
+                                    katan bir kuruluş olmak.
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Trade Fair Section -->
-        <section class="section" style="padding: 4rem 0;">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Ürün Tanıtım Fuarı</h2>
-                    <p class="section-subtitle">
-                        24-27 Nisan tarihleri arasında İstanbul Fuar Merkezi'nde yerimizi aldık.
-                    </p>
-                    <p style="margin-top: 0.75rem; font-size: 1.05rem; color: var(--gray-800);">
-                        Türkiye Fırıncılar Federasyonu Başkanı Sn. Halil İbrahim Balcı'ya destekleri için teşekkür ederiz.
-                    </p>
-                </div>
-                
-                <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; align-items: center; margin-top: 2rem;" data-aos="fade-up">
-                    <div style="max-width: 480px; width: 100%;">
-                        <img src="/assets/img/Instagram2.jpg" 
-                             alt="Ürün Tanıtım Fuarı - Öz-Ay Ambalaj" 
-                             style="width: 100%; height: 360px; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-lg); object-fit: cover; object-position: center;">
-                    </div>
-                    <div style="max-width: 480px; width: 100%;">
-                        <img src="/assets/img/Instagram.jpg" 
-                             alt="Ürün Tanıtım Fuarı - Öz-Ay Ambalaj" 
-                             style="width: 100%; height: 360px; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-lg); object-fit: cover; object-position: center;">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Core Values -->
-        <section class="section">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2 data-i18n="about.values">Değerlerimiz</h2>
-                    <p class="section-subtitle" data-i18n="about.values_subtitle">Başarımızın temelindeki prensipler</p>
-                </div>
-                
-                <div class="values-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-                    <!-- Value 1 -->
-                    <div style="text-align: center; padding: 2rem;" data-aos="stagger" >
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🌱</div>
-                        <h4 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--green-primary);" data-i18n="about.sustainability">Sürdürülebilirlik</h4>
-                        <p style="color: var(--gray-700);" data-i18n="about.sustainability_desc">Çevreye saygılı üretim süreçleri</p>
-                    </div>
-                    
-                    <!-- Value 2 -->
-                    <div style="text-align: center; padding: 2rem;" data-aos="stagger" >
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">💯</div>
-                        <h4 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--green-primary);" data-i18n="about.quality">Kalite</h4>
-                        <p style="color: var(--gray-700);" data-i18n="about.quality_desc">Her üründe mükemmellik</p>
-                    </div>
-                    
-                    <!-- Value 3 -->
-                    <div style="text-align: center; padding: 2rem;" data-aos="stagger" >
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🤝</div>
-                        <h4 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--green-primary);" data-i18n="about.trust">Güven</h4>
-                        <p style="color: var(--gray-700);" data-i18n="about.trust_desc">Şeffaf ve dürüst iş anlayışı</p>
-                    </div>
-                    
-                    <!-- Value 4 -->
-                    <div style="text-align: center; padding: 2rem;" data-aos="stagger" >
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
-                        <h4 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--green-primary);" data-i18n="about.innovation">İnovasyon</h4>
-                        <p style="color: var(--gray-700);" data-i18n="about.innovation_desc">Sürekli gelişim ve yenilik</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats -->
-        <section class="section" style="background: linear-gradient(135deg, var(--green-primary), var(--earth-green)); color: white; padding: 4rem 0;">
-            <div class="container">
-                <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; text-align: center;">
-                    <div data-aos="fade-up">
-                        <div class="stat-counter" style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;" data-target="10" data-suffix="+">0+</div>
-                        <p style="font-size: 1.25rem; opacity: 0.95;" data-i18n="common.years_experience">Yıllık Tecrübe</p>
-                    </div>
-                    <div data-aos="fade-up">
-                        <div class="stat-counter" style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;" data-target="500" data-suffix="+">0+</div>
-                        <p style="font-size: 1.25rem; opacity: 0.95;" data-i18n="common.happy_customers">Mutlu Müşteri</p>
-                    </div>
-                    <div data-aos="fade-up">
-                        <div style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;">1 Ton+</div>
-                        <p style="font-size: 1.25rem; opacity: 0.95;">Aylık Üretim</p>
-                    </div>
-                    <div data-aos="fade-up">
-                        <div class="stat-counter" style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;" data-target="99" data-prefix="%">%0</div>
-                        <p style="font-size: 1.25rem; opacity: 0.95;" data-i18n="common.customer_satisfaction">Müşteri Memnuniyeti</p>
+                        
+                        <!-- Core Values Section - Continuation of About -->
+                        <div class="about-section-divider" id="values"></div>
+                        
+                        <h2 class="about-section-title" data-aos="fade-up">Kurumsal Değerlerimiz</h2>
+                        <p class="about-section-subtitle" data-aos="fade-up" data-aos-delay="100">Başarımızın temelindeki prensipler</p>
+                        
+                        <div class="values-grid">
+                            <!-- Value 1 -->
+                            <div class="value-item" data-aos="fade-up" data-aos-delay="100">
+                                <div class="value-icon">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="value-title">Sürdürülebilirlik</h4>
+                                <p class="value-description">Çevreye saygılı üretim süreçleri ve sürdürülebilir çözümler</p>
+                            </div>
+                            
+                            <!-- Value 2 -->
+                            <div class="value-item" data-aos="fade-up" data-aos-delay="200">
+                                <div class="value-icon">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                                <h4 class="value-title">Kalite</h4>
+                                <p class="value-description">Her üründe mükemmellik ve yüksek standartlar</p>
+                            </div>
+                            
+                            <!-- Value 3 -->
+                            <div class="value-item" data-aos="fade-up" data-aos-delay="300">
+                                <div class="value-icon">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="value-title">Güven</h4>
+                                <p class="value-description">Şeffaf ve dürüst iş anlayışı</p>
+                            </div>
+                            
+                            <!-- Value 4 -->
+                            <div class="value-item" data-aos="fade-up" data-aos-delay="400">
+                                <div class="value-icon">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="value-title">İnovasyon</h4>
+                                <p class="value-description">Sürekli gelişim ve yenilik</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Stats Section - Part of About Content -->
+                        <div class="about-section-divider"></div>
+                        
+                        <div class="about-stats-grid">
+                            <div class="about-stat-item" data-aos="fade-up" data-aos-delay="100">
+                                <div class="about-stat-number">
+                                    <span class="stat-counter" data-target="10" data-suffix="+">0+</span>
+                                </div>
+                                <p class="about-stat-label">Yıllık Tecrübe</p>
+                            </div>
+                            <div class="about-stat-item" data-aos="fade-up" data-aos-delay="200">
+                                <div class="about-stat-number">
+                                    <span class="stat-counter" data-target="500" data-suffix="+">0+</span>
+                                </div>
+                                <p class="about-stat-label">Mutlu Müşteri</p>
+                            </div>
+                            <div class="about-stat-item" data-aos="fade-up" data-aos-delay="300">
+                                <div class="about-stat-number">
+                                    <span>1 Ton+</span>
+                                </div>
+                                <p class="about-stat-label">Aylık Üretim</p>
+                            </div>
+                            <div class="about-stat-item" data-aos="fade-up" data-aos-delay="400">
+                                <div class="about-stat-number">
+                                    <span class="stat-counter" data-target="99" data-prefix="%">%0</span>
+                                </div>
+                                <p class="about-stat-label">Müşteri Memnuniyeti</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

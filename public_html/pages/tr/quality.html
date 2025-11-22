@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
+    <!-- INLINE URL Redirect - MUST BE FIRST, BEFORE ANY OTHER SCRIPT -->
+    <script>
+        (function() {
+            var pathname = window.location.pathname || '/';
+            var langMatch = pathname.match(/\/pages\/(tr|en|de)\/(.+)$/);
+            
+            // If URL contains /pages/en/ or /pages/de/, redirect to /pages/tr/ immediately
+            if (langMatch && (langMatch[1] === 'en' || langMatch[1] === 'de')) {
+                var targetLang = langMatch[1];
+                var pageName = langMatch[2];
+                var trUrl = '/pages/tr/' + pageName + window.location.search;
+                
+                // Save language preference
+                try {
+                    localStorage.setItem('preferredLanguage', targetLang);
+                    sessionStorage.setItem('targetLang', targetLang);
+                    sessionStorage.setItem('targetUrl', pathname + window.location.search);
+                } catch (e) {}
+                
+                // Redirect immediately
+                window.location.replace(trUrl);
+            }
+        })();
+    </script>
+    
     <!-- Error Handler - MUST BE FIRST to catch all errors -->
     <script src="../../js/error-handler.js"></script>
     <!-- Path Fix Script -->
@@ -32,125 +57,165 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/about.css">
     <link rel="stylesheet" href="/css/quality.css">
 </head>
 <body>
-    <main id="main-content" role="main">
-        <!-- Page Hero Banner -->
-        <section class="page-banner" style="margin-top: var(--header-height);">
+    <main id="main-content" role="main" style="margin-top: var(--header-height);">
+        <!-- Page Hero with Background -->
+        <section class="about-hero-section">
+            <div class="about-hero-overlay"></div>
         </section>
         
-        <!-- Page Title Section -->
-        <section class="page-title-section" style="text-align: left !important;">
-            <div class="section-title" style="text-align: left !important; margin-left: 0 !important; margin-right: auto !important; width: auto !important;">
-                <h2 style="text-align: left !important; margin-left: 0 !important; display: block !important;" data-i18n="quality.page_title">KALİTE</h2>
-                <p class="section-subtitle" style="text-align: left !important; margin-left: 0 !important;" data-i18n="quality.page_subtitle">Kalite standartlarımız ve sürdürülebilirlik yaklaşımımız</p>
-            </div>
-        </section>
-        
-        <!-- Quality Content -->
-        <section class="quality-section">
-            <div class="container">
-                <!-- Quality Management System -->
-                <div class="quality-card" data-aos="fade-up">
-                    <div class="quality-card-icon">✓</div>
-                    <h3 data-i18n="quality.qms_title">Kalite Yönetim Sistemi</h3>
-                    <p data-i18n="quality.qms_description">
-                        ISO 9001:2015 kalite yönetim sistemi sertifikamız ile tüm üretim süreçlerimizde kalite standartlarını en üst seviyede tutuyoruz. 
-                        Sürekli iyileştirme prensibi ile çalışarak müşterilerimize en kaliteli ürünleri sunmayı hedefliyoruz.
-                    </p>
-                    <ul>
-                        <li data-i18n="quality.qms_item1">ISO 9001:2015 sertifikalı kalite yönetim sistemi</li>
-                        <li data-i18n="quality.qms_item2">Düzenli kalite kontrol ve denetim süreçleri</li>
-                        <li data-i18n="quality.qms_item3">Sürekli iyileştirme ve gelişim programları</li>
-                        <li data-i18n="quality.qms_item4">Müşteri memnuniyeti odaklı yaklaşım</li>
-                    </ul>
-                </div>
+        <!-- Main Content with Sidebar -->
+        <section class="about-main-section">
+            <div class="container about-container">
+                <div class="about-layout-grid">
+                    <!-- Left Sidebar Navigation -->
+                    <aside class="about-sidebar" data-aos="fade-right">
+                        <div class="sidebar-header">
+                            <div class="sidebar-logo">
+                                <img src="/assets/img/logo.png" alt="Öz-Ay Ambalaj" style="height: 40px; width: auto;">
+                            </div>
+                            <h2 class="sidebar-title" data-i18n="quality.sidebar_title">KURUMSAL</h2>
+                        </div>
+                        <nav class="sidebar-nav">
+                            <ul class="sidebar-nav-links">
+                                <li><a href="/pages/tr/about.html" class="sidebar-link" data-i18n="about.sidebar_about">Hakkımızda</a></li>
+                                <li><a href="/pages/tr/about.html#vision-mission" class="sidebar-link" data-i18n="about.sidebar_vision_mission">Misyon & Vizyon</a></li>
+                                <li><a href="/pages/tr/about.html#history" class="sidebar-link" data-i18n="about.sidebar_history">Tarihçe</a></li>
+                                <li><a href="/pages/tr/about.html#values" class="sidebar-link" data-i18n="about.sidebar_values">Kurumsal Değerlerimiz</a></li>
+                                <li><a href="/pages/tr/quality.html" class="sidebar-link active" data-i18n="about.sidebar_quality">Kalite, İSG ve Çevre Politikamız</a></li>
+                                <li><a href="/pages/tr/about.html#social" class="sidebar-link" data-i18n="about.sidebar_social">Sosyal Sorumluluk Politikamız</a></li>
+                            </ul>
+                        </nav>
+                    </aside>
+                    
+                    <!-- Right Content Area -->
+                    <div class="about-content">
+                        <!-- Breadcrumb -->
+                        <nav class="about-breadcrumb" aria-label="Breadcrumb">
+                            <ol class="breadcrumb-list">
+                                <li><a href="/pages/tr/index.html" data-i18n="common.home">Ana Sayfa</a></li>
+                                <li><span>/</span></li>
+                                <li><a href="/pages/tr/about.html" data-i18n="common.corporate">Kurumsal</a></li>
+                                <li><span>/</span></li>
+                                <li class="active" data-i18n="quality.page_title_full">Kalite, İSG ve Çevre Politikamız</li>
+                            </ol>
+                        </nav>
+                        
+                        <!-- Main Title -->
+                        <h1 class="about-page-title" data-aos="fade-up" data-i18n="quality.page_title_full">Kalite, İSG ve Çevre Politikamız</h1>
+                        
+                        <!-- Subtitle -->
+                        <p class="about-content-text" style="margin-bottom: var(--spacing-3xl);" data-aos="fade-up" data-aos-delay="100">
+                            Kalite standartlarımız ve sürdürülebilirlik yaklaşımımız
+                        </p>
+                        
+                        <!-- Quality Content -->
+                        <div class="quality-section" style="margin-top: 0;">
+                            <!-- Quality Cards Grid -->
+                            <div class="quality-cards-grid">
+                                <!-- Quality Management System -->
+                                <div class="quality-card" data-aos="fade-up">
+                                    <div class="quality-card-icon">✓</div>
+                                    <h3 data-i18n="quality.qms_title">Kalite Yönetim Sistemi</h3>
+                                    <p data-i18n="quality.qms_description">
+                                        ISO 9001:2015 kalite yönetim sistemi sertifikamız ile tüm üretim süreçlerimizde kalite standartlarını en üst seviyede tutuyoruz. 
+                                        Sürekli iyileştirme prensibi ile çalışarak müşterilerimize en kaliteli ürünleri sunmayı hedefliyoruz.
+                                    </p>
+                                    <ul>
+                                        <li data-i18n="quality.qms_item1">ISO 9001:2015 sertifikalı kalite yönetim sistemi</li>
+                                        <li data-i18n="quality.qms_item2">Düzenli kalite kontrol ve denetim süreçleri</li>
+                                        <li data-i18n="quality.qms_item3">Sürekli iyileştirme ve gelişim programları</li>
+                                        <li data-i18n="quality.qms_item4">Müşteri memnuniyeti odaklı yaklaşım</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- Sustainability -->
+                                <div class="quality-card" data-aos="fade-up">
+                                    <div class="quality-card-icon">🌱</div>
+                                    <h3 data-i18n="quality.sustainability_title">Sürdürülebilirlik</h3>
+                                    <p data-i18n="quality.sustainability_description">
+                                        Çevreye saygılı üretim süreçlerimiz ile sürdürülebilir bir gelecek için çalışıyoruz. 
+                                        Geri dönüştürülebilir malzemeler kullanarak ve enerji verimliliğini artırarak çevresel etkimizi minimize ediyoruz.
+                                    </p>
+                                    <ul>
+                                        <li data-i18n="quality.sustainability_item1">%100 geri dönüştürülebilir malzeme kullanımı</li>
+                                        <li data-i18n="quality.sustainability_item2">Enerji verimli üretim süreçleri</li>
+                                        <li data-i18n="quality.sustainability_item3">Atık yönetimi ve geri dönüşüm programları</li>
+                                        <li data-i18n="quality.sustainability_item4">Karbon ayak izi azaltma çalışmaları</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- Material Compliance -->
+                                <div class="quality-card" data-aos="fade-up">
+                                    <div class="quality-card-icon">📋</div>
+                                    <h3 data-i18n="quality.compliance_title">Hammadde Uygunlukları</h3>
+                                    <p data-i18n="quality.compliance_description">
+                                        Tüm hammaddelerimiz uluslararası standartlara uygun olarak seçilmekte ve düzenli olarak test edilmektedir. 
+                                        Gıda ile temas eden ürünlerimiz için özel sertifikalı malzemeler kullanılmaktadır.
+                                    </p>
+                                    <div class="certificates-grid">
+                                        <div class="certificate-item">
+                                            <div class="certificate-icon">✓</div>
+                                            <h4 data-i18n="quality.compliance_item1">FDA Onaylı</h4>
+                                            <p data-i18n="quality.compliance_item1_desc">Gıda ile temas uygunluğu</p>
+                                        </div>
+                                        <div class="certificate-item">
+                                            <div class="certificate-icon">✓</div>
+                                            <h4 data-i18n="quality.compliance_item2">REACH Uyumlu</h4>
+                                            <p data-i18n="quality.compliance_item2_desc">Kimyasal güvenlik standartları</p>
+                                        </div>
+                                        <div class="certificate-item">
+                                            <div class="certificate-icon">✓</div>
+                                            <h4 data-i18n="quality.compliance_item3">ISO 14001</h4>
+                                            <p data-i18n="quality.compliance_item3_desc">Çevre yönetim sistemi</p>
+                                        </div>
+                                        <div class="certificate-item">
+                                            <div class="certificate-icon">✓</div>
+                                            <h4 data-i18n="quality.compliance_item4">FSC Sertifikalı</h4>
+                                            <p data-i18n="quality.compliance_item4_desc">Sürdürülebilir orman yönetimi</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                 
-                <!-- Sustainability -->
-                <div class="quality-card" data-aos="fade-up">
-                    <div class="quality-card-icon">🌱</div>
-                    <h3 data-i18n="quality.sustainability_title">Sürdürülebilirlik</h3>
-                    <p data-i18n="quality.sustainability_description">
-                        Çevreye saygılı üretim süreçlerimiz ile sürdürülebilir bir gelecek için çalışıyoruz. 
-                        Geri dönüştürülebilir malzemeler kullanarak ve enerji verimliliğini artırarak çevresel etkimizi minimize ediyoruz.
-                    </p>
-                    <ul>
-                        <li data-i18n="quality.sustainability_item1">%100 geri dönüştürülebilir malzeme kullanımı</li>
-                        <li data-i18n="quality.sustainability_item2">Enerji verimli üretim süreçleri</li>
-                        <li data-i18n="quality.sustainability_item3">Atık yönetimi ve geri dönüşüm programları</li>
-                        <li data-i18n="quality.sustainability_item4">Karbon ayak izi azaltma çalışmaları</li>
-                    </ul>
-                </div>
-                
-                <!-- Recycling Process -->
-                <div class="quality-process" data-aos="fade-up">
-                    <h3 data-i18n="quality.recycling_title">Geri Dönüşüm Süreci</h3>
-                    <div class="process-steps-quality">
-                        <div class="process-step-quality">
-                            <div class="process-step-quality-icon">1</div>
-                            <div class="process-step-quality-title" data-i18n="quality.recycling_step1">Toplama</div>
-                            <div class="process-step-quality-desc" data-i18n="quality.recycling_step1_desc">Atık malzemelerin toplanması</div>
-                        </div>
-                        <div class="process-arrow-quality">→</div>
-                        <div class="process-step-quality">
-                            <div class="process-step-quality-icon">2</div>
-                            <div class="process-step-quality-title" data-i18n="quality.recycling_step2">Ayrıştırma</div>
-                            <div class="process-step-quality-desc" data-i18n="quality.recycling_step2_desc">Malzemelerin türlerine göre ayrıştırılması</div>
-                        </div>
-                        <div class="process-arrow-quality">→</div>
-                        <div class="process-step-quality">
-                            <div class="process-step-quality-icon">3</div>
-                            <div class="process-step-quality-title" data-i18n="quality.recycling_step3">Temizleme</div>
-                            <div class="process-step-quality-desc" data-i18n="quality.recycling_step3_desc">Kimyasal ve fiziksel temizleme</div>
-                        </div>
-                        <div class="process-arrow-quality">→</div>
-                        <div class="process-step-quality">
-                            <div class="process-step-quality-icon">4</div>
-                            <div class="process-step-quality-title" data-i18n="quality.recycling_step4">İşleme</div>
-                            <div class="process-step-quality-desc" data-i18n="quality.recycling_step4_desc">Yeniden kullanılabilir hammaddeye dönüştürme</div>
-                        </div>
-                        <div class="process-arrow-quality">→</div>
-                        <div class="process-step-quality">
-                            <div class="process-step-quality-icon">5</div>
-                            <div class="process-step-quality-title" data-i18n="quality.recycling_step5">Üretim</div>
-                            <div class="process-step-quality-desc" data-i18n="quality.recycling_step5_desc">Yeni ürün üretiminde kullanım</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Material Compliance -->
-                <div class="quality-card" data-aos="fade-up">
-                    <div class="quality-card-icon">📋</div>
-                    <h3 data-i18n="quality.compliance_title">Hammadde Uygunlukları</h3>
-                    <p data-i18n="quality.compliance_description">
-                        Tüm hammaddelerimiz uluslararası standartlara uygun olarak seçilmekte ve düzenli olarak test edilmektedir. 
-                        Gıda ile temas eden ürünlerimiz için özel sertifikalı malzemeler kullanılmaktadır.
-                    </p>
-                    <div class="certificates-grid">
-                        <div class="certificate-item">
-                            <div class="certificate-icon">✓</div>
-                            <h4 data-i18n="quality.compliance_item1">FDA Onaylı</h4>
-                            <p data-i18n="quality.compliance_item1_desc">Gıda ile temas uygunluğu</p>
-                        </div>
-                        <div class="certificate-item">
-                            <div class="certificate-icon">✓</div>
-                            <h4 data-i18n="quality.compliance_item2">REACH Uyumlu</h4>
-                            <p data-i18n="quality.compliance_item2_desc">Kimyasal güvenlik standartları</p>
-                        </div>
-                        <div class="certificate-item">
-                            <div class="certificate-icon">✓</div>
-                            <h4 data-i18n="quality.compliance_item3">ISO 14001</h4>
-                            <p data-i18n="quality.compliance_item3_desc">Çevre yönetim sistemi</p>
-                        </div>
-                        <div class="certificate-item">
-                            <div class="certificate-icon">✓</div>
-                            <h4 data-i18n="quality.compliance_item4">FSC Sertifikalı</h4>
-                            <p data-i18n="quality.compliance_item4_desc">Sürdürülebilir orman yönetimi</p>
+                            <!-- Recycling Process -->
+                            <div class="quality-process" data-aos="fade-up">
+                                <h3 data-i18n="quality.recycling_title">Geri Dönüşüm Süreci</h3>
+                                <div class="process-steps-quality">
+                                    <div class="process-step-quality">
+                                        <div class="process-step-quality-icon">1</div>
+                                        <div class="process-step-quality-title" data-i18n="quality.recycling_step1">Toplama</div>
+                                        <div class="process-step-quality-desc" data-i18n="quality.recycling_step1_desc">Atık malzemelerin toplanması</div>
+                                    </div>
+                                    <div class="process-step-quality">
+                                        <div class="process-step-quality-icon">2</div>
+                                        <div class="process-step-quality-title" data-i18n="quality.recycling_step2">Ayrıştırma</div>
+                                        <div class="process-step-quality-desc" data-i18n="quality.recycling_step2_desc">Malzemelerin türlerine göre ayrıştırılması</div>
+                                    </div>
+                                    <div class="process-step-quality">
+                                        <div class="process-step-quality-icon">3</div>
+                                        <div class="process-step-quality-title" data-i18n="quality.recycling_step3">Temizleme</div>
+                                        <div class="process-step-quality-desc" data-i18n="quality.recycling_step3_desc">Kimyasal ve fiziksel temizleme</div>
+                                    </div>
+                                    <div class="process-step-quality">
+                                        <div class="process-step-quality-icon">4</div>
+                                        <div class="process-step-quality-title" data-i18n="quality.recycling_step4">İşleme</div>
+                                        <div class="process-step-quality-desc" data-i18n="quality.recycling_step4_desc">Yeniden kullanılabilir hammaddeye dönüştürme</div>
+                                    </div>
+                                    <div class="process-step-quality">
+                                        <div class="process-step-quality-icon">5</div>
+                                        <div class="process-step-quality-title" data-i18n="quality.recycling_step5">Üretim</div>
+                                        <div class="process-step-quality-desc" data-i18n="quality.recycling_step5_desc">Yeni ürün üretiminde kullanım</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

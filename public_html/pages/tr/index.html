@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
+    <!-- INLINE URL Redirect - MUST BE FIRST, BEFORE ANY OTHER SCRIPT -->
+    <script>
+        (function() {
+            var pathname = window.location.pathname || '/';
+            var langMatch = pathname.match(/\/pages\/(tr|en|de)\/(.+)$/);
+            
+            // If URL contains /pages/en/ or /pages/de/, redirect to /pages/tr/ immediately
+            if (langMatch && (langMatch[1] === 'en' || langMatch[1] === 'de')) {
+                var targetLang = langMatch[1];
+                var pageName = langMatch[2];
+                var trUrl = '/pages/tr/' + pageName + window.location.search;
+                
+                // Save language preference
+                try {
+                    localStorage.setItem('preferredLanguage', targetLang);
+                    sessionStorage.setItem('targetLang', targetLang);
+                    sessionStorage.setItem('targetUrl', pathname + window.location.search);
+                } catch (e) {}
+                
+                // Redirect immediately
+                window.location.replace(trUrl);
+            }
+        })();
+    </script>
+    
     <!-- Error Handler - MUST BE FIRST to catch all errors -->
     <script src="../../js/error-handler.js"></script>
     <!-- Path Fix Script -->
@@ -59,7 +84,7 @@
     <!-- Preconnect & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="/css/main.css">
@@ -92,64 +117,101 @@
 
                 <div class="numbers-grid">
                     <article class="number-card" data-aos="fade-up">
-                        <div class="number-icon">🏭</div>
-                        <div class="number-brand" data-i18n="numbers.brand">Öz-Ay Ambalaj</div>
-                        <div class="number-value" data-i18n="numbers.year">2015</div>
+                        <div class="number-icon">
+                            <img src="/assets/svg/icon-1.svg" alt="Kuruluş Yılı" class="number-icon-svg">
+                        </div>
+                        <div class="number-value number-counter" data-target="2015" data-i18n="numbers.year">2015</div>
                         <div class="number-label" data-i18n="numbers.year_label">KURULUŞ YILI</div>
                     </article>
 
                     <article class="number-card" data-aos="fade-up" data-aos-delay="50">
-                        <div class="number-icon">😊</div>
-                        <div class="number-brand" data-i18n="numbers.brand">Öz-Ay Ambalaj</div>
-                        <div class="number-value" data-i18n="numbers.customers">1000+</div>
+                        <div class="number-icon">
+                            <img src="/assets/svg/icon-2.svg" alt="Memnun Müşteri" class="number-icon-svg">
+                        </div>
+                        <div class="number-value number-counter" data-target="1000" data-suffix="+" data-i18n="numbers.customers">1000+</div>
                         <div class="number-label" data-i18n="numbers.customers_label">MEMNUN MÜŞTERİ</div>
                     </article>
 
                     <article class="number-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="number-icon">👜</div>
-                        <div class="number-brand" data-i18n="numbers.brand">Öz-Ay Ambalaj</div>
-                        <div class="number-value" data-i18n="numbers.capacity">6kg</div>
+                        <div class="number-icon">
+                            <img src="/assets/svg/icon-3.svg" alt="Çanta Kapasitesi" class="number-icon-svg">
+                        </div>
+                        <div class="number-value number-counter" data-target="6" data-suffix="kg" data-i18n="numbers.capacity">6kg</div>
                         <div class="number-label" data-i18n="numbers.capacity_label">ÇANTA TAŞIMA KAPASİTESİ</div>
                     </article>
 
                     <article class="number-card" data-aos="fade-up" data-aos-delay="150">
-                        <div class="number-icon">🌍</div>
-                        <div class="number-brand" data-i18n="numbers.brand">Öz-Ay Ambalaj</div>
-                        <div class="number-value" data-i18n="numbers.export_countries">60+</div>
+                        <div class="number-icon">
+                            <img src="/assets/svg/icon-4.svg" alt="İhracat" class="number-icon-svg">
+                        </div>
+                        <div class="number-value number-counter" data-target="10" data-suffix="+" data-i18n="numbers.export_countries">10+</div>
                         <div class="number-label" data-i18n="numbers.export_countries_label">ÜLKEYE İHRACAT</div>
                     </article>
 
                     <article class="number-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="number-icon">🎨</div>
-                        <div class="number-brand" data-i18n="numbers.brand">Öz-Ay Ambalaj</div>
-                        <div class="number-value" data-i18n="numbers.colors">8renk</div>
+                        <div class="number-icon">
+                            <img src="/assets/svg/icon-5.svg" alt="Flexo Baskı" class="number-icon-svg">
+                        </div>
+                        <div class="number-value number-counter" data-target="8" data-suffix=" renk" data-i18n="numbers.colors">8 renk</div>
                         <div class="number-label" data-i18n="numbers.colors_label">FLEXO BASKI</div>
                     </article>
 
                     <article class="number-card" data-aos="fade-up" data-aos-delay="250">
-                        <div class="number-icon">♻️</div>
-                        <div class="number-brand" data-i18n="numbers.brand">Öz-Ay Ambalaj</div>
-                        <div class="number-value" data-i18n="numbers.recycling">% 100</div>
+                        <div class="number-icon">
+                            <img src="/assets/svg/icon-6.svg" alt="Dönüşüm" class="number-icon-svg">
+                        </div>
+                        <div class="number-value number-counter" data-target="100" data-prefix="% " data-i18n="numbers.recycling">% 100</div>
                         <div class="number-label" data-i18n="numbers.recycling_label">DÖNÜŞÜM</div>
                     </article>
                 </div>
             </div>
         </section>
 
-        <!-- Hero Section with Video Background (başlık ve butonlar) -->
-        <section class="hero">
-            <div class="hero-overlay"></div>
-            <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
-                <h1 class="hero-title" data-i18n="hero.title">Ambalajda Güven,<br>Üretimde Sürdürülebilirlik</h1>
-                <div style="margin-top: 2rem;">
-                    <a href="/pages/tr/contact.html" class="btn btn-primary" data-i18n="hero.cta">Hemen İletişime Geçin</a>
-                    <a href="/pages/tr/products.html" class="btn btn-outline" style="margin-left: 1rem;" data-i18n="common.discover_products">Ürün Kataloğunu İnceleyin</a>
+        <!-- About Section - Hakkımızda -->
+        <section class="section about-section">
+            <div class="container">
+                <div class="about-content-grid">
+                    <!-- Görsel - Sol taraf -->
+                    <div class="about-image-wrapper" data-aos="fade-right">
+                        <img src="/assets/img/hakkimizda.png" 
+                             alt="Öz-Ay Ambalaj Hakkımızda" 
+                             class="about-image">
+                    </div>
+                    
+                    <!-- İçerik - Sağ taraf -->
+                    <div class="about-text-wrapper" data-aos="fade-left">
+                        <div class="section-title" style="text-align: left; margin-bottom: 2rem;">
+                            <h2>Hakkımızda</h2>
+                            <p class="section-subtitle" style="text-align: left; margin-top: 1rem;" data-i18n="about.page_subtitle">Şirketimiz hakkında bilgi edinin</p>
+                        </div>
+                        
+                        <div class="about-text-content">
+                            <h3 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--green-primary);" data-i18n="about.since_2010">2010'dan Bugüne</h3>
+                            <p style="margin-bottom: 1.5rem; line-height: 1.8; color: var(--gray-700);" data-i18n="about.company_description_1">
+                                Öz-Ay Ambalaj ve Plastik, 2010 yılında İstanbul'da kurulmuştur. Kuruluşumuzdan bu yana 
+                                çevre dostu ve sürdürülebilir ambalaj çözümleri üretme vizyonuyla sektörde öncü bir konum 
+                                elde ettik.
+                            </p>
+                            <p style="margin-bottom: 1.5rem; line-height: 1.8; color: var(--gray-700);" data-i18n="about.company_description_2">
+                                5.000 m² kapalı alan üzerinde kurulu modern tesislerimizde, son teknoloji makinelerimiz ve 
+                                uzman ekibimizle günlük 50.000 adet üretim kapasitesine sahibiz.
+                            </p>
+                            <p style="line-height: 1.8; color: var(--gray-700);" data-i18n="about.company_description_3">
+                                Müşteri memnuniyeti odaklı çalışma prensiplerimiz ve kalite standartlarımızla 
+                                Türkiye'nin dört bir yanındaki 500'den fazla firmaya hizmet vermekteyiz.
+                            </p>
+                            
+                            <div style="margin-top: 2.5rem;">
+                                <a href="/pages/tr/about.html" class="btn btn-primary" data-i18n="common.read_more">Daha Fazla Bilgi</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Product Showcase -->
-        <section class="section">
+        <section class="section products-showcase-section">
             <div class="container">
                 <div class="section-title" data-aos="fade-up">
                     <h2 data-i18n="index.products_title">ÜRÜN GRUPLARI</h2>
@@ -163,7 +225,7 @@
                             <h3 class="product-card-title" data-i18n="products.bukum_burgu_sapli_canta">Büküm (Burgu) Saplı Çanta</h3>
                             <p class="product-card-description" data-i18n="products.bukum_burgu_sapli_canta_desc">Perakende mağazaları, restoran, kozmetik, pastahane ve çeşitli sektörlerin kullanımına uygundur.</p>
                             <div class="product-card-cta">
-                                <a href="/pages/tr/product-bukum-burgu-sapli-canta.html" class="btn btn-primary" data-i18n="common.details">Detaylar</a>
+                                <a href="/pages/tr/product-bukum-burgu-sapli-canta.html" class="product-detail-link" data-i18n="common.details">detay →</a>
                             </div>
                         </div>
                     </article>
@@ -174,7 +236,7 @@
                             <h3 class="product-card-title" data-i18n="products.flat_duz_sapli_canta">Flat (Düz) Saplı Çanta</h3>
                             <p class="product-card-description" data-i18n="products.flat_duz_sapli_canta_desc">Orijinal kahve kraft, dönüşüm kahve kraft, kuşe kraft ve beyaz kraft kâğıt türlerinden üretim yapılır.</p>
                             <div class="product-card-cta">
-                                <a href="/pages/tr/product-flat-duz-sapli-canta.html" class="btn btn-primary" data-i18n="common.details">Detaylar</a>
+                                <a href="/pages/tr/product-flat-duz-sapli-canta.html" class="product-detail-link" data-i18n="common.details">detay →</a>
                             </div>
                         </div>
                     </article>
@@ -185,7 +247,7 @@
                             <h3 class="product-card-title" data-i18n="products.el_gecmeli_canta">El Geçmeli Çanta</h3>
                             <p class="product-card-description" data-i18n="products.el_gecmeli_canta_desc">El geçme bölgesine yapılan, ekstra kâğıt takviyesi ile taşıma mukavemeti artırılmıştır.</p>
                             <div class="product-card-cta">
-                                <a href="/pages/tr/product-el-gecmeli-canta.html" class="btn btn-primary" data-i18n="common.details">Detaylar</a>
+                                <a href="/pages/tr/product-el-gecmeli-canta.html" class="product-detail-link" data-i18n="common.details">detay →</a>
                             </div>
                         </div>
                     </article>
@@ -196,7 +258,7 @@
                             <h3 class="product-card-title" data-i18n="products.koruksuz_pizza_canta">Körüksüz (Pizza) Çanta</h3>
                             <p class="product-card-description" data-i18n="products.koruksuz_pizza_canta_desc">Genellikle pizza restoran, pastahane firmaları ve çeşitli sektörlerin kullanımına uygundur.</p>
                             <div class="product-card-cta">
-                                <a href="/pages/tr/product-koruksuz-pizza-canta.html" class="btn btn-primary" data-i18n="common.details">Detaylar</a>
+                                <a href="/pages/tr/product-koruksuz-pizza-canta.html" class="product-detail-link" data-i18n="common.details">detay →</a>
                             </div>
                         </div>
                     </article>
@@ -207,7 +269,7 @@
                             <h3 class="product-card-title" data-i18n="products.hediye_zarfi">Hediye Zarfı</h3>
                             <p class="product-card-description" data-i18n="products.hediye_zarfi_desc">%100 geri dönüştürülebilir. Çift taraflı bant ve bantsız olarak iki farklı seçenekte üretilir.</p>
                             <div class="product-card-cta">
-                                <a href="/pages/tr/product-hediye-zarfi.html" class="btn btn-primary" data-i18n="common.details">Detaylar</a>
+                                <a href="/pages/tr/product-hediye-zarfi.html" class="product-detail-link" data-i18n="common.details">detay →</a>
                             </div>
                         </div>
                     </article>
@@ -218,7 +280,7 @@
                             <h3 class="product-card-title" data-i18n="products.dipli_kese_kagidi">Dipli Kese Kağıdı</h3>
                             <p class="product-card-description" data-i18n="products.dipli_kese_kagidi_desc">Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
                             <div class="product-card-cta">
-                                <a href="/pages/tr/product-dipli-kese-kagidi.html" class="btn btn-primary" data-i18n="common.details">Detaylar</a>
+                                <a href="/pages/tr/product-dipli-kese-kagidi.html" class="product-detail-link" data-i18n="common.details">detay →</a>
                             </div>
                         </div>
                     </article>
@@ -229,7 +291,7 @@
                             <h3 class="product-card-title" data-i18n="products.pencereli_dipli_kese_kagidi">Pencereli Dipli Kese Kağıdı</h3>
                             <p class="product-card-description" data-i18n="products.pencereli_dipli_kese_kagidi_desc">Ön yüze açılan pencere ile kese kağıdının içindeki ürünlerin görünmesi sağlanır.</p>
                             <div class="product-card-cta">
-                                <a href="/pages/tr/product-pencereli-dipli-kese-kagidi.html" class="btn btn-primary" data-i18n="common.details">Detaylar</a>
+                                <a href="/pages/tr/product-pencereli-dipli-kese-kagidi.html" class="product-detail-link" data-i18n="common.details">detay →</a>
                             </div>
                         </div>
                     </article>
@@ -240,7 +302,7 @@
                             <h3 class="product-card-title" data-i18n="products.dipsiz_kese_kagidi">Dipsiz Kese Kağıdı</h3>
                             <p class="product-card-description" data-i18n="products.dipsiz_kese_kagidi_desc">Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
                             <div class="product-card-cta">
-                                <a href="/pages/tr/product-dipsiz-kese-kagidi.html" class="btn btn-primary" data-i18n="common.details">Detaylar</a>
+                                <a href="/pages/tr/product-dipsiz-kese-kagidi.html" class="product-detail-link" data-i18n="common.details">detay →</a>
                             </div>
                         </div>
                     </article>
@@ -251,7 +313,7 @@
                             <h3 class="product-card-title" data-i18n="products.pencereli_dipsiz_kese_kagidi">Pencereli Dipsiz Kese Kağıdı</h3>
                             <p class="product-card-description" data-i18n="products.pencereli_dipsiz_kese_kagidi_desc">Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
                             <div class="product-card-cta">
-                                <a href="/pages/tr/product-pencereli-dipsiz-kese-kagidi.html" class="btn btn-primary" data-i18n="common.details">Detaylar</a>
+                                <a href="/pages/tr/product-pencereli-dipsiz-kese-kagidi.html" class="product-detail-link" data-i18n="common.details">detay →</a>
                             </div>
                         </div>
                     </article>
@@ -262,7 +324,43 @@
                             <h3 class="product-card-title">Ambalaj Sarım/Tepsi Kağıdı ve Turta</h3>
                             <p class="product-card-description">Kâğıt seçeneği belirtilerek, ölçülerinize en yakın üretilebilen standart ölçülerimiz ile üretimi sağlanır.</p>
                             <div class="product-card-cta">
-                                <a href="/pages/tr/product-ambalaj-sarim-tepsi-kagidi-ve-turta.html" class="btn btn-primary">Detaylar</a>
+                                <a href="/pages/tr/product-ambalaj-sarim-tepsi-kagidi-ve-turta.html" class="product-detail-link">detay →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Pasta ve Baklava Kutusu -->
+                    <article class="product-card" data-aos="fade-up">
+                        <img src="/assets/img/11.png" alt="Pasta ve Baklava Kutusu" class="product-card-image" loading="lazy">
+                        <div class="product-card-content">
+                            <h3 class="product-card-title">Pasta ve Baklava Kutusu</h3>
+                            <p class="product-card-description">Pastane, fırın ve şekerleme sektörü için özel tasarlanmış, gıdaya uygun kaliteli kâğıt kutulardan üretilir.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-pasta-ve-baklava-kutusu.html" class="product-detail-link">detay →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Baskılı Plastik Poşet -->
+                    <article class="product-card" data-aos="fade-up">
+                        <img src="/assets/img/12.png" alt="Baskılı Plastik Poşet" class="product-card-image" loading="lazy">
+                        <div class="product-card-content">
+                            <h3 class="product-card-title">Baskılı Plastik Poşet</h3>
+                            <p class="product-card-description">Marka kimliğinizi yansıtan, yüksek kaliteli baskılı plastik poşetler. Perakende, mağazacılık ve promosyon sektörleri için idealdir.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-baskili-plastik-poset.html" class="product-detail-link">detay →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Pasta Altı -->
+                    <article class="product-card" data-aos="fade-up">
+                        <img src="/assets/img/13.png" alt="Pasta Altı" class="product-card-image" loading="lazy">
+                        <div class="product-card-content">
+                            <h3 class="product-card-title">Pasta Altı</h3>
+                            <p class="product-card-description">Pastane ve fırın sektörü için özel tasarlanmış, gıdaya uygun kâğıt pasta altı ürünleri. Temiz ve hijyenik sunum sağlar.</p>
+                            <div class="product-card-cta">
+                                <a href="/pages/tr/product-pasta-alti.html" class="product-detail-link">detay →</a>
                             </div>
                         </div>
                     </article>
@@ -280,31 +378,25 @@
                     <span class="banner-item">🌍 Çevre Dostu Ambalaj</span>
                     <span class="banner-item">🌿 Doğaya Saygılı</span>
                     <span class="banner-item">💚 Yeşil Enerji</span>
-                    <span class="banner-item">🌳 Karbon Nötr Üretim</span>
-                    <span class="banner-item">🔄 Geri Dönüşüm</span>
-                    <span class="banner-item">🌊 Temiz Su Kullanımı</span>
                     <!-- Duplicate for seamless loop -->
                     <span class="banner-item">🌱 Sürdürülebilir Üretim</span>
                     <span class="banner-item">♻️ %100 Geri Dönüştürülebilir</span>
                     <span class="banner-item">🌍 Çevre Dostu Ambalaj</span>
                     <span class="banner-item">🌿 Doğaya Saygılı</span>
                     <span class="banner-item">💚 Yeşil Enerji</span>
-                    <span class="banner-item">🌳 Karbon Nötr Üretim</span>
-                    <span class="banner-item">🔄 Geri Dönüşüm</span>
-                    <span class="banner-item">🌊 Temiz Su Kullanımı</span>
                 </div>
             </div>
             
             <div class="container">
                 <div class="sustainability-content">
                     <div class="sustainability-text" data-aos="fade-right">
-                        <h2 style="color: white; margin-bottom: 1.5rem;" data-i18n="sustainability.title">Sürdürülebilirlik ve Çevre</h2>
-                        <p style="color: rgba(255,255,255,0.95); font-size: 1.25rem; margin-bottom: 1.5rem;" data-i18n="sustainability.subtitle">Geri dönüştürülebilir malzemelerle geleceğe yatırım yapıyoruz</p>
-                        <p style="color: rgba(255,255,255,0.9); line-height: 1.8;" data-i18n="sustainability.description">Üretimimizde kullandığımız malzemelerin büyük bir kısmı geri dönüştürülebilir ve çevre dostudur. Sürdürülebilir üretim anlayışımızla doğaya saygı gösteriyor, gelecek nesillere daha yaşanabilir bir dünya bırakıyoruz.</p>
+                        <h2 data-i18n="sustainability.title">Sürdürülebilirlik ve Çevre</h2>
+                        <p class="sustainability-subtitle" data-i18n="sustainability.subtitle">Geri dönüştürülebilir malzemelerle geleceğe yatırım yapıyoruz</p>
+                        <p class="sustainability-description" data-i18n="sustainability.description">Üretimimizde kullandığımız malzemelerin büyük bir kısmı geri dönüştürülebilir ve çevre dostudur. Sürdürülebilir üretim anlayışımızla doğaya saygı gösteriyor, gelecek nesillere daha yaşanabilir bir dünya bırakıyoruz.</p>
                     </div>
                     <div class="sustainability-stats" data-aos="zoom-in">
                         <div class="percentage" data-count="85">0%</div>
-                        <p style="font-size: 1.5rem; font-weight: 600;" data-i18n="sustainability.recyclable">Geri Dönüştürülebilir</p>
+                        <p data-i18n="sustainability.recyclable">Geri Dönüştürülebilir</p>
                     </div>
                 </div>
             </div>
@@ -312,23 +404,140 @@
             <!-- Scrolling Text Banner - Bottom -->
             <div class="scrolling-banner scrolling-banner-bottom">
                 <div class="scrolling-content scrolling-reverse">
-                    <span class="banner-item">🌟 ISO 9001 Sertifikalı</span>
-                    <span class="banner-item">✨ Kalite Güvencesi</span>
                     <span class="banner-item">🏆 Uluslararası Standartlar</span>
                     <span class="banner-item">🎯 Müşteri Memnuniyeti</span>
                     <span class="banner-item">⚡ Hızlı Teslimat</span>
                     <span class="banner-item">🔒 Güvenli Ambalaj</span>
                     <span class="banner-item">💯 %100 Kalite</span>
-                    <span class="banner-item">🚀 Yenilikçi Çözümler</span>
                     <!-- Duplicate for seamless loop -->
-                    <span class="banner-item">🌟 ISO 9001 Sertifikalı</span>
-                    <span class="banner-item">✨ Kalite Güvencesi</span>
                     <span class="banner-item">🏆 Uluslararası Standartlar</span>
                     <span class="banner-item">🎯 Müşteri Memnuniyeti</span>
                     <span class="banner-item">⚡ Hızlı Teslimat</span>
                     <span class="banner-item">🔒 Güvenli Ambalaj</span>
                     <span class="banner-item">💯 %100 Kalite</span>
-                    <span class="banner-item">🚀 Yenilikçi Çözümler</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- News and Contact Section -->
+        <section class="section news-contact-section">
+            <div class="container">
+                <div class="news-contact-grid">
+                    <!-- News/Announcements Section - Left -->
+                    <div class="news-section">
+                        <h2 class="section-title-left" data-i18n="news.news_announcement">HABER - DUYURU</h2>
+                        <div class="news-carousel-wrapper">
+                            <div class="news-carousel" id="news-carousel">
+                                <!-- News Item 1 - Instagram2.jpg -->
+                                <article class="news-item active">
+                                    <div class="news-item-content">
+                                        <div class="news-image">
+                                            <img src="/assets/img/Instagram2.jpg" alt="Ambalaj Fuarı Etkinliği" loading="lazy">
+                                        </div>
+                                        <div class="news-text">
+                                            <h3>Ambalaj ve Plastik Sektörü Fuarında Yerimizi Aldık</h3>
+                                            <p>Öz-Ay Ambalaj olarak sektörümüzün önemli fuarlarından birinde yerimizi aldık. Plastik ve ambalaj sektöründeki son teknolojileri, yenilikleri ve çözümlerimizi ziyaretçilerimizle paylaştık. Standımıza gösterilen yoğun ilgi için tüm ziyaretçilerimize teşekkür ederiz.</p>
+                                            <div class="news-meta">
+                                                <span class="news-date">📅 15 ARALIK 2023</span>
+                                            </div>
+                                            <a href="#" class="news-read-more">devamı →</a>
+                                        </div>
+                                    </div>
+                                </article>
+                                
+                                <!-- News Item 2 - Instagram.jpg -->
+                                <article class="news-item">
+                                    <div class="news-item-content">
+                                        <div class="news-image">
+                                            <img src="/assets/img/Instagram.jpg" alt="Fuar Etkinliği" loading="lazy">
+                                        </div>
+                                        <div class="news-text">
+                                            <h3>Sektör Buluşmasında Yerimizi Aldık</h3>
+                                            <p>Ambalaj ve plastik sektörünün önde gelen etkinliklerinden birinde firmamızı temsil etmenin gururunu yaşıyoruz. Çevre dostu ambalaj çözümlerimiz ve sürdürülebilir üretim anlayışımızı tanıtma fırsatı bulduk. Etkinliğe katılan tüm misafirlerimize teşekkürlerimizi sunarız.</p>
+                                            <div class="news-meta">
+                                                <span class="news-date">📅 10 KASIM 2023</span>
+                                            </div>
+                                            <a href="#" class="news-read-more">devamı →</a>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="news-carousel-controls">
+                                <div class="news-dots"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Section - Right -->
+                    <div class="contact-form-section">
+                        <h2 class="section-title-left" data-i18n="contact.contact_us">BİZE ULAŞIN</h2>
+                        
+                        <!-- Contact Form - Minimalist -->
+                        <form id="home-contact-form" method="POST" action="/contact.php" class="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="home-name" class="form-label" data-i18n="contact.form.name">
+                                        Ad - Soyad <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="home-name" name="name" class="form-input" required aria-required="true">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="home-email" class="form-label" data-i18n="contact.form.email">
+                                        E-Mail <span class="required">*</span>
+                                    </label>
+                                    <input type="email" id="home-email" name="email" class="form-input" required aria-required="true">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="home-phone" class="form-label" data-i18n="contact.form.phone">
+                                        Telefon <span class="required">*</span>
+                                    </label>
+                                    <input type="tel" id="home-phone" name="phone" class="form-input" required aria-required="true">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="home-address" class="form-label" data-i18n="contact.form.address">
+                                        Adres <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="home-address" name="address" class="form-input" required aria-required="true">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="home-message" class="form-label" data-i18n="contact.form.message">
+                                    Mesajınız <span class="required">*</span>
+                                </label>
+                                <textarea id="home-message" name="message" class="form-textarea" rows="5" required aria-required="true"></textarea>
+                            </div>
+                            
+                            <!-- Simple Captcha -->
+                            <div class="form-group">
+                                <label for="home-captcha" class="form-label">
+                                    <span data-i18n="contact.form.captcha">İşlem sonucu</span> <span class="required">*</span>: 4 + 3 =
+                                </label>
+                                <input type="number" id="home-captcha" name="captcha" class="form-input" style="width: 100px;" required aria-required="true">
+                            </div>
+                            
+                            <!-- Honeypot field -->
+                            <div class="honeypot">
+                                <label for="home-website">Website (leave blank)</label>
+                                <input type="text" id="home-website" name="website" tabindex="-1" autocomplete="off">
+                            </div>
+                            
+                            <div class="form-checkbox">
+                                <input type="checkbox" id="home-kvkk" name="kvkk" required aria-required="true">
+                                <label for="home-kvkk">
+                                    <span data-i18n="contact.form.kvkk_text">KVKK metnini okudum kabul ediyorum</span> <span class="required">*</span>
+                                    <a href="/pages/tr/kvkk.html" target="_blank" style="color: var(--green-primary);" data-i18n="contact.form.read_text">(Metni oku)</a>
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" style="width: 100%;" data-i18n="contact.form.send">GÖNDER</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -367,31 +576,10 @@
                 </div>
                 
                 <div style="text-align: center; margin-top: 3rem;" data-aos="fade-up">
+                    <p style="font-size: 1.125rem; color: var(--gray-700); margin-bottom: var(--spacing-lg); line-height: 1.6;" data-i18n="references.invitation">
+                        Sizleri de referanslarımız arasında görmekten mutluluk duyarız.
+                    </p>
                     <a href="/pages/tr/references.html" class="btn btn-secondary" data-i18n="references.all_references">Tüm Referanslar</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats Bar -->
-        <section class="section stats-section" style="background: linear-gradient(135deg, var(--green-primary), var(--earth-green)); color: white; padding: 4rem 0; margin-top: 0;">
-            <div class="container">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; text-align: center;">
-                    <div data-aos="fade-up">
-                        <div style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;" class="stat-counter" data-target="10" data-suffix="+">0+</div>
-                        <p style="font-size: 1.25rem; opacity: 0.95;" data-i18n="common.years_experience">Yıllık Tecrübe</p>
-                    </div>
-                    <div data-aos="fade-up">
-                        <div style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;" class="stat-counter" data-target="500" data-suffix="+">0+</div>
-                        <p style="font-size: 1.25rem; opacity: 0.95;" data-i18n="common.happy_customers">Mutlu Müşteri</p>
-                    </div>
-                    <div data-aos="fade-up">
-                        <div style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;">1 Ton+</div>
-                        <p style="font-size: 1.25rem; opacity: 0.95;">Aylık Üretim</p>
-                    </div>
-                    <div data-aos="fade-up">
-                        <div style="font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem;" class="stat-counter" data-target="99" data-prefix="%">%0</div>
-                        <p style="font-size: 1.25rem; opacity: 0.95;" data-i18n="common.customer_satisfaction">Müşteri Memnuniyeti</p>
-                    </div>
                 </div>
             </div>
         </section>
@@ -404,5 +592,23 @@
     <script src="/js/main.js"></script>
     <script src="/js/whatsapp-fix.js"></script>
     <script src="/js/index.js"></script>
+    
+    <!-- SVG Debug Script -->
+    <script>
+        // SVG'lerin yüklenip yüklenmediğini kontrol et
+        document.addEventListener('DOMContentLoaded', function() {
+            var svgImages = document.querySelectorAll('.number-icon-svg');
+            console.log('SVG Images found:', svgImages.length);
+            svgImages.forEach(function(img, index) {
+                console.log('SVG ' + (index + 1) + ':', img.src, 'Complete:', img.complete, 'Natural Width:', img.naturalWidth);
+                img.addEventListener('load', function() {
+                    console.log('SVG ' + (index + 1) + ' loaded successfully');
+                });
+                img.addEventListener('error', function() {
+                    console.error('SVG ' + (index + 1) + ' failed to load:', img.src);
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -88,25 +88,20 @@
                 const currentPath = window.location.pathname;
                 const basePath = window.__BASE_PATH || '/';
                 
-                // Extract language from current path
-                let lang = 'tr'; // default
-                const langMatch = currentPath.match(/\/pages\/(tr|en|de)\//);
-                if (langMatch) {
-                    lang = langMatch[1];
-                }
-                
-                // Build full navigation URL
+                // CRITICAL: All physical files are in /pages/tr/
+                // We always point links to /pages/tr/, path-fix.js handles URL display
                 // Extract query string if exists
                 const hrefParts = href.split('?');
                 const targetPage = hrefParts[0].split('/').pop() || 'index.html';
                 const queryString = hrefParts[1] ? '?' + hrefParts[1] : '';
                 
+                // Always use /pages/tr/ (actual file location)
                 let navUrl;
                 if (basePath === '/' || basePath === '') {
-                    navUrl = '/pages/' + lang + '/' + targetPage + queryString;
+                    navUrl = '/pages/tr/' + targetPage + queryString;
                 } else {
                     const cleanBasePath = basePath.replace(/\/$/, '');
-                    navUrl = cleanBasePath + '/pages/' + lang + '/' + targetPage + queryString;
+                    navUrl = cleanBasePath + '/pages/tr/' + targetPage + queryString;
                 }
                 
                 // Abort all partial fetches before navigation
@@ -230,6 +225,32 @@
     
     // Counter animations moved to index.js and about.js
     
+    // Back to Top button functionality
+    function initBackToTop() {
+        const backToTopBtn = document.getElementById('back-to-top-btn');
+        
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Smooth scroll to top
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
+                // Also scroll main-content if it exists
+                const mainContent = document.getElementById('main-content');
+                if (mainContent) {
+                    mainContent.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        }
+    }
+    
     // Prefill contact form with product parameter from URL
     function initContactFormPrefill() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -286,15 +307,26 @@
                     submitButton.textContent = originalText;
                 }
                 
+                // Check response status
+                if (xhr.status !== 200) {
+                    console.error('Server error:', xhr.status, xhr.statusText);
+                    console.error('Response:', xhr.responseText);
+                    showToast('Sunucu hatası oluştu. Lütfen tekrar deneyin.', 'error');
+                    return;
+                }
+                
                 let response;
                 try {
                     response = JSON.parse(xhr.responseText);
                 } catch (e) {
-                    response = { ok: false, message: 'Sunucu hatası oluştu. Lütfen tekrar deneyin.' };
+                    console.error('JSON parse error:', e);
+                    console.error('Response text:', xhr.responseText);
+                    showToast('Sunucu hatası oluştu. Lütfen tekrar deneyin.', 'error');
+                    return;
                 }
                 
                 // Show toast notification
-                showToast(response.message, response.ok ? 'success' : 'error');
+                showToast(response.message || 'Bir hata oluştu. Lütfen tekrar deneyin.', response.ok ? 'success' : 'error');
                 
                 // Reset form on success
                 if (response.ok) {
@@ -309,8 +341,23 @@
                     submitButton.textContent = originalText;
                 }
                 
+                console.error('Network error occurred');
                 showToast('Bağlantı hatası oluştu. Lütfen tekrar deneyin.', 'error');
             };
+            
+            xhr.ontimeout = function() {
+                // Re-enable submit button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalText;
+                }
+                
+                console.error('Request timeout');
+                showToast('İstek zaman aşımına uğradı. Lütfen tekrar deneyin.', 'error');
+            };
+            
+            // Set timeout (30 seconds)
+            xhr.timeout = 30000;
             
             // Send request
             xhr.send(formData);
@@ -585,6 +632,7 @@
     // Initialize all functions
     function init() {
         initStickyHeader();
+        initBackToTop();
         initContactFormPrefill();
         initContactForm();
         initWhatsAppButton();
@@ -618,6 +666,8 @@
         setTimeout(initNavigationAfterPartials, 100);
         // Re-initialize contact form prefill after partials are loaded
         setTimeout(initContactFormPrefill, 200);
+        // Re-initialize back to top button after footer is loaded
+        setTimeout(initBackToTop, 150);
         // Re-initialize WhatsApp button after partials are loaded
         setTimeout(initWhatsAppButton, 250);
         // Re-initialize external links after footer is loaded

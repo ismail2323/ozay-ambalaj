@@ -1,0 +1,27 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="packaging-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+      <!-- Box 1 - Top Left -->
+      <rect x="5" y="5" width="35" height="35" fill="none" stroke="#2ECC71" stroke-width="1.5" opacity="0.15" rx="2"/>
+      <rect x="8" y="8" width="29" height="29" fill="none" stroke="#2ECC71" stroke-width="0.8" opacity="0.1" rx="1"/>
+      
+      <!-- Box 2 - Top Right -->
+      <rect x="60" y="10" width="30" height="30" fill="none" stroke="#27AE60" stroke-width="1.2" opacity="0.12" rx="2"/>
+      
+      <!-- Box 3 - Bottom Left -->
+      <rect x="10" y="55" width="28" height="28" fill="none" stroke="#2ECC71" stroke-width="1" opacity="0.1" rx="2"/>
+      
+      <!-- Box 4 - Bottom Right -->
+      <rect x="55" y="58" width="32" height="32" fill="none" stroke="#27AE60" stroke-width="1.3" opacity="0.13" rx="2"/>
+      <rect x="58" y="61" width="26" height="26" fill="none" stroke="#27AE60" stroke-width="0.7" opacity="0.08" rx="1"/>
+      
+      <!-- Fold lines - packaging detail -->
+      <line x1="22" y1="5" x2="22" y2="40" stroke="#2ECC71" stroke-width="0.5" opacity="0.08"/>
+      <line x1="5" y1="22" x2="40" y2="22" stroke="#2ECC71" stroke-width="0.5" opacity="0.08"/>
+      <line x1="75" y1="10" x2="75" y2="40" stroke="#27AE60" stroke-width="0.5" opacity="0.06"/>
+      <line x1="71" y1="58" x2="71" y2="90" stroke="#27AE60" stroke-width="0.5" opacity="0.06"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#packaging-pattern)"/>
+</svg>
+

@@ -44,11 +44,14 @@ window.Translations = {
         // Catalog Page
         'catalog.page_title': 'Product Catalog',
         'catalog.page_subtitle': 'Browse Öz-Ay Packaging\'s bag, paper bag, plastic bag and special packaging solutions on a single page.',
+        'catalog.sidebar_title': 'PRODUCTS',
+        'catalog.sidebar_catalog': 'Product Catalog',
         
         // News
         'news.title': 'News',
         'news.subtitle': 'Latest news from our company and the industry',
         'news.all_news': 'All News',
+        'news.news_announcement': 'NEWS - ANNOUNCEMENT',
         
         // Contact
         'contact.title': 'Contact',
@@ -76,9 +79,14 @@ window.Translations = {
         'footer.references': 'Our References',
         'footer.contact': 'Contact',
         'footer.description': 'A pioneer in environmentally friendly and sustainable packaging solutions. A trusted brand in the industry since 2010 with a quality production and customer satisfaction-oriented service approach.',
-        'footer.copyright': '© 2022 Artinlife Tech. All rights reserved.',
+        'footer.copyright': '© 2024 Öz-Ay Ambalaj. All rights reserved.',
         'footer.privacy': 'Privacy Policy',
         'footer.cookie': 'Cookie Policy',
+        'footer.back_to_top': 'Back to Top',
+        'footer.contact_us': 'CONTACT US',
+        'footer.follow_us': 'FOLLOW US',
+        'footer.quick_links_title': 'QUICK LINKS',
+        'footer.location': 'LOCATION',
         
         // Common
         'common.discover_products': 'Discover Our Products',
@@ -94,6 +102,15 @@ window.Translations = {
         'common.daily_production': 'Daily Production',
         'common.customer_satisfaction': 'Customer Satisfaction',
         'common.contact_us': 'Contact Us Now',
+        'common.back_to_top': 'Back to Top',
+        'common.home': 'Home',
+        'common.corporate': 'Corporate',
+        'common.about_us': 'About Us',
+        'common.products': 'Products',
+        'common.product_catalog': 'Product Catalog',
+        'common.quality': 'Quality',
+        'common.references': 'References',
+        'common.contact': 'Contact',
         
         // About Page
         'about.title': 'About Us',
@@ -119,6 +136,14 @@ window.Translations = {
         'about.trust_desc': 'Transparent and honest business approach',
         'about.innovation': 'Innovation',
         'about.innovation_desc': 'Continuous development and innovation',
+        'about.sidebar_title': 'CORPORATE',
+        'about.sidebar_about': 'About Us',
+        'about.sidebar_vision_mission': 'Mission & Vision',
+        'about.sidebar_history': 'History',
+        'about.sidebar_values': 'Corporate Values',
+        'about.sidebar_quality': 'Quality, HSE and Environmental Policy',
+        'about.sidebar_social': 'Social Responsibility Policy',
+        'about.quote': 'We are like the front and back sides of the same paper with you.',
         
         // Products Page
         'products.page_title': 'PRODUCTS',
@@ -156,6 +181,66 @@ window.Translations = {
         'products.pencereli_dipsiz_kese_kagidi_desc': 'Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option.',
         'products.ambalaj_sarim_tepsi_kagidi_ve_turta': 'Packaging Wrap/Tray Paper and Tart',
         'products.ambalaj_sarim_tepsi_kagidi_ve_turta_desc': 'Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option.',
+        'products.pasta_ve_baklava_kutusu': 'Cake and Baklava Box',
+        'products.pasta_ve_baklava_kutusu_desc': 'Special boxes designed for cakes and baklava, produced with food-safe materials and various size options.',
+        'products.baskili_plastik_poset': 'Printed Plastic Bag',
+        'products.baskili_plastik_poset_desc': 'High-quality printed plastic bags with custom designs, suitable for retail and promotional use.',
+        'products.pasta_alti': 'Cake Base',
+        'products.pasta_alti_desc': 'Hygienic and safe cake base products for bakeries, certified materials suitable for food contact.',
+        'products.kese_kagidi': 'Paper Bag',
+        'products.kese_kagidi_desc': 'Classic and environmentally friendly paper bag solutions with different size and thickness options.',
+        'products.kutu': 'Box',
+        'products.kutu_desc': 'Custom-designed boxes with various sizes, materials and printing options. Cardboard and carton boxes with durable structure and aesthetic appearance that add value to your products.',
+        'products.baskili_poset': 'Printed Bag',
+        'products.baskili_poset_desc': '100% recyclable. Gift envelope products produced in two different options: double-sided tape and tape-free.',
+        
+        // Product Detail Page - Extended Descriptions
+        'products.bukum_burgu_sapli_canta_detail': 'We offer packaging solutions suitable for the needs of retail stores, restaurants, cosmetics, bakeries and various sectors with our twisted (corkscrew) handle bag solutions. Customizable paper and handle colors, size options ensure safe transportation of your products while contributing to your corporate image.',
+        'products.flat_duz_sapli_canta_detail': 'We offer packaging solutions suitable for the needs of retail stores, restaurants, cosmetics, bakeries and various sectors with our flat handle bag solutions. Production is made from original coffee kraft, recycled coffee kraft, coated kraft and white kraft paper types. Customizable paper and handle colors, size options ensure safe transportation of your products.',
+        'products.el_gecmeli_canta_detail': 'We offer packaging solutions suitable for the needs of retail stores, restaurants, cosmetics, bakeries and various sectors with our hand-cut bag solutions. Extra paper reinforcement applied to the hand-cut area increases carrying strength. Customizable paper and handle colors, size options ensure safe transportation of your products.',
+        'products.koruksuz_pizza_canta_detail': 'We offer packaging solutions suitable for the needs of pizza restaurants, bakery companies and various sectors with our gussetless (pizza) bag solutions. The wide mouth structure allows easy placement of large products. Durable structure and environmentally friendly materials provide sustainable packaging solutions.',
+        'products.hediye_zarfi_detail': 'We offer ideal packaging solutions for gift-giving and special occasions with our gift envelope solutions. Made from 100% recyclable materials. Produced in two different options: double-sided tape and tape-free. Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option. Professional printing quality with special design gift envelopes that will make your brand stand out.',
+        'products.dipli_kese_kagidi_detail': 'We offer packaging solutions suitable for the needs of food sector, bakery, bakery and various sectors with our gusseted paper bag solutions. Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option. The bottom gusseted structure allows safe transportation of large-volume products while contributing to your corporate image.',
+        'products.pencereli_dipli_kese_kagidi_detail': 'We offer packaging solutions that increase the visibility of your products with our windowed gusseted paper bag solutions. The window opened on the front face allows the products inside the paper bag to be visible. The bottom gusseted structure ensures safe transportation of large-volume products while the window increases the visibility of your products.',
+        'products.dipsiz_kese_kagidi_detail': 'We offer packaging solutions suitable for the needs of food sector, bakery, bakery and various sectors with our gussetless paper bag solutions. Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option. The compact structure ensures safe transportation of flat products while contributing to your corporate image.',
+        'products.pencereli_dipsiz_kese_kagidi_detail': 'We offer packaging solutions that increase the visibility of your products with our windowed gussetless paper bag solutions. The window opened on the front face allows the products inside the paper bag to be visible. The compact structure ensures safe transportation of flat products while the window increases the visibility of your products.',
+        'products.kese_kagidi_detail': 'We offer packaging solutions suitable for your needs with our gusseted and gussetless paper bag solutions. Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option. Our windowed options allow the products inside the paper bag to be visible with the window opened on the front face. We offer sustainable packaging solutions with our environmentally friendly and 100% recyclable products.',
+        'products.ambalaj_sarim_tepsi_kagidi_ve_turta_detail': 'We offer packaging solutions suitable for the needs of food sector, bakery, bakery and various sectors with our packaging wrap/tray paper and tart solutions. Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option. Ensures safe packaging of tray and tart products while contributing to your corporate image.',
+        'products.pasta_ve_baklava_kutusu_detail': 'Our cake and baklava box solutions are specially designed for bakeries, bakeries and confectionery sector, produced with food-safe quality paper boxes. Ideal for packaging cakes, baklava, desserts and similar products. Ensures safe transportation of your products while contributing to your corporate image.',
+        'products.baskili_plastik_poset_detail': 'We offer high-quality packaging solutions that reflect your brand identity with our printed plastic bag solutions. Ideal for retail, retail and promotional sectors. You can apply your logos, slogans and designs to your bags with professional printing quality. Durable structure and high-quality printing make your brand stand out.',
+        'products.pasta_alti_detail': 'We offer hygienic and safe paper cake base products specially designed for bakeries and bakeries with our cake base solutions. Provides clean and professional presentation. Placed under cakes and similar products, ensuring your products look clean and professional.',
+        'products.kutu_detail': 'Package your products safely with our custom-designed boxes. We offer special solutions for your needs with various sizes, materials and printing options. Our cardboard and carton boxes add value to your products with their durable structures and aesthetic appearance. E-commerce packaging, gift packaging and packaging solutions suitable for the needs of various sectors.',
+        'products.kagit_poset_detail': 'Our handled paper bag solutions are suitable for retail stores, restaurants, cosmetics, bakeries and various sectors. Our Twisted (Corkscrew) handle, Flat handle and Hand-cut bag options are available. Production is made from original coffee kraft, recycled coffee kraft, coated kraft and white kraft paper types. Extra paper reinforcement applied to the hand-cut area increases carrying strength.',
+        'products.kagit_ambalaj_detail': 'We offer environmentally friendly packaging solutions with our Packaging Wrap/Tray Paper and Tart products. Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option. Our products produced with recyclable and nature-friendly materials offer sustainable packaging option. Ideal solutions for tray paper, tart packaging and packaging wrapping.',
+        'products.baskili_poset_detail': 'Our Gift Envelope products are 100% recyclable and offer environmentally friendly packaging solutions. Produced in two different options: double-sided tape and tape-free. Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option. Special design gift envelopes with professional printing quality that will make your brand stand out.',
+        
+        // Product Detail Page Common
+        'product_detail.sidebar_title': 'PRODUCTS',
+        'product_detail.sidebar_catalog': 'Product Catalog',
+        'product_detail.breadcrumb_home': 'Home',
+        'product_detail.breadcrumb_products': 'Products',
+        
+        // Product Features Common Terms
+        'product_features.paper_types': 'Paper types',
+        'product_features.paper_weight': 'Paper weight',
+        'product_features.usage_areas': 'Usage areas',
+        'product_features.recyclable': '100% recyclable',
+        'product_features.colored_handle_options': 'Colored handle options available',
+        'product_features.max_capacity': 'Maximum carrying capacity',
+        'product_features.printing_options': 'Printed or non-printed production options',
+        'product_features.flexo_printing': 'Flexo printing technique used',
+        'product_features.bottom_gusset': 'Bottom gusseted structure suitable for large-volume products',
+        'product_features.window': 'Front window for product visibility',
+        'product_features.compact': 'Compact structure suitable for flat products',
+        'product_features.custom_sizes': 'Custom size production available',
+        'product_features.food_safe': 'Food-safe quality paper material',
+        'product_features.clean_hygienic': 'Clean and hygienic presentation',
+        'product_features.durable_structure': 'Durable structure for safe transportation',
+        'product_features.aesthetic': 'Aesthetic appearance that adds value to products',
+        'product_features.custom_design': 'Custom design and printing available',
+        'product_features.double_sided_tape': 'Double-sided tape or tape-free options',
+        'product_features.professional_printing': 'Professional printing to reflect your brand identity',
+        'product_features.logo_slogan': 'Logo, slogan and design application available',
         
         // Index Page Product Showcase
         'index.products_title': 'PRODUCT GROUPS',
@@ -184,6 +269,21 @@ window.Translations = {
         'contact.subtitle': 'Reach out to us, we are happy to help you',
         'contact.page_title': 'CONTACT',
         'contact.page_subtitle': 'Contact us, let us help you',
+        'contact.sidebar_title': 'CONTACT',
+        'contact.sidebar_contact': 'Contact',
+        'contact.sidebar_info': 'Contact Information',
+        'contact.sidebar_form': 'Contact Form',
+        'contact.sidebar_location': 'Location',
+        'contact.contact_us': 'CONTACT US',
+        'contact.form.name': 'Full Name',
+        'contact.form.email': 'Email',
+        'contact.form.phone': 'Phone',
+        'contact.form.address': 'Address',
+        'contact.form.message': 'Your Message',
+        'contact.form.captcha': 'Operation result',
+        'contact.form.kvkk_text': 'I have read and accept the KVKK text',
+        'contact.form.read_text': '(Read text)',
+        'contact.form.send': 'SEND',
         
         // Product descriptions (index page)
         'products.kutu_desc_index': 'Package your products safely with our custom-designed boxes. Special solutions for your needs with various size, material and printing options.',
@@ -198,6 +298,8 @@ window.Translations = {
         'quality.subtitle': 'Our quality standards and sustainability approach',
         'quality.page_title': 'QUALITY',
         'quality.page_subtitle': 'Our quality standards and sustainability approach',
+        'quality.sidebar_title': 'CORPORATE',
+        'quality.page_title_full': 'Quality, HSE and Environmental Policy',
         'quality.qms_title': 'Quality Management System',
         'quality.qms_description': 'With our ISO 9001:2015 quality management system certificate, we maintain quality standards at the highest level in all our production processes. We aim to offer the highest quality products to our customers by working with the principle of continuous improvement.',
         'quality.qms_item1': 'ISO 9001:2015 certified quality management system',
@@ -235,6 +337,9 @@ window.Translations = {
         // References Page
         'references.page_title': 'REFERENCES',
         'references.page_subtitle': 'The choice of trusted brands',
+        'references.sidebar_title': 'REFERENCES',
+        'references.sidebar_references': 'Our References',
+        'references.invitation': 'We would be happy to see you among our references.',
         
         // News Page
         'news.page_title': 'NEWS',
@@ -315,11 +420,14 @@ window.Translations = {
         // Catalog Page
         'catalog.page_title': 'Produktkatalog',
         'catalog.page_subtitle': 'Sehen Sie alle Taschen-, Papiertüten-, Beutel- und Spezialverpackungslösungen von Öz-Ay Verpackung auf einer einzigen Seite.',
+        'catalog.sidebar_title': 'PRODUKTE',
+        'catalog.sidebar_catalog': 'Produktkatalog',
         
         // News
         'news.title': 'Nachrichten',
         'news.subtitle': 'Neueste Nachrichten von unserem Unternehmen und der Branche',
         'news.all_news': 'Alle Nachrichten',
+        'news.news_announcement': 'NACHRICHTEN - ANKÜNDIGUNGEN',
         
         // Contact
         'contact.title': 'Kontakt',
@@ -346,9 +454,14 @@ window.Translations = {
         'footer.references': 'Unsere Referenzen',
         'footer.contact': 'Kontakt',
         'footer.description': 'Ein Pionier in umweltfreundlichen und nachhaltigen Verpackungslösungen. Eine vertrauenswürdige Marke in der Branche seit 2010 mit einem qualitätsorientierten Produktions- und kundenorientierten Serviceansatz.',
-        'footer.copyright': '© 2022 Artinlife Tech. Alle Rechte vorbehalten.',
+        'footer.copyright': '© 2024 Öz-Ay Ambalaj. Alle Rechte vorbehalten.',
         'footer.privacy': 'Datenschutzrichtlinie',
         'footer.cookie': 'Cookie-Richtlinie',
+        'footer.back_to_top': 'Nach oben',
+        'footer.contact_us': 'KONTAKTIEREN SIE UNS',
+        'footer.follow_us': 'FOLGEN SIE UNS',
+        'footer.quick_links_title': 'SCHNELLLINKS',
+        'footer.location': 'STANDORT',
         
         // Common
         'common.discover_products': 'Unsere Produkte entdecken',
@@ -364,6 +477,15 @@ window.Translations = {
         'common.daily_production': 'Tägliche Produktion',
         'common.customer_satisfaction': 'Kundenzufriedenheit',
         'common.contact_us': 'Jetzt Kontakt aufnehmen',
+        'common.back_to_top': 'Nach oben',
+        'common.home': 'Startseite',
+        'common.corporate': 'Unternehmen',
+        'common.about_us': 'Über uns',
+        'common.products': 'Produkte',
+        'common.product_catalog': 'Produktkatalog',
+        'common.quality': 'Qualität',
+        'common.references': 'Referenzen',
+        'common.contact': 'Kontakt',
         
         // About Page
         'about.title': 'Über uns',
@@ -389,6 +511,14 @@ window.Translations = {
         'about.innovation_desc': 'Kontinuierliche Entwicklung und Innovation',
         'about.page_title': 'ÜBER UNS',
         'about.page_subtitle': 'Erfahren Sie mehr über unser Unternehmen',
+        'about.sidebar_title': 'UNTERNEHMEN',
+        'about.sidebar_about': 'Über uns',
+        'about.sidebar_vision_mission': 'Mission & Vision',
+        'about.sidebar_history': 'Geschichte',
+        'about.sidebar_values': 'Unternehmenswerte',
+        'about.sidebar_quality': 'Qualität, Arbeitsschutz und Umweltpolitik',
+        'about.sidebar_social': 'Soziale Verantwortungspolitik',
+        'about.quote': 'Wir sind wie die Vorder- und Rückseite desselben Papiers mit Ihnen.',
         
         // Products Page
         'products.page_title': 'PRODUKTE',
@@ -426,6 +556,66 @@ window.Translations = {
         'products.pencereli_dipsiz_kese_kagidi_desc': 'Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption.',
         'products.ambalaj_sarim_tepsi_kagidi_ve_turta': 'Verpackungswickel/Tellerpapier und Torte',
         'products.ambalaj_sarim_tepsi_kagidi_ve_turta_desc': 'Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption.',
+        'products.pasta_ve_baklava_kutusu': 'Kuchen- und Baklava-Box',
+        'products.pasta_ve_baklava_kutusu_desc': 'Speziell für Kuchen und Baklava entwickelte Boxen, hergestellt aus lebensmittelsicheren Materialien und verschiedenen Größenoptionen.',
+        'products.baskili_plastik_poset': 'Bedruckte Plastiktüte',
+        'products.baskili_plastik_poset_desc': 'Hochwertige bedruckte Plastiktüten mit individuellen Designs, geeignet für Einzelhandel und Werbung.',
+        'products.pasta_alti': 'Kuchenunterlage',
+        'products.pasta_alti_desc': 'Hygienische und sichere Kuchenunterlagen für Bäckereien, zertifizierte Materialien für Lebensmittelkontakt.',
+        'products.kese_kagidi': 'Papiertüte',
+        'products.kese_kagidi_desc': 'Klassische und umweltfreundliche Papiertütenlösungen mit verschiedenen Größen- und Dickenoptionen.',
+        'products.kutu': 'Box',
+        'products.kutu_desc': 'Maßgeschneiderte Boxen mit verschiedenen Größen, Materialien und Druckoptionen. Papp- und Kartonboxen mit widerstandsfähiger Struktur und ästhetischem Aussehen, die Ihren Produkten Mehrwert verleihen.',
+        'products.baskili_poset': 'Bedruckte Tasche',
+        'products.baskili_poset_desc': '100% recycelbar. Geschenkumschlag-Produkte, die in zwei Varianten hergestellt werden: doppelseitiges Klebeband und klebebandfrei.',
+        
+        // Product Detail Page - Extended Descriptions (German)
+        'products.bukum_burgu_sapli_canta_detail': 'Wir bieten Verpackungslösungen für Einzelhandelsgeschäfte, Restaurants, Kosmetik, Bäckereien und verschiedene Branchen mit unseren gedrehten (Korkenzieher) Grifftaschen-Lösungen. Anpassbare Papier- und Griff-Farben, Größenoptionen gewährleisten sicheren Transport Ihrer Produkte und tragen zu Ihrem Unternehmensimage bei.',
+        'products.flat_duz_sapli_canta_detail': 'Wir bieten Verpackungslösungen für Einzelhandelsgeschäfte, Restaurants, Kosmetik, Bäckereien und verschiedene Branchen mit unseren flachen Grifftaschen-Lösungen. Produktion erfolgt aus originalem Kaffeekraft, recyceltem Kaffeekraft, beschichtetem Kraft und weißem Kraftpapier. Anpassbare Papier- und Griff-Farben, Größenoptionen gewährleisten sicheren Transport Ihrer Produkte.',
+        'products.el_gecmeli_canta_detail': 'Wir bieten Verpackungslösungen für Einzelhandelsgeschäfte, Restaurants, Kosmetik, Bäckereien und verschiedene Branchen mit unseren Handloch-Taschen-Lösungen. Zusätzliche Papierverstärkung im Handlochbereich erhöht die Tragfähigkeit. Anpassbare Papier- und Griff-Farben, Größenoptionen gewährleisten sicheren Transport Ihrer Produkte.',
+        'products.koruksuz_pizza_canta_detail': 'Wir bieten Verpackungslösungen für Pizzarestaurants, Bäckereien und verschiedene Branchen mit unseren falzlosen (Pizza) Taschen-Lösungen. Die weite Mundstruktur ermöglicht einfaches Platzieren großer Produkte. Widerstandsfähige Struktur und umweltfreundliche Materialien bieten nachhaltige Verpackungslösungen.',
+        'products.hediye_zarfi_detail': 'Wir bieten ideale Verpackungslösungen für Geschenkverpackung und besondere Anlässe mit unseren Geschenkumschlag-Lösungen. Hergestellt aus 100% recycelbaren Materialien. Produziert in zwei Varianten: doppelseitiges Klebeband und klebebandfrei. Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption. Professionelle Druckqualität mit speziell gestalteten Geschenkumschlägen, die Ihre Marke hervorheben.',
+        'products.dipli_kese_kagidi_detail': 'Wir bieten Verpackungslösungen für Lebensmittelsektor, Bäckereien und verschiedene Branchen mit unseren Falz-Papiertüten-Lösungen. Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption. Die Bodenfalz-Struktur ermöglicht sicheren Transport großvolumiger Produkte und trägt zu Ihrem Unternehmensimage bei.',
+        'products.pencereli_dipli_kese_kagidi_detail': 'Wir bieten Verpackungslösungen, die die Sichtbarkeit Ihrer Produkte erhöhen, mit unseren Falz-Papiertüten mit Fenster. Das Fenster auf der Vorderseite ermöglicht es, die Produkte in der Papiertüte zu sehen. Die Bodenfalz-Struktur gewährleistet sicheren Transport großvolumiger Produkte, während das Fenster die Sichtbarkeit Ihrer Produkte erhöht.',
+        'products.dipsiz_kese_kagidi_detail': 'Wir bieten Verpackungslösungen für Lebensmittelsektor, Bäckereien und verschiedene Branchen mit unseren falzlosen Papiertüten-Lösungen. Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption. Die kompakte Struktur gewährleistet sicheren Transport flacher Produkte und trägt zu Ihrem Unternehmensimage bei.',
+        'products.pencereli_dipsiz_kese_kagidi_detail': 'Wir bieten Verpackungslösungen, die die Sichtbarkeit Ihrer Produkte erhöhen, mit unseren falzlosen Papiertüten mit Fenster. Das Fenster auf der Vorderseite ermöglicht es, die Produkte in der Papiertüte zu sehen. Die kompakte Struktur gewährleistet sicheren Transport flacher Produkte, während das Fenster die Sichtbarkeit Ihrer Produkte erhöht.',
+        'products.kese_kagidi_detail': 'Wir bieten Verpackungslösungen für Ihre Bedürfnisse mit unseren Falz- und falzlosen Papiertüten-Lösungen. Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption. Unsere Fenster-Optionen ermöglichen es, die Produkte in der Papiertüte mit dem auf der Vorderseite geöffneten Fenster zu sehen. Wir bieten nachhaltige Verpackungslösungen mit unseren umweltfreundlichen und 100% recycelbaren Produkten.',
+        'products.ambalaj_sarim_tepsi_kagidi_ve_turta_detail': 'Wir bieten Verpackungslösungen für Lebensmittelsektor, Bäckereien und verschiedene Branchen mit unseren Verpackungswickel/Tellerpapier und Torte-Lösungen. Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption. Gewährleistet sichere Verpackung von Teller- und Torte-Produkten und trägt zu Ihrem Unternehmensimage bei.',
+        'products.pasta_ve_baklava_kutusu_detail': 'Unsere Kuchen- und Baklava-Box-Lösungen sind speziell für Bäckereien und Süßwarensektor entwickelt, hergestellt mit lebensmittelsicheren Qualitätskartonboxen. Ideal für Verpackung von Kuchen, Baklava, Desserts und ähnlichen Produkten. Gewährleistet sicheren Transport Ihrer Produkte und trägt zu Ihrem Unternehmensimage bei.',
+        'products.baskili_plastik_poset_detail': 'Wir bieten hochwertige Verpackungslösungen, die Ihre Markenidentität widerspiegeln, mit unseren bedruckten Plastiktüten-Lösungen. Ideal für Einzelhandel, Retail und Werbe-Sektoren. Sie können Ihre Logos, Slogans und Designs mit professioneller Druckqualität auf Ihre Tüten anwenden. Widerstandsfähige Struktur und hochwertiger Druck machen Ihre Marke hervorstechen.',
+        'products.pasta_alti_detail': 'Wir bieten hygienische und sichere Karton-Kuchenunterlagen-Produkte speziell für Bäckereien mit unseren Kuchenunterlagen-Lösungen. Bietet saubere und professionelle Präsentation. Unter Kuchen und ähnlichen Produkten platziert, gewährleistet sauberes und professionelles Aussehen Ihrer Produkte.',
+        'products.kutu_detail': 'Verpacken Sie Ihre Produkte sicher mit unseren maßgeschneiderten Boxen. Wir bieten spezielle Lösungen für Ihre Bedürfnisse mit verschiedenen Größen, Materialien und Druckoptionen. Unsere Papp- und Kartonboxen verleihen Ihren Produkten mit ihren widerstandsfähigen Strukturen und ästhetischem Aussehen Mehrwert. E-Commerce-Verpackung, Geschenkverpackung und Verpackungslösungen für verschiedene Branchen.',
+        'products.kagit_poset_detail': 'Unsere Papiertüten mit Griff sind geeignet für Einzelhandelsgeschäfte, Restaurants, Kosmetik, Bäckereien und verschiedene Branchen. Unsere Gedrehte (Korkenzieher) Griff-, Flache Griff- und Handloch-Taschen-Optionen sind verfügbar. Produktion erfolgt aus originalem Kaffeekraft, recyceltem Kaffeekraft, beschichtetem Kraft und weißem Kraftpapier. Zusätzliche Papierverstärkung im Handlochbereich erhöht die Tragfähigkeit.',
+        'products.kagit_ambalaj_detail': 'Wir bieten umweltfreundliche Verpackungslösungen mit unseren Verpackungswickel/Tellerpapier und Torte-Produkten. Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption. Unsere mit recycelbaren und naturfreundlichen Materialien hergestellten Produkte bieten nachhaltige Verpackungsoption. Ideale Lösungen für Tellerpapier, Torte-Verpackung und Verpackungswickel.',
+        'products.baskili_poset_detail': 'Unsere Geschenkumschlag-Produkte sind 100% recycelbar und bieten umweltfreundliche Verpackungslösungen. Produziert in zwei Varianten: doppelseitiges Klebeband und klebebandfrei. Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption. Speziell gestaltete Geschenkumschläge mit professioneller Druckqualität, die Ihre Marke hervorheben.',
+        
+        // Product Detail Page Common (German)
+        'product_detail.sidebar_title': 'PRODUKTE',
+        'product_detail.sidebar_catalog': 'Produktkatalog',
+        'product_detail.breadcrumb_home': 'Startseite',
+        'product_detail.breadcrumb_products': 'Produkte',
+        
+        // Product Features Common Terms (German)
+        'product_features.paper_types': 'Papierarten',
+        'product_features.paper_weight': 'Papiergewicht',
+        'product_features.usage_areas': 'Verwendungsbereiche',
+        'product_features.recyclable': '100% recycelbar',
+        'product_features.colored_handle_options': 'Farbige Griff-Optionen verfügbar',
+        'product_features.max_capacity': 'Maximale Tragkapazität',
+        'product_features.printing_options': 'Gedruckte oder ungedruckte Produktionsoptionen',
+        'product_features.flexo_printing': 'Flexodruck-Technik verwendet',
+        'product_features.bottom_gusset': 'Bodenfalz-Struktur geeignet für großvolumige Produkte',
+        'product_features.window': 'Frontfenster für Produktsichtbarkeit',
+        'product_features.compact': 'Kompakte Struktur geeignet für flache Produkte',
+        'product_features.custom_sizes': 'Maßgeschneiderte Größenproduktion verfügbar',
+        'product_features.food_safe': 'Lebensmittelsicheres Qualitätspapiermaterial',
+        'product_features.clean_hygienic': 'Saubere und hygienische Präsentation',
+        'product_features.durable_structure': 'Widerstandsfähige Struktur für sicheren Transport',
+        'product_features.aesthetic': 'Ästhetisches Aussehen, das Produkten Mehrwert verleiht',
+        'product_features.custom_design': 'Maßgeschneiderte Design- und Druckoption verfügbar',
+        'product_features.double_sided_tape': 'Doppelseitiges Klebeband oder klebebandfreie Optionen',
+        'product_features.professional_printing': 'Professioneller Druck zur Widerspiegelung Ihrer Markenidentität',
+        'product_features.logo_slogan': 'Logo, Slogan und Design-Anwendung verfügbar',
         
         // Index Page Product Showcase
         'index.products_title': 'PRODUKTGRUPPEN',
@@ -454,6 +644,21 @@ window.Translations = {
         'contact.subtitle': 'Kontaktieren Sie uns, wir helfen Ihnen gerne',
         'contact.page_title': 'KONTAKT',
         'contact.page_subtitle': 'Kontaktieren Sie uns, wir helfen Ihnen gerne',
+        'contact.sidebar_title': 'KONTAKT',
+        'contact.sidebar_contact': 'Kontakt',
+        'contact.sidebar_info': 'Kontaktinformationen',
+        'contact.sidebar_form': 'Kontaktformular',
+        'contact.sidebar_location': 'Standort',
+        'contact.contact_us': 'KONTAKTIEREN SIE UNS',
+        'contact.form.name': 'Vollständiger Name',
+        'contact.form.email': 'E-Mail',
+        'contact.form.phone': 'Telefon',
+        'contact.form.address': 'Adresse',
+        'contact.form.message': 'Ihre Nachricht',
+        'contact.form.captcha': 'Rechenergebnis',
+        'contact.form.kvkk_text': 'Ich habe den KVKK-Text gelesen und akzeptiere ihn',
+        'contact.form.read_text': '(Text lesen)',
+        'contact.form.send': 'SENDEN',
         
         // Product descriptions (index page)
         'products.kutu_desc_index': 'Verpacken Sie Ihre Produkte sicher mit unseren maßgeschneiderten Boxen. Spezielle Lösungen für Ihre Bedürfnisse mit verschiedenen Größen-, Material- und Druckoptionen.',
@@ -468,6 +673,8 @@ window.Translations = {
         'quality.subtitle': 'Unsere Qualitätsstandards und Nachhaltigkeitsansatz',
         'quality.page_title': 'QUALITÄT',
         'quality.page_subtitle': 'Unsere Qualitätsstandards und Nachhaltigkeitsansatz',
+        'quality.sidebar_title': 'UNTERNEHMEN',
+        'quality.page_title_full': 'Qualität, Arbeitsschutz und Umweltpolitik',
         'quality.qms_title': 'Qualitätsmanagementsystem',
         'quality.qms_description': 'Mit unserem ISO 9001:2015 Qualitätsmanagementsystem-Zertifikat halten wir Qualitätsstandards auf höchstem Niveau in allen unseren Produktionsprozessen. Wir streben danach, unseren Kunden die höchste Qualität zu bieten, indem wir nach dem Prinzip der kontinuierlichen Verbesserung arbeiten.',
         'quality.qms_item1': 'ISO 9001:2015 zertifiziertes Qualitätsmanagementsystem',
@@ -505,6 +712,9 @@ window.Translations = {
         // References Page
         'references.page_title': 'REFERENZEN',
         'references.page_subtitle': 'Die Wahl vertrauenswürdiger Marken',
+        'references.sidebar_title': 'REFERENZEN',
+        'references.sidebar_references': 'Unsere Referenzen',
+        'references.invitation': 'Wir würden uns freuen, Sie unter unseren Referenzen zu sehen.',
         
         // News Page
         'news.page_title': 'NACHRICHTEN',
@@ -564,21 +774,65 @@ window.Translations = {
 
     // Store original Turkish content to restore when switching back to TR
     const originalContent = {};
+    let originalContentStored = false;
+    
+    // Function to store original content on first load (only once per page)
+    function storeOriginalContent() {
+        if (originalContentStored) {
+            return; // Already stored
+        }
+        
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach(function(element) {
+            const key = element.getAttribute('data-i18n');
+            if (key && originalContent[key] === undefined) {
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    if (element.type === 'submit' || element.type === 'button') {
+                        originalContent[key] = element.value;
+                    } else if (element.type === 'text' || element.type === 'email' || element.type === 'tel') {
+                        originalContent[key] = element.placeholder || element.value || '';
+                    }
+                } else if (element.tagName === 'BUTTON') {
+                    originalContent[key] = element.textContent;
+                } else if (element.tagName === 'OPTION') {
+                    originalContent[key] = element.textContent;
+                } else if (element.tagName === 'LABEL') {
+                    // Handle label elements - check if it contains a span with required
+                    const labelContent = element.innerHTML;
+                    if (labelContent.includes('<span')) {
+                        // Extract text before span
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = labelContent;
+                        const spans = tempDiv.querySelectorAll('span');
+                        spans.forEach(span => span.remove());
+                        originalContent[key] = tempDiv.textContent.trim();
+                    } else {
+                        originalContent[key] = element.textContent.trim();
+                    }
+                } else {
+                    originalContent[key] = element.innerHTML;
+                }
+            }
+        });
+        originalContentStored = true;
+    }
     
     // Function to apply translations
     function applyTranslations(lang) {
         // Check if Translations object exists
         if (!window.Translations) {
-            // Silently return - translations might not be loaded yet
+            // Try again after a short delay
+            setTimeout(function() {
+                applyTranslations(lang);
+            }, 100);
             return;
         }
         
         // Get all elements with data-i18n attribute (including those in page-title-section)
         const elements = document.querySelectorAll('[data-i18n]');
         
-        // Debug: Log how many elements found
+        // If no elements found, try again after a short delay
         if (elements.length === 0) {
-            // If no elements found, try again after a short delay
             setTimeout(function() {
                 applyTranslations(lang);
             }, 100);
@@ -587,100 +841,122 @@ window.Translations = {
         
         elements.forEach(function(element) {
             const key = element.getAttribute('data-i18n');
-            if (key) {
-                // If switching to Turkish, restore original content
-                if (lang === 'tr') {
-                    // Check if we have stored original content
-                    if (originalContent[key] !== undefined) {
-                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                            if (element.type === 'submit' || element.type === 'button') {
-                                element.value = originalContent[key];
-                            } else if (element.type === 'text' || element.type === 'email' || element.type === 'tel') {
-                                element.placeholder = originalContent[key];
-                            }
-                        } else if (element.tagName === 'BUTTON') {
-                            element.textContent = originalContent[key];
-                        } else if (element.tagName === 'OPTION') {
-                            element.textContent = originalContent[key];
-                        } else {
-                            element.innerHTML = originalContent[key];
+            if (!key) return;
+            
+            // Skip number counters that are animated - they should not be translated
+            if (element.classList.contains('number-counter') || element.hasAttribute('data-animated')) {
+                return; // Don't translate animated number counters
+            }
+            
+            // If switching to Turkish, restore original content
+            if (lang === 'tr') {
+                // Check if we have stored original content
+                if (originalContent[key] !== undefined && originalContent[key] !== null) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        if (element.type === 'submit' || element.type === 'button') {
+                            element.value = originalContent[key];
+                        } else if (element.type === 'text' || element.type === 'email' || element.type === 'tel') {
+                            element.placeholder = originalContent[key];
                         }
-                    }
-                    // If no stored content, assume it's already in Turkish (first load)
-                } else {
-                    // For non-Turkish languages, store original content first time only
-                    if (originalContent[key] === undefined) {
-                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                            if (element.type === 'submit' || element.type === 'button') {
-                                originalContent[key] = element.value;
-                            } else if (element.type === 'text' || element.type === 'email' || element.type === 'tel') {
-                                originalContent[key] = element.placeholder || '';
-                            }
-                        } else if (element.tagName === 'BUTTON') {
-                            originalContent[key] = element.textContent;
-                        } else if (element.tagName === 'OPTION') {
-                            originalContent[key] = element.textContent;
+                    } else if (element.tagName === 'BUTTON') {
+                        element.textContent = originalContent[key];
+                    } else if (element.tagName === 'OPTION') {
+                        element.textContent = originalContent[key];
+                    } else if (element.tagName === 'LABEL') {
+                        // For labels, we need to preserve the structure (e.g., spans for required)
+                        const labelHTML = originalContent[key];
+                        // Check if original had a span with required
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = element.innerHTML;
+                        const requiredSpan = tempDiv.querySelector('span.required');
+                        if (requiredSpan) {
+                            element.innerHTML = labelHTML + ' ' + requiredSpan.outerHTML;
                         } else {
-                            originalContent[key] = element.innerHTML;
+                            element.innerHTML = labelHTML;
                         }
+                    } else {
+                        element.innerHTML = originalContent[key];
                     }
-                    
-                    // Apply translation
-                    if (!window.Translations[lang]) {
-                        // Silently return - language might not be available
-                        return;
-                    }
-                    
-                    const translation = getTranslation(key, lang);
-                    if (translation) {
-                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                            if (element.type === 'submit' || element.type === 'button') {
-                                element.value = translation;
-                            } else if (element.type === 'text' || element.type === 'email' || element.type === 'tel') {
-                                element.placeholder = translation;
-                            }
-                        } else if (element.tagName === 'BUTTON') {
-                            element.textContent = translation;
-                        } else if (element.tagName === 'OPTION') {
-                            element.textContent = translation;
-                        } else {
-                            // For other elements (H2, P, etc.), use innerHTML to support HTML tags like <br>
-                            // But prefer textContent if no HTML tags
-                            if (translation.includes('<br>') || translation.includes('<')) {
-                                element.innerHTML = translation;
-                            } else {
-                                element.textContent = translation;
-                            }
-                        }
-                    }
-                    // Silently skip if translation not found - element will show original text
                 }
+                // If no stored content, assume it's already in Turkish (first load)
+            } else {
+                // For non-Turkish languages, store original content first time only
+                if (originalContent[key] === undefined || originalContent[key] === null) {
+                    // Store the current content as original
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        if (element.type === 'submit' || element.type === 'button') {
+                            originalContent[key] = element.value || '';
+                        } else if (element.type === 'text' || element.type === 'email' || element.type === 'tel') {
+                            originalContent[key] = element.placeholder || element.value || '';
+                        }
+                    } else if (element.tagName === 'BUTTON') {
+                        originalContent[key] = element.textContent || '';
+                    } else if (element.tagName === 'OPTION') {
+                        originalContent[key] = element.textContent || '';
+                    } else if (element.tagName === 'LABEL') {
+                        // Handle label elements - extract text before span
+                        const labelContent = element.innerHTML;
+                        if (labelContent.includes('<span')) {
+                            const tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = labelContent;
+                            const spans = tempDiv.querySelectorAll('span');
+                            spans.forEach(span => span.remove());
+                            originalContent[key] = tempDiv.textContent.trim();
+                        } else {
+                            originalContent[key] = element.textContent.trim();
+                        }
+                    } else {
+                        originalContent[key] = element.innerHTML || element.textContent || '';
+                    }
+                }
+                
+                // Apply translation
+                if (!window.Translations[lang]) {
+                    // Language not available, skip this element
+                    return;
+                }
+                
+                const translation = getTranslation(key, lang);
+                if (translation) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        if (element.type === 'submit' || element.type === 'button') {
+                            element.value = translation;
+                        } else if (element.type === 'text' || element.type === 'email' || element.type === 'tel') {
+                            element.placeholder = translation;
+                        }
+                    } else if (element.tagName === 'BUTTON') {
+                        element.textContent = translation;
+                    } else if (element.tagName === 'OPTION') {
+                        element.textContent = translation;
+                    } else if (element.tagName === 'LABEL') {
+                        // For labels, preserve required span if it exists
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = element.innerHTML;
+                        const requiredSpan = tempDiv.querySelector('span.required');
+                        if (requiredSpan) {
+                            element.innerHTML = translation + ' ' + requiredSpan.outerHTML;
+                        } else {
+                            element.textContent = translation;
+                        }
+                    } else {
+                        // For other elements (H2, P, etc.), use innerHTML to support HTML tags like <br>
+                        // But prefer textContent if no HTML tags
+                        if (translation.includes('<br>') || translation.includes('<')) {
+                            element.innerHTML = translation;
+                        } else {
+                            element.textContent = translation;
+                        }
+                    }
+                }
+                // Silently skip if translation not found - element will show original text
             }
         });
     }
 
     // Function to get current language
-    // Primary source: URL format baseurl/pages/{lang}/page.html (e.g., /pages/tr/index.html)
-    // Fallback: stored preferredLanguage in localStorage (for static servers without URL rewriting)
+    // Priority: 1) localStorage preferredLanguage, 2) URL format, 3) default 'tr'
     function getCurrentLang() {
-        const pathname = window.location.pathname;
-        
-        // Check if URL has /pages/{lang}/ format (e.g., /pages/tr/index.html, /pages/en/index.html)
-        // This regex works for both root and subdirectory installations
-        const match = pathname.match(/\/pages\/(tr|en|de)\//);
-        if (match) {
-            const lang = match[1];
-            return lang;
-        }
-        
-        // Fallback: check if URL has /{lang}/ format (for compatibility)
-        const langMatch = pathname.match(/^\/(tr|en|de)\//);
-        if (langMatch) {
-            const lang = langMatch[1];
-            return lang;
-        }
-
-        // Fallback: stored language preference
+        // FIRST: Check localStorage for preferred language (user's choice)
         try {
             const stored = localStorage.getItem('preferredLanguage');
             if (stored === 'tr' || stored === 'en' || stored === 'de') {
@@ -689,8 +965,23 @@ window.Translations = {
         } catch (e) {
             // localStorage might be unavailable; ignore
         }
-
-        return 'tr'; // Default
+        
+        // SECOND: Check URL format (e.g., /pages/en/index.html)
+        const pathname = window.location.pathname;
+        const match = pathname.match(/\/pages\/(tr|en|de)\//);
+        if (match) {
+            const lang = match[1];
+            // Save to localStorage for consistency
+            try {
+                localStorage.setItem('preferredLanguage', lang);
+            } catch (e) {
+                // Ignore
+            }
+            return lang;
+        }
+        
+        // Fallback: default to Turkish
+        return 'tr';
     }
 
     // Function to change language (applies translations on current page)
@@ -703,15 +994,59 @@ window.Translations = {
             return;
         }
         
+        // Store original content before switching (if not already stored)
+        if (!originalContentStored) {
+            storeOriginalContent();
+        }
+        
+        // Save language preference to localStorage FIRST
+        try {
+            localStorage.setItem('preferredLanguage', lang);
+        } catch (e) {
+            // Silently ignore - localStorage might not be available
+        }
+        
+        // Update URL to reflect language choice (without reload)
+        const pathname = window.location.pathname;
+        const basePath = window.__BASE_PATH || '/';
+        let newUrl = pathname;
+        
+        // If URL has /pages/tr/, replace with current language
+        if (pathname.match(/\/pages\/tr\//)) {
+            newUrl = pathname.replace('/pages/tr/', '/pages/' + lang + '/');
+        } else if (pathname.match(/\/pages\/(en|de)\//)) {
+            // If already has language prefix, replace it
+            newUrl = pathname.replace(/\/pages\/(en|de)\//, '/pages/' + lang + '/');
+        } else {
+            // Add language prefix
+            const pageName = pathname.split('/').pop() || 'index.html';
+            newUrl = '/pages/' + lang + '/' + pageName;
+        }
+        
+        // Preserve query string
+        if (window.location.search) {
+            newUrl += window.location.search;
+        }
+        
+        // Update URL without reload
+        if (window.history && window.history.replaceState) {
+            window.history.replaceState({lang: lang}, '', newUrl);
+        }
+        
+        // Also update localStorage immediately so path-fix.js can use it
+        try {
+            localStorage.setItem('preferredLanguage', lang);
+        } catch (e) {
+            // Ignore
+        }
+        
         // Clear cached translations for page-specific elements to force retranslation
-        const pageElements = document.querySelectorAll('[data-i18n^="about."], [data-i18n^="products."], [data-i18n^="quality."], [data-i18n^="references."], [data-i18n^="news."], [data-i18n^="contact."]');
-        pageElements.forEach(function(element) {
-            const key = element.getAttribute('data-i18n');
-            if (key && originalContent[key] !== undefined) {
-                // Clear cached original content to force retranslation
-                delete originalContent[key];
-            }
-        });
+        // But keep original content for Turkish restore
+        if (lang === 'tr') {
+            // When switching to Turkish, we'll use stored originalContent
+        } else {
+            // For other languages, we've already stored original content
+        }
         
         // Apply translations to current page - with retry to catch all elements
         applyTranslations(lang);
@@ -719,6 +1054,9 @@ window.Translations = {
         setTimeout(function() {
             applyTranslations(lang);
         }, 100);
+        setTimeout(function() {
+            applyTranslations(lang);
+        }, 300);
         
         // Update language attribute
         document.documentElement.lang = lang;
@@ -735,24 +1073,67 @@ window.Translations = {
         // Update active button state
         setupLanguageButtons(lang);
         
-        // Update internal links (no longer add /en or /de prefixes, just normalize paths)
+        // Update internal links to preserve language preference
         updateInternalLinks();
-        
-        // Save language preference to localStorage
-        try {
-            localStorage.setItem('preferredLanguage', lang);
-        } catch (e) {
-            // Silently ignore - localStorage might not be available
-        }
     }
 
     // Function to update internal links
-    // NOTE: We keep original relative URLs (about.html, contact.html, etc.)
-    // to avoid 404 errors on static servers when refreshing in EN/DE.
+    // CRITICAL: All physical files are in /pages/tr/, so links should point to /pages/tr/
+    // path-fix.js will handle the redirect to show /pages/en/ or /pages/de/ in URL
     function updateInternalLinks() {
-        // Intentionally left minimal: do not rewrite URLs with /en or /de prefixes.
-        // All links continue to point to the actual physical files under /pages/tr/.
-        return;
+        const basePath = window.__BASE_PATH || '/';
+        
+        // Update all internal links to point to actual file location (/pages/tr/)
+        const allLinks = document.querySelectorAll('a[href]');
+        allLinks.forEach(function(link) {
+            const href = link.getAttribute('href');
+            if (!href) return;
+            
+            // Skip external links, anchors, and javascript links
+            if (href.startsWith('http') || href.startsWith('//') || href.startsWith('#') || href.startsWith('javascript:')) {
+                return;
+            }
+            
+            // Skip mailto: and tel: links
+            if (href.startsWith('mailto:') || href.startsWith('tel:')) {
+                return;
+            }
+            
+            // If link already points to /pages/tr/, leave it as is (correct)
+            if (href.match(/\/pages\/tr\//)) {
+                return; // Already correct
+            }
+            
+            // If link has /pages/en/ or /pages/de/, replace with /pages/tr/ (actual file location)
+            if (href.match(/\/pages\/(en|de)\//)) {
+                const updatedHref = href.replace(/\/pages\/(en|de)\//, '/pages/tr/');
+                link.setAttribute('href', updatedHref);
+                return;
+            }
+            
+            // For relative links starting with /pages/ but no language
+            if (href.startsWith('/pages/') && !href.match(/\/pages\/(tr|en|de)\//)) {
+                // Extract page name and add /tr/
+                const pageMatch = href.match(/\/pages\/(.+)$/);
+                if (pageMatch) {
+                    const pagePath = pageMatch[1];
+                    const updatedHref = '/pages/tr/' + pagePath;
+                    link.setAttribute('href', updatedHref);
+                }
+                return;
+            }
+            
+            // For relative links like about.html, contact.html (no /pages/)
+            if (href.match(/^[^/]+\.html/) || href.match(/^pages\//)) {
+                let pageName = href;
+                if (pageName.startsWith('pages/')) {
+                    pageName = pageName.replace('pages/', '');
+                }
+                const updatedHref = '/pages/tr/' + pageName;
+                link.setAttribute('href', updatedHref);
+                return;
+            }
+        });
     }
 
     // Handle popstate event (browser back/forward or URL change)
@@ -800,6 +1181,10 @@ window.Translations = {
             return; // Page is redirecting, will restart after redirect
         }
         
+        // FIRST: Update internal links to point to actual file locations (/pages/tr/)
+        // This must be done BEFORE getting current language
+        updateInternalLinks();
+        
         const currentLang = getCurrentLang();
         
         // Update html lang attribute
@@ -814,23 +1199,38 @@ window.Translations = {
         }
         metaLang.setAttribute('content', currentLang);
         
+        // CRITICAL: Store original content FIRST before applying any translations
+        // This must be done on every page load to ensure we can restore Turkish content
+        storeOriginalContent();
+        
         // Apply translations for current language - with multiple attempts to catch all elements
         function applyTranslationsWithRetry(lang, retries) {
             retries = retries || 0;
+            
+            // Store original content on first attempt if not stored
+            if (retries === 0 && !originalContentStored) {
+                storeOriginalContent();
+            }
+            
+            // Apply translations
             applyTranslations(lang);
             
-            // Retry after a short delay to catch elements that load later (like page-title-section)
-            if (retries < 3) {
+            // Retry after a short delay to catch elements that load later (like partials)
+            if (retries < 8) {
                 setTimeout(function() {
                     applyTranslationsWithRetry(lang, retries + 1);
-                }, 200);
+                }, 300);
             }
         }
         
+        // Apply translations immediately with multiple retries
+        // ALWAYS apply translations - even for Turkish, we need to ensure content is stored
         applyTranslationsWithRetry(currentLang);
         
-        // Update internal links to preserve language code
-        updateInternalLinks();
+        // Update internal links again (after DOM is fully loaded)
+        setTimeout(function() {
+            updateInternalLinks();
+        }, 100);
         
         // Setup language toggle buttons
         setupLanguageButtons(currentLang);
@@ -950,7 +1350,28 @@ window.Translations = {
     // Export function for external use (e.g., when partials are loaded)
     window.reinitTranslations = function() {
         const currentLang = getCurrentLang();
-        applyTranslations(currentLang);
+        
+        // Store original content if not stored
+        if (!originalContentStored) {
+            storeOriginalContent();
+        }
+        
+        // Apply translations with retries
+        function applyTranslationsWithRetry(lang, retries) {
+            retries = retries || 0;
+            applyTranslations(lang);
+            
+            if (retries < 5) {
+                setTimeout(function() {
+                    applyTranslationsWithRetry(lang, retries + 1);
+                }, 200);
+            }
+        }
+        
+        if (currentLang !== 'tr') {
+            applyTranslationsWithRetry(currentLang);
+        }
+        
         // Wait a bit for DOM to settle
         setTimeout(function() {
             setupLanguageButtons(currentLang);
@@ -963,10 +1384,10 @@ window.Translations = {
     function startInit() {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(init, 200);
+                setTimeout(init, 300);
             });
         } else {
-            setTimeout(init, 200);
+            setTimeout(init, 300);
         }
     }
     
@@ -976,7 +1397,23 @@ window.Translations = {
             if (window.reinitTranslations) {
                 window.reinitTranslations();
             }
-            // Silently ignore if function not found yet
+            // Also call init again to ensure translations are applied
+            if (window.Translations) {
+                const currentLang = getCurrentLang();
+                if (currentLang !== 'tr') {
+                    // Store original content first
+                    if (!originalContentStored) {
+                        storeOriginalContent();
+                    }
+                    // Apply translations
+                    for (let i = 0; i < 3; i++) {
+                        setTimeout(function() {
+                            applyTranslations(currentLang);
+                        }, i * 200);
+                    }
+                }
+                setupLanguageButtons(currentLang);
+            }
         }, 200);
     });
     
