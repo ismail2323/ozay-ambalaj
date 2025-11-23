@@ -276,6 +276,12 @@
   flex-shrink: 0;
 }
 
+.product-card-image-hisir {
+  padding: var(--spacing-sm);
+  object-fit: contain;
+  transform: scale(1.05);
+}
+
 .product-card-content {
   padding: var(--spacing-md) var(--spacing-sm);
   position: relative;
