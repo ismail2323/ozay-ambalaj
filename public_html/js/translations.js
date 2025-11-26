@@ -19,6 +19,21 @@ window.Translations = {
         'hero.subtitle': 'As Öz-Ay Packaging and Plastic, we are a leader in the industry with environmentally friendly packaging solutions. We add value to our customers with our innovative production technologies and sustainable approach.',
         'hero.cta': 'Contact Us Now',
         
+        // Video
+        'video.fallback': 'Your browser does not support video playback.',
+        
+        // Banner
+        'banner.sustainable_production': '🌱 Sustainable Production',
+        'banner.recyclable': '♻️ 100% Recyclable',
+        'banner.environmentally_friendly': '🌍 Environmentally Friendly Packaging',
+        'banner.respectful_to_nature': '🌿 Respectful to Nature',
+        'banner.green_energy': '💚 Green Energy',
+        'banner.international_standards': '🏆 International Standards',
+        'banner.customer_satisfaction': '🎯 Customer Satisfaction',
+        'banner.fast_delivery': '⚡ Fast Delivery',
+        'banner.safe_packaging': '🔒 Safe Packaging',
+        'banner.quality_100': '💯 100% Quality',
+        
         // Products
         'products.title': 'Our Products',
         'products.subtitle': 'We offer professional solutions for all your packaging needs with our wide product range',
@@ -52,6 +67,13 @@ window.Translations = {
         'news.subtitle': 'Latest news from our company and the industry',
         'news.all_news': 'All News',
         'news.news_announcement': 'NEWS - ANNOUNCEMENT',
+        'news.read_more': 'read more →',
+        'news.news1_title': 'We Took Our Place at the Packaging and Plastic Industry Fair',
+        'news.news1_text': 'As Öz-Ay Packaging, we took our place at one of the important fairs in our industry. We shared the latest technologies, innovations and solutions in the plastic and packaging industry with our visitors. We thank all our visitors for the intense interest shown to our stand.',
+        'news.news1_date': '📅 DECEMBER 15, 2023',
+        'news.news2_title': 'We Took Our Place at the Industry Meeting',
+        'news.news2_text': 'We are proud to represent our company at one of the leading events in the packaging and plastic industry. We had the opportunity to introduce our environmentally friendly packaging solutions and sustainable production approach. We thank all our guests who attended the event.',
+        'news.news2_date': '📅 NOVEMBER 10, 2023',
         
         // Contact
         'contact.title': 'Contact',
@@ -87,6 +109,8 @@ window.Translations = {
         'footer.follow_us': 'FOLLOW US',
         'footer.quick_links_title': 'QUICK LINKS',
         'footer.location': 'LOCATION',
+        'footer.kvkk': 'KVKK Policy',
+        'footer.developed_by': 'Designed & developed by Artinlife R&D Software Consulting Cyber Security Industry and Trade Ltd. Co.',
         
         // Common
         'common.discover_products': 'Discover Our Products',
@@ -122,10 +146,20 @@ window.Translations = {
         'about.company_description_1': 'Öz-Ay Packaging and Plastic was established in Istanbul in 2010. Since our establishment, we have achieved a leading position in the industry with our vision of producing environmentally friendly and sustainable packaging solutions.',
         'about.company_description_2': 'In our modern facilities built on 5,000 m² of closed area, we have a daily production capacity of 50,000 units with our state-of-the-art machines and expert team.',
         'about.company_description_3': 'We serve more than 500 companies across Turkey with our customer satisfaction-oriented working principles and quality standards.',
+        'about.detail_paragraph_1': 'Öz-Ay Packaging was founded in 2003 in the Beylikdüzü district of Istanbul on a 30,000 m² area and started its commercial activities with the motto “devotion and success.” Our company aims for continuous development and renewal. We owe the success we have maintained at the top for 19 years to the experience we have gained and our affinity for technology.',
+        'about.detail_paragraph_2': 'Since the day it was founded, Öz-Ay Packaging has served its customers without ever compromising its reliability and quality. With the experience we have in the sector, we have strengthened our roots even further.',
+        'about.detail_paragraph_3': 'With 250 expert employees, Öz-Ay Packaging has become a symbol of speed, quality, trust, customer satisfaction and consistency, and it ranks among the most recognized brands in the sector established with domestic capital. Holding BRC, ISO 9001 and YUM quality certificates, Öz-Ay Packaging has earned the satisfaction and loyalty of its customers with a production approach above world standards and disciplined operations.',
+        'about.detail_paragraph_4': 'Equipped with the team, equipment, product diversity and technology to export all over the world, our company has always stood out in the sector thanks to its strong and experienced management, competent engineering staff, architecture-design-production teams and competitive pricing.',
+        'about.detail_paragraph_5': 'Our long-term success depends not only on our production strategy but also on our corporate values. In all our work we act in line with the principles of dedication, timing, follow-up, perseverance, transparency, research, motivation, success, R&D, merit, adaptation and on-time delivery.',
+        'about.detail_paragraph_6': 'Our solutions create opportunities that eliminate the problems our customers may encounter in the future. At our core we do not stack stones in front of our customers; we turn them into steps that help them overcome their challenges.',
+        'about.detail_paragraph_7': 'By following current technologies, we minimize the environmental impact of our products, comply with fundamental laws and regulations, and produce permanent solutions to problems, ensuring that we operate in line with our goals and objectives. Quality, precision, and fast, reliable delivery are the pillars that make us look to the future with confidence.',
+        'about.detail_paragraph_8': 'Öz-Ay Packaging continuously works and improves itself to shape the future and remain indispensable in the sector without ever losing the excitement of the first day. We consider ourselves a part of the companies we serve. Delivering quality products, a wide range of solutions and reliable service is always our primary goal. Guided by these principles, we will continue to grow, advance and serve you with a trustworthy corporate approach.',
+        'about.detail_paragraph_9': 'We are proud to work with you and to continue serving you.',
         'about.vision': 'Our Vision',
         'about.vision_text': 'To become a leading company in Turkey\'s environmentally friendly packaging sector and a brand that sets sustainable production standards and is preferred in international markets.',
         'about.mission': 'Our Mission',
         'about.mission_text': 'To be an organization that adds value to nature and society by offering high-quality, environmentally friendly and economical packaging solutions to our customers, making a difference in the industry with a sustainable production approach.',
+        'about.vision_mission_heading': 'Mission & Vision',
         'about.values': 'Our Values',
         'about.values_subtitle': 'The principles underlying our success',
         'about.sustainability': 'Sustainability',
@@ -187,6 +221,8 @@ window.Translations = {
         'products.baskili_plastik_poset_desc': 'High-quality printed plastic bags with custom designs, suitable for retail and promotional use.',
         'products.pasta_alti': 'Cake Base',
         'products.pasta_alti_desc': 'Hygienic and safe cake base products for bakeries, certified materials suitable for food contact.',
+        'products.hisir': 'Crinkle Kraft Filler',
+        'products.hisir_desc': 'Eco-friendly crinkle paper or kraft filler that protects delicate and fragile products against impacts while combining product safety with sustainability.',
         'products.kese_kagidi': 'Paper Bag',
         'products.kese_kagidi_desc': 'Classic and environmentally friendly paper bag solutions with different size and thickness options.',
         'products.kutu': 'Box',
@@ -213,6 +249,7 @@ window.Translations = {
         'products.kagit_poset_detail': 'Our handled paper bag solutions are suitable for retail stores, restaurants, cosmetics, bakeries and various sectors. Our Twisted (Corkscrew) handle, Flat handle and Hand-cut bag options are available. Production is made from original coffee kraft, recycled coffee kraft, coated kraft and white kraft paper types. Extra paper reinforcement applied to the hand-cut area increases carrying strength.',
         'products.kagit_ambalaj_detail': 'We offer environmentally friendly packaging solutions with our Packaging Wrap/Tray Paper and Tart products. Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option. Our products produced with recyclable and nature-friendly materials offer sustainable packaging option. Ideal solutions for tray paper, tart packaging and packaging wrapping.',
         'products.baskili_poset_detail': 'Our Gift Envelope products are 100% recyclable and offer environmentally friendly packaging solutions. Produced in two different options: double-sided tape and tape-free. Production is ensured with our standard sizes that can be produced closest to your measurements by specifying the paper option. Special design gift envelopes with professional printing quality that will make your brand stand out.',
+        'products.hisir_detail': 'Crinkle packaging is an environmentally friendly packaging material made from crinkle paper or kraft paper that protects sensitive and fragile products against impacts. Thanks to its flexible structure, it fills the gaps around the product and prevents damage that may occur during transportation. Crinkle packaging offers both product safety and environmental awareness together.',
         
         // Product Detail Page Common
         'product_detail.sidebar_title': 'PRODUCTS',
@@ -222,13 +259,67 @@ window.Translations = {
         
         // Product Features Common Terms
         'product_features.paper_types': 'Paper types',
+        'product_features.paper_types_value': 'Original coffee kraft, recycled coffee kraft, coated kraft, white kraft',
         'product_features.paper_weight': 'Paper weight',
+        'product_features.paper_weight_value': '70 - 110 gsm',
         'product_features.usage_areas': 'Usage areas',
+        'product_features.usage_areas_value': 'Retail stores, restaurants, cosmetics, bakeries and various sectors',
+        'product_features.kese_kagidi_usage_areas': 'Food sector, bakery, pastry, nuts and seed packaging',
         'product_features.recyclable': '100% recyclable',
         'product_features.colored_handle_options': 'Colored handle options available',
         'product_features.max_capacity': 'Maximum carrying capacity',
+        'product_features.max_capacity_value': '6 kg',
         'product_features.printing_options': 'Printed or non-printed production options',
         'product_features.flexo_printing': 'Flexo printing technique used',
+        'product_features.hand_cut_reinforcement': 'Hand-cut reinforcement: Extra paper reinforcement for high carrying strength',
+        'product_features.front_window': 'Front window for product visibility',
+        'product_features.bottom_gusset_structure': 'Bottom gusseted structure suitable for large-volume products',
+        'product_features.compact_structure': 'Compact structure suitable for flat products',
+        'product_features.custom_sizes': 'Custom size production available',
+        'product_features.food_safe_material': 'Food-safe quality paper material',
+        'product_features.clean_hygienic': 'Clean and hygienic presentation',
+        'product_features.cardboard_carton': 'Cardboard and carton box options',
+        'product_features.various_sizes_materials': 'Various size and material options',
+        'product_features.durable_structure': 'Durable structure for safe transportation',
+        'product_features.aesthetic_appearance': 'Aesthetic appearance that adds value to products',
+        'product_features.custom_design_printing': 'Custom design and printing available',
+        'product_features.double_sided_tape_options': 'Double-sided tape or tape-free options',
+        'product_features.professional_printing': 'Professional printing to reflect your brand identity',
+        'product_features.tray_tart_packaging': 'Special design for tray and tart packaging',
+        'product_features.wide_surface_area': 'Wide surface area for packaging wrap',
+        'product_features.cake_base_design': 'Special design for cake base',
+        'product_features.different_size_options': 'Different size options available',
+        'product_features.material': 'Material',
+        'product_features.material_value': 'Crinkle/kraft paper',
+        'product_features.protection': 'Protection',
+        'product_features.protection_value': 'Protection against impact, scratches and pressure',
+        'product_features.environmentally_friendly': 'Environmentally friendly',
+        'product_features.environmentally_friendly_value': 'Recyclable and sustainable material',
+        'product_features.size_thickness_options': 'Size and thickness options',
+        'product_features.size_thickness_options_value': 'Custom packaging solutions for products',
+        'product_features.lightweight_easy_use': 'Lightweight and easy to use',
+        'product_features.lightweight_easy_use_value': 'Can be used in manual or automatic packaging systems',
+        'product_features.pizza_restaurants': 'Pizza restaurants, bakery companies and various sectors',
+        'product_features.wide_mouth_structure': 'Wide mouth structure suitable for large products',
+        'product_features.environmentally_friendly_materials': 'Environmentally friendly materials',
+        'product_features.gift_stores': 'Gift stores, special occasion gift envelopes, corporate gift packaging',
+        'product_features.tray_paper_tart': 'Special design for tray paper and tart packaging',
+        'product_features.packaging_wrap': 'Wide surface area for packaging wrap',
+        'product_features.food_sector_packaging': 'Food sector packaging, bakery and pastry packaging',
+        'product_features.nature_friendly': 'Nature-friendly',
+        'product_features.bakery_pastry': 'Bakery, pastry and confectionery sector',
+        'product_features.ecommerce_packaging': 'E-commerce packaging, gift packaging, food sector, cosmetics, textiles, electronics',
+        'product_features.various_sizes': 'Various sizes and materials',
+        
+        // Product Features - Bukum Burgu Sapli Canta
+        'products.bukum_burgu_sapli_canta.feature1': 'Paper types: Original coffee kraft, recycled coffee kraft, coated kraft, white kraft',
+        'products.bukum_burgu_sapli_canta.feature2': 'Paper weight: 70 - 110 gsm',
+        'products.bukum_burgu_sapli_canta.feature3': 'Usage areas: Retail stores, restaurants, cosmetics, bakeries and various sectors',
+        'products.bukum_burgu_sapli_canta.feature4': '100% recyclable',
+        'products.bukum_burgu_sapli_canta.feature5': 'Colored handle options available',
+        'products.bukum_burgu_sapli_canta.feature6': 'Maximum carrying capacity: 6 kg',
+        'products.bukum_burgu_sapli_canta.feature7': 'Printed or non-printed production options',
+        'products.bukum_burgu_sapli_canta.feature8': 'Flexo printing technique used',
         'product_features.bottom_gusset': 'Bottom gusseted structure suitable for large-volume products',
         'product_features.window': 'Front window for product visibility',
         'product_features.compact': 'Compact structure suitable for flat products',
@@ -259,6 +350,7 @@ window.Translations = {
         'numbers.export_countries': '60+',
         'numbers.export_countries_label': 'EXPORT TO COUNTRIES',
         'numbers.colors': '8 colors',
+        'numbers.colors_suffix': ' colors',
         'numbers.colors_label': 'FLEXO PRINTING',
         'numbers.recycling': '100%',
         'numbers.recycling_label': 'RECYCLING',
@@ -341,6 +433,9 @@ window.Translations = {
         'references.sidebar_references': 'Our References',
         'references.invitation': 'We would be happy to see you among our references.',
         
+        // Turkish translations for references (for consistency)
+        // Note: Turkish is the default language, but we include translations for consistency
+        
         // News Page
         'news.page_title': 'NEWS',
         'news.page_subtitle': 'Latest developments and news',
@@ -394,6 +489,21 @@ window.Translations = {
         'hero.title': 'Vertrauen in Verpackung,<br>Nachhaltigkeit in der Produktion',
         'hero.subtitle': 'Als Öz-Ay Verpackung und Kunststoff sind wir führend in der Branche mit umweltfreundlichen Verpackungslösungen. Wir schaffen Mehrwert für unsere Kunden mit unseren innovativen Produktionstechnologien und nachhaltigen Ansatz.',
         'hero.cta': 'Jetzt Kontakt aufnehmen',
+        
+        // Video
+        'video.fallback': 'Ihr Browser unterstützt die Videowiedergabe nicht.',
+        
+        // Banner
+        'banner.sustainable_production': '🌱 Nachhaltige Produktion',
+        'banner.recyclable': '♻️ 100% recycelbar',
+        'banner.environmentally_friendly': '🌍 Umweltfreundliche Verpackung',
+        'banner.respectful_to_nature': '🌿 Respektvoll gegenüber der Natur',
+        'banner.green_energy': '💚 Grüne Energie',
+        'banner.international_standards': '🏆 Internationale Standards',
+        'banner.customer_satisfaction': '🎯 Kundenzufriedenheit',
+        'banner.fast_delivery': '⚡ Schnelle Lieferung',
+        'banner.safe_packaging': '🔒 Sichere Verpackung',
+        'banner.quality_100': '💯 100% Qualität',
         
         // Products
         'products.title': 'Unsere Produkte',
@@ -454,7 +564,7 @@ window.Translations = {
         'footer.references': 'Unsere Referenzen',
         'footer.contact': 'Kontakt',
         'footer.description': 'Ein Pionier in umweltfreundlichen und nachhaltigen Verpackungslösungen. Eine vertrauenswürdige Marke in der Branche seit 2010 mit einem qualitätsorientierten Produktions- und kundenorientierten Serviceansatz.',
-        'footer.copyright': '© 2024 Öz-Ay Ambalaj. Alle Rechte vorbehalten.',
+        'footer.copyright': '© 2025 Öz-Ay Verpackung. Alle Rechte vorbehalten.',
         'footer.privacy': 'Datenschutzrichtlinie',
         'footer.cookie': 'Cookie-Richtlinie',
         'footer.back_to_top': 'Nach oben',
@@ -462,6 +572,8 @@ window.Translations = {
         'footer.follow_us': 'FOLGEN SIE UNS',
         'footer.quick_links_title': 'SCHNELLLINKS',
         'footer.location': 'STANDORT',
+        'footer.kvkk': 'KVKK-Richtlinie',
+        'footer.developed_by': 'Entwickelt von Artinlife R&D Software Consulting Cyber Security Industry and Trade Ltd. Co.',
         
         // Common
         'common.discover_products': 'Unsere Produkte entdecken',
@@ -495,10 +607,20 @@ window.Translations = {
         'about.company_description_1': 'Öz-Ay Verpackung und Kunststoff wurde 2010 in Istanbul gegründet. Seit unserer Gründung haben wir eine führende Position in der Branche mit unserer Vision erreicht, umweltfreundliche und nachhaltige Verpackungslösungen zu produzieren.',
         'about.company_description_2': 'In unseren modernen Anlagen auf 5.000 m² geschlossener Fläche haben wir eine tägliche Produktionskapazität von 50.000 Einheiten mit unseren modernsten Maschinen und unserem Expertenteam.',
         'about.company_description_3': 'Wir bedienen mehr als 500 Unternehmen in der gesamten Türkei mit unseren kundenorientierten Arbeitsprinzipien und Qualitätsstandards.',
+        'about.detail_paragraph_1': 'Öz-Ay Verpackung wurde 2003 im Istanbuler Stadtteil Beylikdüzü auf einer Fläche von 30.000 m² gegründet und begann seine Geschäftstätigkeit mit dem Motto „Hingabe und Erfolg“. Unser Unternehmen strebt nach kontinuierlicher Entwicklung und Erneuerung. Den seit 19 Jahren anhaltenden Erfolg verdanken wir unserer langjährigen Erfahrung und unserer Technologieaffinität.',
+        'about.detail_paragraph_2': 'Seit ihrer Gründung hat Öz-Ay Verpackung auf ihrem langen Weg ihren Kunden stets den besten Service geboten, ohne jemals Kompromisse bei Zuverlässigkeit und Qualität einzugehen. Mit der Erfahrung, die wir in der Branche gesammelt haben, haben wir unsere Wurzeln weiter gestärkt.',
+        'about.detail_paragraph_3': 'Mit 250 Fachkräften ist Öz-Ay Verpackung zum Symbol für Geschwindigkeit, Qualität, Vertrauen, Kundenzufriedenheit und Beständigkeit geworden und zählt zu den bekanntesten Marken der Branche, die mit heimischem Kapital gegründet wurden. Mit den Zertifizierungen BRC, ISO 9001 und YUM hat Öz-Ay Verpackung dank einer über den Weltstandards liegenden Produktionsphilosophie und disziplinierter Arbeitsweise die Zufriedenheit und Treue seiner Kunden gewonnen.',
+        'about.detail_paragraph_4': 'Unser Unternehmen verfügt über das Team, die Ausstattung, die Produktvielfalt und die Technologie, um in die ganze Welt zu exportieren, und hebt sich durch seine starke, erfahrene Geschäftsführung, kompetente Ingenieurteams, Architektur-Design-Produktionseinheiten und wettbewerbsfähige Preisstrategie in der Branche ab.',
+        'about.detail_paragraph_5': 'Unser langfristiger Erfolg beruht nicht nur auf unserer Produktionsstrategie, sondern auch auf unseren Unternehmenswerten. In all unseren Arbeiten handeln wir nach den Prinzipien Engagement, Timing, Nachverfolgung, Ausdauer, Transparenz, Forschung, Motivation, Erfolg, F&E, Meritokratie, Anpassung und blitzschneller Lieferung.',
+        'about.detail_paragraph_6': 'Unsere Lösungen schaffen Chancen, um Probleme zu beseitigen, denen unsere Kunden künftig begegnen könnten. In unserem Innersten stapeln wir keine Steine vor unsere Kunden; wir verwandeln sie in Stufen, die ihnen helfen, ihre Herausforderungen zu überwinden.',
+        'about.detail_paragraph_7': 'Indem wir aktuelle Technologien verfolgen, minimieren wir die Auswirkungen unserer Produkte auf die Umwelt, erfüllen grundlegende Gesetze und Vorschriften und entwickeln dauerhafte Lösungen für Probleme, sodass wir im Einklang mit unseren Zielen und Zielsetzungen handeln. Qualität, Präzision sowie schnelle und zuverlässige Lieferung sind die Säulen, die unseren zuversichtlichen Blick in die Zukunft prägen.',
+        'about.detail_paragraph_8': 'Öz-Ay Verpackung arbeitet und entwickelt sich ständig weiter, um die Zukunft zu gestalten und in der Branche unverzichtbar zu bleiben, ohne die Begeisterung des ersten Tages zu verlieren. Wir betrachten uns als Teil der Unternehmen, denen wir dienen. Hochwertige Produkte, ein breites Sortiment und ein verlässlicher Serviceansatz sind stets unser oberstes Ziel. Geleitet von diesen Prinzipien werden wir weiter wachsen, voranschreiten und Ihnen mit einem vertrauenswürdigen Unternehmensverständnis dienen.',
+        'about.detail_paragraph_9': 'Wir freuen uns darauf, mit Ihnen zusammenzuarbeiten und Sie weiterhin zu unterstützen.',
         'about.vision': 'Unsere Vision',
         'about.vision_text': 'Ein führendes Unternehmen im umweltfreundlichen Verpackungssektor der Türkei zu werden und eine Marke zu sein, die nachhaltige Produktionsstandards setzt und auf internationalen Märkten bevorzugt wird.',
         'about.mission': 'Unsere Mission',
         'about.mission_text': 'Eine Organisation zu sein, die der Natur und der Gesellschaft Mehrwert verleiht, indem wir unseren Kunden hochwertige, umweltfreundliche und wirtschaftliche Verpackungslösungen anbieten und mit einem nachhaltigen Produktionsansatz einen Unterschied in der Branche machen.',
+        'about.vision_mission_heading': 'Mission & Vision',
         'about.values': 'Unsere Werte',
         'about.values_subtitle': 'Die Prinzipien, die unserem Erfolg zugrunde liegen',
         'about.sustainability': 'Nachhaltigkeit',
@@ -562,6 +684,8 @@ window.Translations = {
         'products.baskili_plastik_poset_desc': 'Hochwertige bedruckte Plastiktüten mit individuellen Designs, geeignet für Einzelhandel und Werbung.',
         'products.pasta_alti': 'Kuchenunterlage',
         'products.pasta_alti_desc': 'Hygienische und sichere Kuchenunterlagen für Bäckereien, zertifizierte Materialien für Lebensmittelkontakt.',
+        'products.hisir': 'Knitterpapier-Füllmaterial',
+        'products.hisir_desc': 'Ein umweltfreundliches Füllmaterial aus geknittertem Papier oder Kraftpapier, das empfindliche und zerbrechliche Produkte vor Stößen schützt und Produktsicherheit mit Umweltbewusstsein verbindet.',
         'products.kese_kagidi': 'Papiertüte',
         'products.kese_kagidi_desc': 'Klassische und umweltfreundliche Papiertütenlösungen mit verschiedenen Größen- und Dickenoptionen.',
         'products.kutu': 'Box',
@@ -588,6 +712,7 @@ window.Translations = {
         'products.kagit_poset_detail': 'Unsere Papiertüten mit Griff sind geeignet für Einzelhandelsgeschäfte, Restaurants, Kosmetik, Bäckereien und verschiedene Branchen. Unsere Gedrehte (Korkenzieher) Griff-, Flache Griff- und Handloch-Taschen-Optionen sind verfügbar. Produktion erfolgt aus originalem Kaffeekraft, recyceltem Kaffeekraft, beschichtetem Kraft und weißem Kraftpapier. Zusätzliche Papierverstärkung im Handlochbereich erhöht die Tragfähigkeit.',
         'products.kagit_ambalaj_detail': 'Wir bieten umweltfreundliche Verpackungslösungen mit unseren Verpackungswickel/Tellerpapier und Torte-Produkten. Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption. Unsere mit recycelbaren und naturfreundlichen Materialien hergestellten Produkte bieten nachhaltige Verpackungsoption. Ideale Lösungen für Tellerpapier, Torte-Verpackung und Verpackungswickel.',
         'products.baskili_poset_detail': 'Unsere Geschenkumschlag-Produkte sind 100% recycelbar und bieten umweltfreundliche Verpackungslösungen. Produziert in zwei Varianten: doppelseitiges Klebeband und klebebandfrei. Produktion erfolgt mit unseren Standardgrößen, die Ihren Maßen am nächsten kommen, durch Angabe der Papieroption. Speziell gestaltete Geschenkumschläge mit professioneller Druckqualität, die Ihre Marke hervorheben.',
+        'products.hisir_detail': 'Kräusel-Verpackung ist ein umweltfreundliches Verpackungsmaterial aus Kräuselpapier oder Kraftpapier, das empfindliche und zerbrechliche Produkte vor Stößen schützt. Dank seiner flexiblen Struktur füllt es die Lücken um das Produkt und verhindert Schäden, die während des Transports auftreten können. Kräusel-Verpackung bietet sowohl Produktsicherheit als auch Umweltbewusstsein zusammen.',
         
         // Product Detail Page Common (German)
         'product_detail.sidebar_title': 'PRODUKTE',
@@ -597,13 +722,57 @@ window.Translations = {
         
         // Product Features Common Terms (German)
         'product_features.paper_types': 'Papierarten',
+        'product_features.paper_types_value': 'Original Kaffeekraft, recyceltes Kaffeekraft, beschichtetes Kraft, weißes Kraft',
         'product_features.paper_weight': 'Papiergewicht',
+        'product_features.paper_weight_value': '70 - 110 gsm',
         'product_features.usage_areas': 'Verwendungsbereiche',
+        'product_features.usage_areas_value': 'Einzelhandelsgeschäfte, Restaurants, Kosmetik, Bäckereien und verschiedene Branchen',
+        'product_features.kese_kagidi_usage_areas': 'Lebensmittelsektor, Bäckerei, Konditorei, Nüsse und Saatgut-Verpackung',
         'product_features.recyclable': '100% recycelbar',
         'product_features.colored_handle_options': 'Farbige Griff-Optionen verfügbar',
         'product_features.max_capacity': 'Maximale Tragkapazität',
+        'product_features.max_capacity_value': '6 kg',
         'product_features.printing_options': 'Gedruckte oder ungedruckte Produktionsoptionen',
         'product_features.flexo_printing': 'Flexodruck-Technik verwendet',
+        'product_features.hand_cut_reinforcement': 'Handloch-Verstärkung: Extra Papierverstärkung für hohe Tragkraft',
+        'product_features.front_window': 'Frontfenster für Produktsichtbarkeit',
+        'product_features.bottom_gusset_structure': 'Bodenfalz-Struktur geeignet für großvolumige Produkte',
+        'product_features.compact_structure': 'Kompakte Struktur geeignet für flache Produkte',
+        'product_features.custom_sizes': 'Maßgeschneiderte Größenproduktion verfügbar',
+        'product_features.food_safe_material': 'Lebensmittelsicheres Qualitätspapiermaterial',
+        'product_features.clean_hygienic': 'Saubere und hygienische Präsentation',
+        'product_features.cardboard_carton': 'Papp- und Kartonbox-Optionen',
+        'product_features.various_sizes_materials': 'Verschiedene Größen- und Materialoptionen',
+        'product_features.durable_structure': 'Widerstandsfähige Struktur für sicheren Transport',
+        'product_features.aesthetic_appearance': 'Ästhetisches Aussehen, das Produkten Mehrwert verleiht',
+        'product_features.custom_design_printing': 'Maßgeschneiderte Design- und Druckoption verfügbar',
+        'product_features.double_sided_tape_options': 'Doppelseitiges Klebeband oder klebebandfreie Optionen',
+        'product_features.professional_printing': 'Professioneller Druck zur Widerspiegelung Ihrer Markenidentität',
+        'product_features.tray_tart_packaging': 'Spezielles Design für Teller- und Tortenverpackung',
+        'product_features.wide_surface_area': 'Große Oberfläche für Verpackungsumhüllung',
+        'product_features.cake_base_design': 'Spezielles Design für Kuchenunterlage',
+        'product_features.different_size_options': 'Verschiedene Größenoptionen verfügbar',
+        'product_features.material': 'Material',
+        'product_features.material_value': 'Kräusel-/Kraftpapier',
+        'product_features.protection': 'Schutz',
+        'product_features.protection_value': 'Schutz gegen Stöße, Kratzer und Druck',
+        'product_features.environmentally_friendly': 'Umweltfreundlich',
+        'product_features.environmentally_friendly_value': 'Recycelbares und nachhaltiges Material',
+        'product_features.size_thickness_options': 'Größen- und Dickeoptionen',
+        'product_features.size_thickness_options_value': 'Maßgeschneiderte Verpackungslösungen für Produkte',
+        'product_features.lightweight_easy_use': 'Leicht und einfach zu verwenden',
+        'product_features.lightweight_easy_use_value': 'Kann in manuellen oder automatischen Verpackungssystemen verwendet werden',
+        'product_features.pizza_restaurants': 'Pizzarestaurants, Bäckereien und verschiedene Branchen',
+        'product_features.wide_mouth_structure': 'Weite Mundstruktur geeignet für große Produkte',
+        'product_features.environmentally_friendly_materials': 'Umweltfreundliche Materialien',
+        'product_features.gift_stores': 'Geschenkläden, Geschenkumschläge für besondere Anlässe, Unternehmensgeschenkverpackung',
+        'product_features.tray_paper_tart': 'Spezielles Design für Tellerpapier und Tortenverpackung',
+        'product_features.packaging_wrap': 'Große Oberfläche für Verpackungsumhüllung',
+        'product_features.food_sector_packaging': 'Lebensmittelsektor-Verpackung, Bäckerei- und Konditoreiverpackung',
+        'product_features.nature_friendly': 'Naturfreundlich',
+        'product_features.bakery_pastry': 'Bäckerei, Konditorei und Süßwarensektor',
+        'product_features.ecommerce_packaging': 'E-Commerce-Verpackung, Geschenkverpackung, Lebensmittelsektor, Kosmetik, Textilien, Elektronik',
+        'product_features.various_sizes': 'Verschiedene Größen und Materialien',
         'product_features.bottom_gusset': 'Bodenfalz-Struktur geeignet für großvolumige Produkte',
         'product_features.window': 'Frontfenster für Produktsichtbarkeit',
         'product_features.compact': 'Kompakte Struktur geeignet für flache Produkte',
@@ -634,6 +803,7 @@ window.Translations = {
         'numbers.export_countries': '60+',
         'numbers.export_countries_label': 'EXPORT IN LÄNDER',
         'numbers.colors': '8 Farben',
+        'numbers.colors_suffix': ' Farben',
         'numbers.colors_label': 'FLEXODRUCK',
         'numbers.recycling': '100%',
         'numbers.recycling_label': 'RECYCLING',
@@ -719,11 +889,18 @@ window.Translations = {
         // News Page
         'news.page_title': 'NACHRICHTEN',
         'news.page_subtitle': 'Neueste Entwicklungen und Nachrichten',
-        'news.news1_date': '15. Oktober 2024',
-        'news.news1_title': 'Unsere neuen Produktionslinien sind in Betrieb',
+        'news.read_more': 'weiterlesen →',
+        'news.news1_title': 'Wir haben unseren Platz auf der Verpackungs- und Kunststoffmesse eingenommen',
+        'news.news1_text': 'Als Öz-Ay Verpackung haben wir unseren Platz auf einer der wichtigen Messen unserer Branche eingenommen. Wir haben die neuesten Technologien, Innovationen und Lösungen in der Kunststoff- und Verpackungsbranche mit unseren Besuchern geteilt. Wir danken allen unseren Besuchern für das große Interesse an unserem Stand.',
+        'news.news1_date': '📅 15. DEZEMBER 2023',
+        'news.news2_title': 'Wir haben unseren Platz beim Branchentreffen eingenommen',
+        'news.news2_text': 'Wir sind stolz darauf, unser Unternehmen bei einer der führenden Veranstaltungen in der Verpackungs- und Kunststoffbranche zu vertreten. Wir hatten die Gelegenheit, unsere umweltfreundlichen Verpackungslösungen und unseren nachhaltigen Produktionsansatz vorzustellen. Wir danken allen unseren Gästen, die an der Veranstaltung teilgenommen haben.',
+        'news.news2_date': '📅 10. NOVEMBER 2023',
+        'news.news1_date_alt': '15. Oktober 2024',
+        'news.news1_title_alt': 'Unsere neuen Produktionslinien sind in Betrieb',
         'news.news1_excerpt': 'Im Rahmen unserer Kapazitätserweiterungsbemühungen haben wir unsere neuen Produktionslinien in Betrieb genommen. Mit unserer erhöhten Produktionskapazität können wir unsere Kunden schneller bedienen.',
-        'news.news2_date': '10. Oktober 2024',
-        'news.news2_title': 'Unsere Messeteilnahme abgeschlossen',
+        'news.news2_date_alt': '10. Oktober 2024',
+        'news.news2_title_alt': 'Unsere Messeteilnahme abgeschlossen',
         'news.news2_excerpt': 'Dieses Jahr haben wir unseren Platz auf einer der führenden Messen der Branche eingenommen. Wir haben unsere neuen Produkte vorgestellt und wertvolle Verbindungen geknüpft.',
         'news.news3_date': '5. Oktober 2024',
         'news.news3_title': 'Wir haben unser Nachhaltigkeitszertifikat erhalten',
@@ -1078,12 +1255,14 @@ window.Translations = {
     }
 
     // Function to update internal links
-    // CRITICAL: All physical files are in /pages/tr/, so links should point to /pages/tr/
-    // path-fix.js will handle the redirect to show /pages/en/ or /pages/de/ in URL
+    // Links should point to the active language directory (or Turkish in legacy mode)
     function updateInternalLinks() {
         const basePath = window.__BASE_PATH || '/';
+        const legacyMode = document.documentElement && document.documentElement.getAttribute('data-legacy-lang-redirect') === 'true';
+        const currentLang = getCurrentLang();
+        const targetLang = legacyMode ? 'tr' : currentLang;
         
-        // Update all internal links to point to actual file location (/pages/tr/)
+        // Update all internal links to point to the correct language directory
         const allLinks = document.querySelectorAll('a[href]');
         allLinks.forEach(function(link) {
             const href = link.getAttribute('href');
@@ -1099,27 +1278,21 @@ window.Translations = {
                 return;
             }
             
-            // If link already points to /pages/tr/, leave it as is (correct)
-            if (href.match(/\/pages\/tr\//)) {
-                return; // Already correct
-            }
-            
-            // If link has /pages/en/ or /pages/de/, replace with /pages/tr/ (actual file location)
-            if (href.match(/\/pages\/(en|de)\//)) {
-                const updatedHref = href.replace(/\/pages\/(en|de)\//, '/pages/tr/');
-                link.setAttribute('href', updatedHref);
+            // If link already points to /pages/{lang}/, ensure it uses the desired language
+            if (href.match(/\/pages\/(tr|en|de)\//)) {
+                const updatedHref = href.replace(/\/pages\/(tr|en|de)\//, '/pages/' + targetLang + '/');
+                if (updatedHref !== href) {
+                    link.setAttribute('href', updatedHref);
+                }
                 return;
             }
             
             // For relative links starting with /pages/ but no language
-            if (href.startsWith('/pages/') && !href.match(/\/pages\/(tr|en|de)\//)) {
-                // Extract page name and add /tr/
-                const pageMatch = href.match(/\/pages\/(.+)$/);
-                if (pageMatch) {
-                    const pagePath = pageMatch[1];
-                    const updatedHref = '/pages/tr/' + pagePath;
-                    link.setAttribute('href', updatedHref);
-                }
+            if (href.startsWith('/pages/')) {
+                const pagePath = href.replace(/^\/pages\//, '');
+                const cleanedPath = pagePath.replace(/^(tr|en|de)\//, '');
+                const updatedHref = '/pages/' + targetLang + '/' + cleanedPath;
+                link.setAttribute('href', updatedHref);
                 return;
             }
             
@@ -1129,7 +1302,7 @@ window.Translations = {
                 if (pageName.startsWith('pages/')) {
                     pageName = pageName.replace('pages/', '');
                 }
-                const updatedHref = '/pages/tr/' + pageName;
+                const updatedHref = '/pages/' + targetLang + '/' + pageName;
                 link.setAttribute('href', updatedHref);
                 return;
             }

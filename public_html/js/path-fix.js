@@ -10,10 +10,25 @@
 (function handleUrlRedirectImmediate() {
     'use strict';
     
+    var htmlElement = document.documentElement || document.getElementsByTagName('html')[0];
+    var legacyRedirectEnabled = htmlElement && htmlElement.getAttribute('data-legacy-lang-redirect') === 'true';
     var pathname = window.location.pathname || '/';
     var langMatch = pathname.match(/\/pages\/(tr|en|de)\/(.+)$/);
     
-    // Only handle if URL contains /pages/en/ or /pages/de/ (non-Turkish languages)
+    // In modern mode we only store preferred language information and skip redirects
+    if (!legacyRedirectEnabled) {
+        if (langMatch) {
+            var detectedLang = langMatch[1];
+            try {
+                localStorage.setItem('preferredLanguage', detectedLang);
+            } catch (e) {
+                // localStorage might be unavailable; ignore
+            }
+        }
+        return;
+    }
+    
+    // Legacy mode: redirect /en/ or /de/ URLs to /tr/ physical files
     if (langMatch && (langMatch[1] === 'en' || langMatch[1] === 'de')) {
         var targetLang = langMatch[1];
         var pageName = langMatch[2];
@@ -55,7 +70,7 @@
         try {
             var redirectData = sessionStorage.getItem(redirectKey);
             if (redirectData) {
-                redirectTimestamp = parseInt(redirectData);
+                redirectTimestamp = parseInt(redirectData, 10);
                 // Check if redirect happened in the last 2 seconds (should be immediate)
                 isRedirecting = (Date.now() - redirectTimestamp) < 2000;
             }

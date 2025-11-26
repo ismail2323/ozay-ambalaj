@@ -26,7 +26,7 @@
 
         const videoUrls = [
             // Şu anda projede var olan tek video dosyası
-            '/assets/video/video.mp4'
+            '/assets/video/video1.mp4'
             // Daha sonra isterseniz buraya video2.mp4, video3.mp4 ... şeklinde
             // ek videolar koyabiliriz.
         ];

@@ -1,3 +1,13 @@
+AddDefaultCharset UTF-8
+
+<IfModule mod_php.c>
+    php_value default_charset "UTF-8"
+    php_value mbstring.internal_encoding "UTF-8"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set Content-Type "text/html; charset=UTF-8" "expr=%{CONTENT_TYPE} =~ m#text/html#"
+</IfModule>
 # Öz-Ay Ambalaj ve Plastik - Apache Configuration
 # cPanel Uyumlu .htaccess
 

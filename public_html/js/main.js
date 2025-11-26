@@ -187,6 +187,13 @@
         window.addEventListener('scroll', function() {
             const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
             
+            // Scroll edildiğinde header'a arka plan rengi ekle
+            if (currentScroll > 20) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+            
             // Aşağı kaydırma - header'ı gizle
             if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
                 header.classList.add('header-hidden');
