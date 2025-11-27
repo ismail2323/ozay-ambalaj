@@ -454,6 +454,7 @@
             document.body.appendChild(script);
         }
         addScript('/js/error-handler.js'); // Load first to catch all errors
+        addScript('/js/image-optimizer.js'); // Load early to optimize images before they load
         addScript('/js/partials.js');
         addScript('/js/translations.js');
         addScript('/js/main.js');

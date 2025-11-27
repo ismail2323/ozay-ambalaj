@@ -1777,14 +1777,34 @@ section.page-title-section .section-title h2,
   }
   
   .lang-toggle {
-    gap: 0.25rem;
+    gap: 0.15rem;
   }
   
   .lang-toggle button {
-    width: 28px;
-    height: 21px;
-    min-width: 28px;
-    min-height: 21px;
+    width: 18px;
+    height: 13px;
+    min-width: 18px;
+    min-height: 13px;
+    border-width: 1px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .lang-toggle button.active {
+    border-width: 1.5px;
+    box-shadow: 0 2px 4px rgba(47, 168, 79, 0.2);
+  }
+  
+  .lang-toggle button img {
+    border-radius: 2px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .lang-toggle button:hover {
+    transform: translateY(-1px) scale(1.03);
+    box-shadow: 0 3px 8px rgba(31, 111, 235, 0.15);
   }
   
   .mobile-menu-toggle {
@@ -2138,13 +2158,13 @@ section.page-title-section .section-title h2,
   padding: 0;
   cursor: pointer;
   transition: all var(--transition-base);
-  border-radius: 6px;
+  border-radius: 4px;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 27px;
+  width: 28px;
+  height: 21px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   position: relative;

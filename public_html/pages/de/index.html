@@ -74,6 +74,15 @@
     <link rel="preload" href="/assets/video/video1.mp4" as="video" type="video/mp4" fetchpriority="high">
     <link rel="prefetch" href="/assets/video/video1.mp4">
     
+    <!-- CRITICAL: Preload critical images for faster loading -->
+    <link rel="preload" href="/assets/img/Poset1.png" as="image" fetchpriority="high">
+    <link rel="preload" href="/assets/img/hakkimizda1.png" as="image" fetchpriority="high">
+    <link rel="preload" href="/assets/img/hakkimizda.png" as="image" fetchpriority="high">
+    <link rel="preload" href="/assets/img/products/bukum-burgu-sapli-canta.png" as="image" fetchpriority="high">
+    <link rel="preload" href="/assets/img/products/flat-duz-sapli-canta.png" as="image" fetchpriority="high">
+    <link rel="preload" href="/assets/img/products/el-gecmeli-canta.png" as="image" fetchpriority="high">
+    <link rel="preload" href="/assets/img/Instagram2.jpg" as="image" fetchpriority="high">
+    
     <!-- Preconnect & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,12 +99,13 @@
     <main id="main-content" role="main">
         <!-- Top Video Section - Progressive Loading (Range Requests) -->
         <section class="top-video-section">
-            <!-- Fallback image - shown while video loads (visible by default on mobile) -->
-            <img id="video-fallback" src="/assets/img/hakkimizda.png" alt="Öz-Ay Ambalaj" class="video-fallback-image" style="width: 100%; height: 100vh; object-fit: cover;">
-            <video class="top-video" id="top-video" autoplay muted loop playsinline preload="auto" webkit-playsinline="true" x5-playsinline="true" x-webkit-airplay="allow" style="background: #000; display: none;">
+            <!-- Video element - visible but transparent until loaded (for mobile loading) -->
+            <video class="top-video" id="top-video" autoplay muted loop playsinline preload="auto" webkit-playsinline="true" x5-playsinline="true" x-webkit-airplay="allow" style="background: #000; position: relative; z-index: 1; opacity: 0;">
                 <source src="/assets/video/video1.mp4" type="video/mp4">
                 <span data-i18n="video.fallback">Tarayıcınız video oynatmayı desteklemiyor.</span>
             </video>
+            <!-- Fallback image - shown while video loads (on top with z-index) -->
+            <img id="video-fallback" src="/assets/img/hakkimizda.png" alt="Öz-Ay Ambalaj" class="video-fallback-image" style="width: 100%; height: 100vh; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 2;">
         </section>
         <!-- Progressive video loading script - Mobile optimized -->
         <script>
@@ -110,7 +120,7 @@
                 
                 // Mobile-specific: Force immediate load and play
                 if (isMobile) {
-                    console.log('Mobile detected - ULTRA aggressive video loading');
+                    console.log('Mobile detected - EXTREME aggressive video loading');
                     // Set mobile-specific attributes
                     video.setAttribute('preload', 'auto');
                     video.setAttribute('playsinline', 'true');
@@ -119,26 +129,34 @@
                     video.setAttribute('x5-video-player-type', 'h5');
                     video.setAttribute('x5-video-player-fullscreen', 'true');
                     video.setAttribute('x5-video-orientation', 'portraint');
-                    // Force video to be visible on mobile
+                    // Video is already visible (opacity: 0) so browser will load it
+                    video.style.opacity = '0';
                     video.style.display = 'block';
                     video.style.visibility = 'visible';
-                    video.style.opacity = '1';
                 }
                 
                 function showVideo() {
-                    if (videoLoaded && video.readyState >= 2) {
-                        video.style.display = 'block';
-                        video.style.visibility = 'visible';
+                    if (video.readyState >= 1 || videoPlaying) {
+                        // Video oynatılıyorsa veya yüklenmişse göster
                         video.style.opacity = '1';
+                        video.style.zIndex = '3'; // Fallback'ten yüksek
+                        video.style.transition = 'opacity 0.3s ease-in-out';
                         if (fallback) {
-                            fallback.style.display = 'none';
+                            fallback.style.opacity = '0';
+                            fallback.style.transition = 'opacity 0.3s ease-in-out';
+                            setTimeout(function() {
+                                if (fallback && (videoPlaying || !video.paused)) {
+                                    fallback.style.display = 'none';
+                                    fallback.style.zIndex = '1'; // Video'nun altına
+                                }
+                            }, 300);
                         }
-                        console.log('Video is now visible, readyState:', video.readyState);
+                        console.log('Video is now visible, readyState:', video.readyState, 'playing:', !video.paused);
                     }
                 }
                 
                 function tryPlay() {
-                    if (video.readyState >= 2) {
+                    if (video.readyState >= 1) {
                         if (video.paused) {
                             var playPromise = video.play();
                             if (playPromise && playPromise.catch) {
@@ -146,6 +164,11 @@
                                     videoPlaying = true;
                                     console.log('Video playing successfully');
                                     showVideo();
+                                    // Mobilde video oynatıldığında fallback'i hemen gizle
+                                    if (isMobile && fallback) {
+                                        fallback.style.display = 'none';
+                                        fallback.style.zIndex = '1';
+                                    }
                                 }).catch(function(error) {
                                     console.warn('Play blocked:', error);
                                     // On mobile, try on user interaction
@@ -154,6 +177,10 @@
                                             video.play().then(function() {
                                                 videoPlaying = true;
                                                 showVideo();
+                                                if (fallback) {
+                                                    fallback.style.display = 'none';
+                                                    fallback.style.zIndex = '1';
+                                                }
                                             }).catch(function() {});
                                             document.removeEventListener('touchstart', playOnInteraction);
                                             document.removeEventListener('click', playOnInteraction);
@@ -168,16 +195,19 @@
                         } else {
                             videoPlaying = true;
                             showVideo();
+                            // Video zaten oynatılıyorsa fallback'i hemen gizle
+                            if (isMobile && fallback) {
+                                fallback.style.display = 'none';
+                                fallback.style.zIndex = '1';
+                            }
                         }
                     }
                 }
                 
                 // Progressive loading - start playing as soon as we have enough data
                 video.addEventListener('loadstart', function() {
-                    console.log('Video load started');
-                    if (isMobile) {
-                        showVideo(); // Show video immediately on mobile
-                    }
+                    console.log('Video load started, readyState:', video.readyState);
+                    videoLoaded = true;
                 }, { once: true });
                 
                 video.addEventListener('loadedmetadata', function() {
@@ -212,6 +242,14 @@
                     console.log('Video is playing');
                     videoPlaying = true;
                     showVideo();
+                    // Video oynatıldığında fallback'i kesinlikle gizle
+                    if (fallback) {
+                        fallback.style.display = 'none';
+                        fallback.style.zIndex = '1';
+                        fallback.style.opacity = '0';
+                    }
+                    video.style.opacity = '1';
+                    video.style.zIndex = '3';
                 }, { once: true });
                 
                 video.addEventListener('waiting', function() {
@@ -228,37 +266,57 @@
                 video.addEventListener('error', function(e) {
                     console.error('Video error:', e, video.error);
                     if (fallback) {
+                        fallback.style.opacity = '1';
                         fallback.style.display = 'block';
                     }
-                    video.style.display = 'none';
+                    video.style.opacity = '0';
                 });
                 
                 // Start loading immediately - FORCE load on mobile
                 if (isMobile) {
-                    // On mobile, set src directly and force load
-                    video.src = '/assets/video/video1.mp4';
+                    // Force load immediately
                     video.load();
                     
-                    // Ultra aggressive play attempts on mobile
+                    // EXTREME aggressive play attempts on mobile
                     var mobilePlayAttempts = 0;
                     var mobilePlayInterval = setInterval(function() {
                         mobilePlayAttempts++;
-                        if (mobilePlayAttempts > 100) { // 20 seconds
+                        if (mobilePlayAttempts > 150) { // 30 seconds
                             clearInterval(mobilePlayInterval);
                             console.log('Mobile play attempts exhausted');
                             return;
                         }
                         
+                        // Show video as soon as we have any data
                         if (video.readyState >= 1) {
                             showVideo();
                         }
                         
+                        // Try to play when we have enough data
                         if (video.readyState >= 2) {
                             tryPlay();
                             if (videoPlaying && !video.paused) {
+                                // Video oynatılıyorsa fallback'i kesinlikle gizle
+                                if (fallback) {
+                                    fallback.style.display = 'none';
+                                    fallback.style.zIndex = '1';
+                                    fallback.style.opacity = '0';
+                                }
+                                video.style.opacity = '1';
+                                video.style.zIndex = '3';
                                 clearInterval(mobilePlayInterval);
                                 console.log('Video playing successfully on mobile');
                             }
+                        }
+                        
+                        // Video oynatılıyorsa fallback'i gizle
+                        if (!video.paused && video.readyState >= 2) {
+                            if (fallback) {
+                                fallback.style.display = 'none';
+                                fallback.style.zIndex = '1';
+                            }
+                            video.style.opacity = '1';
+                            video.style.zIndex = '3';
                         }
                     }, 200);
                 } else {
@@ -500,7 +558,7 @@
                     </article>
                     
                     <article class="product-card" data-aos="fade-up">
-                        <img src="/assets/img/products/flat-duz-sapli-canta.png" alt="Flat (Düz) Saplı Çanta" class="product-card-image" loading="eager">
+                        <img src="/assets/img/products/flat-duz-sapli-canta.png" alt="Flat (Düz) Saplı Çanta" class="product-card-image" loading="eager" fetchpriority="high">
                         <div class="product-card-content">
                             <h3 class="product-card-title" data-i18n="products.flat_duz_sapli_canta">Flat (Düz) Saplı Çanta</h3>
                             <p class="product-card-description" data-i18n="products.flat_duz_sapli_canta_desc">Orijinal kahve kraft, dönüşüm kahve kraft, kuşe kraft ve beyaz kraft kâğıt türlerinden üretim yapılır.</p>
@@ -511,7 +569,7 @@
                     </article>
                     
                     <article class="product-card" data-aos="fade-up">
-                        <img src="/assets/img/products/el-gecmeli-canta.png" alt="El Geçmeli Çanta" class="product-card-image" loading="eager">
+                        <img src="/assets/img/products/el-gecmeli-canta.png" alt="El Geçmeli Çanta" class="product-card-image" loading="eager" fetchpriority="high">
                         <div class="product-card-content">
                             <h3 class="product-card-title" data-i18n="products.el_gecmeli_canta">El Geçmeli Çanta</h3>
                             <p class="product-card-description" data-i18n="products.el_gecmeli_canta_desc">El geçme bölgesine yapılan, ekstra kâğıt takviyesi ile taşıma mukavemeti artırılmıştır.</p>
@@ -522,7 +580,7 @@
                     </article>
                     
                     <article class="product-card" data-aos="fade-up">
-                        <img src="/assets/img/products/koruksuz-pizza-canta.png" alt="Körüksüz (Pizza) Çanta" class="product-card-image" loading="eager">
+                        <img src="/assets/img/products/koruksuz-pizza-canta.png" alt="Körüksüz (Pizza) Çanta" class="product-card-image" loading="eager" fetchpriority="high">
                         <div class="product-card-content">
                             <h3 class="product-card-title" data-i18n="products.koruksuz_pizza_canta">Körüksüz (Pizza) Çanta</h3>
                             <p class="product-card-description" data-i18n="products.koruksuz_pizza_canta_desc">Genellikle pizza restoran, pastahane firmaları ve çeşitli sektörlerin kullanımına uygundur.</p>
@@ -533,7 +591,7 @@
                     </article>
                     
                     <article class="product-card" data-aos="fade-up">
-                        <img src="/assets/img/products/hediye-zarfi.png" alt="Hediye Zarfı" class="product-card-image" loading="lazy">
+                        <img src="/assets/img/products/hediye-zarfi.png" alt="Hediye Zarfı" class="product-card-image" loading="eager" fetchpriority="high">
                         <div class="product-card-content">
                             <h3 class="product-card-title" data-i18n="products.hediye_zarfi">Hediye Zarfı</h3>
                             <p class="product-card-description" data-i18n="products.hediye_zarfi_desc">%100 geri dönüştürülebilir. Çift taraflı bant ve bantsız olarak iki farklı seçenekte üretilir.</p>
@@ -729,7 +787,7 @@
                                 <article class="news-item">
                                     <div class="news-item-content">
                                         <div class="news-image">
-                                            <img src="/assets/img/Instagram.jpg" alt="Fuar Etkinliği" loading="eager">
+                                            <img src="/assets/img/Instagram.jpg" alt="Fuar Etkinliği" loading="eager" fetchpriority="high">
                                         </div>
                                         <div class="news-text">
                                             <h3 data-i18n="news.news2_title">Wir haben unseren Platz beim Branchentreffen eingenommen</h3>
