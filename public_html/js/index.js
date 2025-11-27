@@ -32,6 +32,8 @@
         ];
 
         let currentIndex = 0;
+        let retryCount = 0;
+        const maxRetries = 3;
 
         function playVideo(index) {
             const url = videoUrls[index];
@@ -44,16 +46,35 @@
             try {
                 videoElement.load();
             } catch (e) {
-                // ignore
+                console.warn('Video load error:', e);
             }
 
             const playPromise = videoElement.play();
             if (playPromise && playPromise.catch) {
-                playPromise.catch(function() {
+                playPromise.catch(function(error) {
+                    console.warn('Video autoplay blocked or error:', error);
                     // Autoplay might be blocked; we ignore the error
                 });
             }
         }
+
+        // Error handling for video loading issues
+        videoElement.addEventListener('error', function(e) {
+            console.warn('Video error occurred:', e);
+            retryCount++;
+            if (retryCount < maxRetries) {
+                // Retry after a short delay
+                setTimeout(function() {
+                    playVideo(currentIndex);
+                }, 1000);
+            } else {
+                // Hide video section if it keeps failing
+                const videoSection = document.querySelector('.top-video-section');
+                if (videoSection) {
+                    videoSection.style.display = 'none';
+                }
+            }
+        });
 
         // When a video ends, move to the next one
         videoElement.addEventListener('ended', function() {
@@ -251,6 +272,24 @@
         numberCounters.forEach(counter => observer.observe(counter));
     }
     
+    // Initialize feature stats counter animations
+    function initFeatureStatsCounters() {
+        const statNumbers = document.querySelectorAll('.features-right .stat-number');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+                    animateNumberCounter(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+        
+        statNumbers.forEach(counter => observer.observe(counter));
+    }
+    
     // ======================================================================
     // News Carousel - Auto-rotating news items (Single instance)
     // ======================================================================
@@ -444,20 +483,175 @@
         });
     }
     
+    // Initialize video on page load - PROGRESSIVE LOADING (Range Requests) - Mobile Optimized
+    function initVideo() {
+        const videoElement = document.querySelector('.top-video');
+        const fallbackImage = document.getElementById('video-fallback');
+        
+        if (!videoElement) {
+            console.warn('Video element not found');
+            return;
+        }
+        
+        // Detect mobile
+        const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        console.log('Initializing video with progressive loading (range requests)...', isMobile ? 'MOBILE' : 'DESKTOP');
+        
+        // Mobile-specific optimizations
+        if (isMobile) {
+            videoElement.setAttribute('preload', 'auto');
+            videoElement.setAttribute('playsinline', 'true');
+            videoElement.setAttribute('webkit-playsinline', 'true');
+            videoElement.setAttribute('x5-playsinline', 'true');
+            videoElement.setAttribute('x5-video-player-type', 'h5');
+        }
+        
+        var videoShown = false;
+        
+        // Progressive loading - video will start playing as soon as enough data is loaded
+        // Browser automatically uses HTTP Range requests for large files
+        
+        function showVideo() {
+            if (videoShown) return;
+            if (videoElement.readyState >= 2) { // HAVE_CURRENT_DATA or higher
+                videoElement.style.display = 'block';
+                if (fallbackImage) {
+                    fallbackImage.style.display = 'none';
+                }
+                videoShown = true;
+                console.log('Video is now visible');
+            }
+        }
+        
+        function tryPlay() {
+            if (videoElement.readyState >= 2 && videoElement.paused) {
+                const playPromise = videoElement.play();
+                if (playPromise && playPromise.catch) {
+                    playPromise.catch(function(error) {
+                        console.warn('Video autoplay blocked:', error);
+                        // On mobile, try on user interaction
+                        if (isMobile) {
+                            var playOnInteraction = function() {
+                                videoElement.play().catch(function() {});
+                                document.removeEventListener('touchstart', playOnInteraction);
+                                document.removeEventListener('click', playOnInteraction);
+                            };
+                            document.addEventListener('touchstart', playOnInteraction, { once: true });
+                            document.addEventListener('click', playOnInteraction, { once: true });
+                        }
+                    });
+                }
+            }
+        }
+        
+        // Event listeners for progressive loading
+        videoElement.addEventListener('loadstart', function() {
+            console.log('Video load started');
+        }, { once: true });
+        
+        videoElement.addEventListener('loadedmetadata', function() {
+            console.log('Video metadata loaded');
+            showVideo();
+            tryPlay();
+        }, { once: true });
+        
+        videoElement.addEventListener('loadeddata', function() {
+            console.log('Video data loaded');
+            showVideo();
+            tryPlay();
+        }, { once: true });
+        
+        videoElement.addEventListener('canplay', function() {
+            console.log('Video can play');
+            showVideo();
+            tryPlay();
+        }, { once: true });
+        
+        videoElement.addEventListener('canplaythrough', function() {
+            console.log('Video can play through');
+            showVideo();
+            tryPlay();
+        }, { once: true });
+        
+        videoElement.addEventListener('playing', function() {
+            console.log('Video is playing');
+            showVideo();
+        }, { once: true });
+        
+        videoElement.addEventListener('waiting', function() {
+            console.log('Video waiting for data');
+            // Continue trying to play
+            setTimeout(tryPlay, 100);
+        });
+        
+        videoElement.addEventListener('error', function(e) {
+            console.error('Video error:', e, videoElement.error);
+            if (fallbackImage) {
+                fallbackImage.style.display = 'block';
+            }
+            videoElement.style.display = 'none';
+        });
+        
+        // Start loading immediately - browser will use range requests automatically
+        videoElement.load();
+        
+        // Mobile: More aggressive play attempts
+        if (isMobile) {
+            var mobilePlayAttempts = 0;
+            var mobilePlayInterval = setInterval(function() {
+                mobilePlayAttempts++;
+                if (mobilePlayAttempts > 30) { // 6 seconds
+                    clearInterval(mobilePlayInterval);
+                    return;
+                }
+                
+                if (videoElement.readyState >= 2) {
+                    tryPlay();
+                    showVideo();
+                    if (!videoElement.paused) {
+                        clearInterval(mobilePlayInterval);
+                    }
+                }
+            }, 200);
+        } else {
+            // Desktop: Standard play attempts
+            var playAttempts = 0;
+            var playInterval = setInterval(function() {
+                playAttempts++;
+                if (playAttempts > 20) { // 4 seconds
+                    clearInterval(playInterval);
+                    return;
+                }
+                
+                if (videoElement.readyState >= 2) {
+                    tryPlay();
+                    showVideo();
+                    if (!videoElement.paused) {
+                        clearInterval(playInterval);
+                    }
+                }
+            }, 200);
+        }
+    }
+    
     // Initialize on DOMContentLoaded
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
-            // Video HTML içinde zaten kaynak tanımlı; sadece sayacı çalıştırıyoruz
+            initVideo();
             initCounters();
             initStatCounters();
             initNumberCounters();
+            initFeatureStatsCounters();
             initNewsCarousel();
             initContactForm();
         });
     } else {
+        initVideo();
         initCounters();
         initStatCounters();
         initNumberCounters();
+        initFeatureStatsCounters();
         initNewsCarousel();
         initContactForm();
     }
@@ -467,6 +661,7 @@
         setTimeout(initCounters, 200);
         setTimeout(initStatCounters, 200);
         setTimeout(initNumberCounters, 200);
+        setTimeout(initFeatureStatsCounters, 200);
         setTimeout(initNewsCarousel, 200);
         setTimeout(initContactForm, 200);
     });

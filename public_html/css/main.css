@@ -1949,7 +1949,11 @@ section.page-title-section .section-title h2,
   
   /* Fix video section on mobile */
   .top-video-section {
-    display: none;
+    display: block !important;
+  }
+  
+  .top-video {
+    display: block !important;
   }
   
   /* Fix WhatsApp button on mobile */

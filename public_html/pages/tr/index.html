@@ -70,6 +70,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Öz-Ay">
     
+    <!-- CRITICAL: Preload video FIRST for instant loading -->
+    <link rel="preload" href="/assets/video/video1.mp4" as="video" type="video/mp4" fetchpriority="high">
+    <link rel="prefetch" href="/assets/video/video1.mp4">
+    
     <!-- Preconnect & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,12 +88,286 @@
 </head>
 <body>
     <main id="main-content" role="main">
-        <!-- Top Video Section - Only visible on medium screens -->
+        <!-- Top Video Section - Progressive Loading (Range Requests) -->
         <section class="top-video-section">
-            <video class="top-video" id="top-video" autoplay muted loop playsinline>
+            <!-- Fallback image - shown while video loads (visible by default on mobile) -->
+            <img id="video-fallback" src="/assets/img/hakkimizda.png" alt="Öz-Ay Ambalaj" class="video-fallback-image" style="width: 100%; height: 100vh; object-fit: cover;">
+            <video class="top-video" id="top-video" autoplay muted loop playsinline preload="auto" webkit-playsinline="true" x5-playsinline="true" x-webkit-airplay="allow" style="background: #000; display: none;">
                 <source src="/assets/video/video1.mp4" type="video/mp4">
                 <span data-i18n="video.fallback">Tarayıcınız video oynatmayı desteklemiyor.</span>
             </video>
+        </section>
+        <!-- Progressive video loading script - Mobile optimized -->
+        <script>
+            (function() {
+                var video = document.getElementById('top-video');
+                var fallback = document.getElementById('video-fallback');
+                if (!video) return;
+                
+                var isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                var videoLoaded = false;
+                var videoPlaying = false;
+                
+                // Mobile-specific: Force immediate load and play
+                if (isMobile) {
+                    console.log('Mobile detected - ULTRA aggressive video loading');
+                    // Set mobile-specific attributes
+                    video.setAttribute('preload', 'auto');
+                    video.setAttribute('playsinline', 'true');
+                    video.setAttribute('webkit-playsinline', 'true');
+                    video.setAttribute('x5-playsinline', 'true');
+                    video.setAttribute('x5-video-player-type', 'h5');
+                    video.setAttribute('x5-video-player-fullscreen', 'true');
+                    video.setAttribute('x5-video-orientation', 'portraint');
+                    // Force video to be visible on mobile
+                    video.style.display = 'block';
+                    video.style.visibility = 'visible';
+                    video.style.opacity = '1';
+                }
+                
+                function showVideo() {
+                    if (videoLoaded && video.readyState >= 2) {
+                        video.style.display = 'block';
+                        video.style.visibility = 'visible';
+                        video.style.opacity = '1';
+                        if (fallback) {
+                            fallback.style.display = 'none';
+                        }
+                        console.log('Video is now visible, readyState:', video.readyState);
+                    }
+                }
+                
+                function tryPlay() {
+                    if (video.readyState >= 2) {
+                        if (video.paused) {
+                            var playPromise = video.play();
+                            if (playPromise && playPromise.catch) {
+                                playPromise.then(function() {
+                                    videoPlaying = true;
+                                    console.log('Video playing successfully');
+                                    showVideo();
+                                }).catch(function(error) {
+                                    console.warn('Play blocked:', error);
+                                    // On mobile, try on user interaction
+                                    if (isMobile) {
+                                        var playOnInteraction = function() {
+                                            video.play().then(function() {
+                                                videoPlaying = true;
+                                                showVideo();
+                                            }).catch(function() {});
+                                            document.removeEventListener('touchstart', playOnInteraction);
+                                            document.removeEventListener('click', playOnInteraction);
+                                            document.removeEventListener('scroll', playOnInteraction);
+                                        };
+                                        document.addEventListener('touchstart', playOnInteraction, { once: true, passive: true });
+                                        document.addEventListener('click', playOnInteraction, { once: true });
+                                        document.addEventListener('scroll', playOnInteraction, { once: true, passive: true });
+                                    }
+                                });
+                            }
+                        } else {
+                            videoPlaying = true;
+                            showVideo();
+                        }
+                    }
+                }
+                
+                // Progressive loading - start playing as soon as we have enough data
+                video.addEventListener('loadstart', function() {
+                    console.log('Video load started');
+                    if (isMobile) {
+                        showVideo(); // Show video immediately on mobile
+                    }
+                }, { once: true });
+                
+                video.addEventListener('loadedmetadata', function() {
+                    console.log('Video metadata loaded, readyState:', video.readyState);
+                    videoLoaded = true;
+                    showVideo();
+                    tryPlay();
+                }, { once: true });
+                
+                video.addEventListener('loadeddata', function() {
+                    console.log('Video data loaded, readyState:', video.readyState);
+                    videoLoaded = true;
+                    showVideo();
+                    tryPlay();
+                }, { once: true });
+                
+                video.addEventListener('canplay', function() {
+                    console.log('Video can play, readyState:', video.readyState);
+                    videoLoaded = true;
+                    showVideo();
+                    tryPlay();
+                }, { once: true });
+                
+                video.addEventListener('canplaythrough', function() {
+                    console.log('Video can play through, readyState:', video.readyState);
+                    videoLoaded = true;
+                    showVideo();
+                    tryPlay();
+                }, { once: true });
+                
+                video.addEventListener('playing', function() {
+                    console.log('Video is playing');
+                    videoPlaying = true;
+                    showVideo();
+                }, { once: true });
+                
+                video.addEventListener('waiting', function() {
+                    console.log('Video waiting for data');
+                    // Continue trying to play
+                    setTimeout(tryPlay, 50);
+                });
+                
+                video.addEventListener('stalled', function() {
+                    console.log('Video stalled');
+                    setTimeout(tryPlay, 100);
+                });
+                
+                video.addEventListener('error', function(e) {
+                    console.error('Video error:', e, video.error);
+                    if (fallback) {
+                        fallback.style.display = 'block';
+                    }
+                    video.style.display = 'none';
+                });
+                
+                // Start loading immediately - FORCE load on mobile
+                if (isMobile) {
+                    // On mobile, set src directly and force load
+                    video.src = '/assets/video/video1.mp4';
+                    video.load();
+                    
+                    // Ultra aggressive play attempts on mobile
+                    var mobilePlayAttempts = 0;
+                    var mobilePlayInterval = setInterval(function() {
+                        mobilePlayAttempts++;
+                        if (mobilePlayAttempts > 100) { // 20 seconds
+                            clearInterval(mobilePlayInterval);
+                            console.log('Mobile play attempts exhausted');
+                            return;
+                        }
+                        
+                        if (video.readyState >= 1) {
+                            showVideo();
+                        }
+                        
+                        if (video.readyState >= 2) {
+                            tryPlay();
+                            if (videoPlaying && !video.paused) {
+                                clearInterval(mobilePlayInterval);
+                                console.log('Video playing successfully on mobile');
+                            }
+                        }
+                    }, 200);
+                } else {
+                    // Desktop: Standard play attempts
+                    var playAttempts = 0;
+                    var playInterval = setInterval(function() {
+                        playAttempts++;
+                        if (playAttempts > 10) {
+                            clearInterval(playInterval);
+                            return;
+                        }
+                        
+                        if (video.readyState >= 2) {
+                            tryPlay();
+                            showVideo();
+                            if (!video.paused) {
+                                clearInterval(playInterval);
+                            }
+                        }
+                    }, 200);
+                }
+            })();
+        </script>
+        
+        <!-- Company Features Section - Eprati Style -->
+        <section class="section company-features-section">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2 data-i18n="features.main_title">Siz de ÖZ-AY Ambalaj'ı seçin, rahat edin.</h2>
+                    <p class="section-subtitle" data-i18n="features.main_subtitle">
+                        Hem doğa dostu hem de ekonomik ürünlerimizle bizi seçen müşterilerimiz tasarruf ediyor.
+                    </p>
+                </div>
+                
+                <div class="features-grid">
+                    <!-- Left Side - Features List -->
+                    <div class="features-left" data-aos="fade-right">
+                        <div class="features-list">
+                            <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+                                <div class="feature-icon">🏭</div>
+                                <div class="feature-content">
+                                    <h3 data-i18n="features.integrated_facility">TAM ENTEGRE ÜRETİM TESİSİ</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+                                <div class="feature-icon">✅</div>
+                                <div class="feature-content">
+                                    <h3 data-i18n="features.quality_guarantee">TAM KALİTE GARANTİSİ</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+                                <div class="feature-icon">👥</div>
+                                <div class="feature-content">
+                                    <h3 data-i18n="features.expert_team">BİLGİLİ, DONANIMLI ÜRETİM ve SATIŞ EKİBİ</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
+                                <div class="feature-icon">🎯</div>
+                                <div class="feature-content">
+                                    <h3 data-i18n="features.customer_focused">MÜŞTERİ ODAKLI ÇÖZÜMLER</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Center - Map Image -->
+                    <div class="features-center" data-aos="zoom-in">
+                        <div class="features-map-wrapper">
+                            <img src="/assets/img/harita.jpg" alt="Öz-Ay Ambalaj Lokasyon Haritası" class="features-map-image" loading="lazy">
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side - Statistics -->
+                    <div class="features-right" data-aos="fade-left">
+                        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="stat-number" data-target="1000">0</div>
+                            <div class="stat-unit">m²</div>
+                            <div class="stat-label" data-i18n="features.production_area">alanda üretim</div>
+                        </div>
+                        
+                        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="stat-number" data-target="10">0</div>
+                            <div class="stat-unit">+</div>
+                            <div class="stat-label" data-i18n="features.export_countries">ülkeye ihracat</div>
+                        </div>
+                        
+                        <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="stat-number" data-target="1000">0</div>
+                            <div class="stat-unit">+</div>
+                            <div class="stat-label" data-i18n="features.happy_customers">mutlu müşteri</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sector Products Section -->
+        <section class="section sector-products-section">
+            <div class="container">
+                <div class="sector-products-content">
+                    <h2 class="sector-products-title" data-aos="fade-up" data-i18n="sector.title">Her sektöre uygun poşet üretimi</h2>
+                    <div class="sector-products-image-wrapper" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/img/Poset.png" alt="Her sektöre uygun poşet üretimi" class="sector-products-image" loading="eager" fetchpriority="high">
+                    </div>
+                </div>
+            </div>
         </section>
         
         <!-- Numbers Section - Sayılarla Öz-Ay Ambalaj -->
@@ -164,7 +442,9 @@
                     <div class="about-image-wrapper" data-aos="fade-right">
                         <img src="/assets/img/hakkimizda.png" 
                              alt="Öz-Ay Ambalaj Hakkımızda" 
-                             class="about-image">
+                             class="about-image"
+                             loading="eager"
+                             fetchpriority="high">
                     </div>
                     
                     <!-- İçerik - Sağ taraf -->
@@ -209,7 +489,7 @@
                 
                 <div class="product-grid">
                     <article class="product-card" data-aos="fade-up">
-                        <img src="/assets/img/products/bukum-burgu-sapli-canta.png" alt="Büküm (Burgu) Saplı Çanta" class="product-card-image" loading="lazy">
+                        <img src="/assets/img/products/bukum-burgu-sapli-canta.png" alt="Büküm (Burgu) Saplı Çanta" class="product-card-image" loading="eager" fetchpriority="high">
                         <div class="product-card-content">
                             <h3 class="product-card-title" data-i18n="products.bukum_burgu_sapli_canta">Büküm (Burgu) Saplı Çanta</h3>
                             <p class="product-card-description" data-i18n="products.bukum_burgu_sapli_canta_desc">Perakende mağazaları, restoran, kozmetik, pastahane ve çeşitli sektörlerin kullanımına uygundur.</p>
@@ -220,7 +500,7 @@
                     </article>
                     
                     <article class="product-card" data-aos="fade-up">
-                        <img src="/assets/img/products/flat-duz-sapli-canta.png" alt="Flat (Düz) Saplı Çanta" class="product-card-image" loading="lazy">
+                        <img src="/assets/img/products/flat-duz-sapli-canta.png" alt="Flat (Düz) Saplı Çanta" class="product-card-image" loading="eager">
                         <div class="product-card-content">
                             <h3 class="product-card-title" data-i18n="products.flat_duz_sapli_canta">Flat (Düz) Saplı Çanta</h3>
                             <p class="product-card-description" data-i18n="products.flat_duz_sapli_canta_desc">Orijinal kahve kraft, dönüşüm kahve kraft, kuşe kraft ve beyaz kraft kâğıt türlerinden üretim yapılır.</p>
@@ -231,7 +511,7 @@
                     </article>
                     
                     <article class="product-card" data-aos="fade-up">
-                        <img src="/assets/img/products/el-gecmeli-canta.png" alt="El Geçmeli Çanta" class="product-card-image" loading="lazy">
+                        <img src="/assets/img/products/el-gecmeli-canta.png" alt="El Geçmeli Çanta" class="product-card-image" loading="eager">
                         <div class="product-card-content">
                             <h3 class="product-card-title" data-i18n="products.el_gecmeli_canta">El Geçmeli Çanta</h3>
                             <p class="product-card-description" data-i18n="products.el_gecmeli_canta_desc">El geçme bölgesine yapılan, ekstra kâğıt takviyesi ile taşıma mukavemeti artırılmıştır.</p>
@@ -242,7 +522,7 @@
                     </article>
                     
                     <article class="product-card" data-aos="fade-up">
-                        <img src="/assets/img/products/koruksuz-pizza-canta.png" alt="Körüksüz (Pizza) Çanta" class="product-card-image" loading="lazy">
+                        <img src="/assets/img/products/koruksuz-pizza-canta.png" alt="Körüksüz (Pizza) Çanta" class="product-card-image" loading="eager">
                         <div class="product-card-content">
                             <h3 class="product-card-title" data-i18n="products.koruksuz_pizza_canta">Körüksüz (Pizza) Çanta</h3>
                             <p class="product-card-description" data-i18n="products.koruksuz_pizza_canta_desc">Genellikle pizza restoran, pastahane firmaları ve çeşitli sektörlerin kullanımına uygundur.</p>
@@ -253,7 +533,7 @@
                     </article>
                     
                     <article class="product-card" data-aos="fade-up">
-                        <img src="/assets/img/products/hediye-zarfi.png" alt="Hediye Zarfı" class="product-card-image" loading="lazy">
+                        <img src="/assets/img/products/hediye-zarfi.png" alt="Hediye Zarfı" class="product-card-image" loading="eager">
                         <div class="product-card-content">
                             <h3 class="product-card-title" data-i18n="products.hediye_zarfi">Hediye Zarfı</h3>
                             <p class="product-card-description" data-i18n="products.hediye_zarfi_desc">%100 geri dönüştürülebilir. Çift taraflı bant ve bantsız olarak iki farklı seçenekte üretilir.</p>
@@ -433,7 +713,7 @@
                                 <article class="news-item active">
                                     <div class="news-item-content">
                                         <div class="news-image">
-                                            <img src="/assets/img/Instagram2.jpg" alt="Ambalaj Fuarı Etkinliği" loading="lazy">
+                                            <img src="/assets/img/Instagram2.jpg" alt="Ambalaj Fuarı Etkinliği" loading="eager" fetchpriority="high">
                                         </div>
                                         <div class="news-text">
                                             <h3>Ambalaj ve Plastik Sektörü Fuarında Yerimizi Aldık</h3>
@@ -449,7 +729,7 @@
                                 <article class="news-item">
                                     <div class="news-item-content">
                                         <div class="news-image">
-                                            <img src="/assets/img/Instagram.jpg" alt="Fuar Etkinliği" loading="lazy">
+                                            <img src="/assets/img/Instagram.jpg" alt="Fuar Etkinliği" loading="eager">
                                         </div>
                                         <div class="news-text">
                                             <h3>Sektör Buluşmasında Yerimizi Aldık</h3>
